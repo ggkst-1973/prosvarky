@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/0.png">
+    <title>Контроль знаний</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f5f9ff;
+            color: #0a2540;
+            line-height: 1.4;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0);
+            backdrop-filter: blur(0px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .header.scrolled {
+            background: rgba(15, 40, 70, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            transition: 0.2s;
+            padding: 0.5rem 0;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link:hover {
+            color: #b9e6ff !important;
+        }
+
+        .nav-link.active {
+            color: #f9c74f !important;
+        }
+
+        .header.scrolled .nav-link {
+            color: #f0f7ff !important;
+        }
+        .header.scrolled .nav-link.active {
+            color: #ffdd88 !important;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-area img {
+            height: 48px;
+            width: auto;
+            max-width: 180px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            padding: 6px;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 2.5px;
+            background-color: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .overlay-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1040;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-menu.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .control-hero {
+            background-image: linear-gradient(0deg, rgba(0, 20, 40, 0.8), rgba(0, 0, 0, 0.7)), url('image/11.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .control-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .control-hero h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .control-hero p {
+            font-size: 1.2rem;
+            color: #e0f0ff;
+            margin-top: 0.5rem;
+        }
+
+        .cards-section {
+            max-width: 1280px;
+            margin: 2rem auto 1rem;
+            padding: 0 2rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            justify-content: center;
+        }
+
+        .card-item {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 15px 30px -12px rgba(0, 65, 102, 0.12);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            border: 1px solid #e2edff;
+        }
+
+        .card-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -16px rgba(27, 94, 158, 0.25);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+            background-color: #d9e9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 2rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a4972;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-btn {
+            display: inline-block;
+            background-color: #1f8a4c;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            margin-top: 0.5rem;
+            width: fit-content;
+        }
+
+        .card-item:hover .card-btn {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .card-btn:hover {
+            background-color: #0f6f3a;
+            transform: scale(0.96);
+        }
+
+        .tests-wrapper {
+            max-width: 1200px;
+            margin: 2rem auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .tests-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .tests-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0a2a44;
+        }
+
+        .tests-badge {
+            background: #f97316;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tests-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem 1.2rem;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: visible;
+        }
+
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.9rem 1.2rem;
+            background: linear-gradient(135deg, #2e8062 0%, #276b52 100%);
+            border-radius: 10px;
+            border: 1px solid #1f5a44;
+            box-shadow: 0 4px 10px rgba(39, 107, 82, 0.2);
+            transition: all 0.2s ease;
+            min-height: 68px;
+            text-decoration: none;  
+            color: inherit;          
+            cursor: pointer;         
+        }
+
+        .test-item:hover {
+            transform: translateX(4px);
+            background: linear-gradient(135deg, #348f6d 0%, #2b7a5c 100%);
+            box-shadow: 0 6px 14px rgba(39, 107, 82, 0.35);
+            border-color: #348f6d;
+        }
+
+        .test-icon {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #ffffff;
+            min-width: 32px;
+            flex-shrink: 0;
+            text-align: left;
+            line-height: 1;
+        }
+
+        .test-text {
+            flex: 1;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .test-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .test-item:hover .test-link {
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .footer {
+            background-color: #0a2a44;
+            color: #eef4ff;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cddfff;
+        }
+
+        .footer-left .college-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
+            transition: 0.2s ease;
+            text-decoration: none;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .social-icons a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+.test-item.test-item-final {
+    background: linear-gradient(135deg, #F5A623 0%, #E08E0B 100%);
+    border-color: #F59E0B;
+}
+.test-item.test-item-final:hover {
+    background: linear-gradient(135deg, #FFB93D 0%, #F5A623 100%);
+    border-color: #F5A623;
+}
+        @media (max-width: 860px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(8, 36, 68, 0.97);
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.8rem;
+                transition: left 0.3s ease;
+                z-index: 1050;
+                padding: 2rem 1.5rem;
+                align-items: flex-start;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .nav-link {
+                color: #ffffff !important;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+                gap: 1.5rem;
+            }
+            .control-hero h1 {
+                font-size: 1.8rem;
+            }
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .tests-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .cards-grid {
+                max-width: 320px;
+            }
+            .control-hero h1 {
+                font-size: 1.5rem;
+            }
+            .tests-header h2 {
+                font-size: 1.5rem;
+            }
+            .test-item {
+                padding: 0.8rem 1rem;
+            }
+            .test-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="mainHeader">
+    <div class="nav-container">
+        <div class="logo-area">
+            <a href="index.html"><img src="image/0.png" alt="Логотип колледжа"></a>
+        </div>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="theory.html" class="nav-link">Теория</a>
+            <a href="practice.html" class="nav-link">Практика</a>
+            <a href="test.html" class="nav-link active">Контроль знаний</a>
+            <a href="help.html" class="nav-link">Компас достижений</a>
+        </nav>
+    </div>
+</header>
+
+<div class="overlay-menu" id="overlayMenu"></div>
+
+<main>
+    <section class="control-hero">
+        <div class="control-hero-content">
+            <h1>КОНТРОЛЬ ЗНАНИЙ</h1>
+        </div>
+    </section>
+
+    <div class="cards-section">
+        <div class="cards-grid">
+            <div class="card-item">
+                <div class="card-img">
+                       <a href="workout.html" ><img src="image/20.jpg" alt="Тренировочное тестирование" onerror="this.src='https://placehold.co/400x200?text=Тренировка'"></a>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Тренировочное тестирование</div>
+                    <a href="workout.html" class="card-btn">Начать →</a>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-img">
+                    <a href="https://drive.google.com/file/d/12FHGCTrrrYS_WUMmaMXsDL3TXgjfrlYq/view" target="_blank"><img src="image/21.jpg" alt="Проверочная работа" onerror="this.src='https://placehold.co/400x200?text=Проверочная'"></a> 
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Проверочная работа (примерный вариант)</div>
+                    <a href="https://drive.google.com/file/d/12FHGCTrrrYS_WUMmaMXsDL3TXgjfrlYq/view" target="_blank" class="card-btn">Начать →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tests-wrapper">
+        <div class="tests-header">
+            <h2>Тесты</h2>
+        </div>
+        <div class="tests-list">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc2YRYHd_d4oc9ePw7urH0OH7ZXtBYTBH7pbYX6wd3CLznMPg/viewform" target="_blank" class="test-item">
+                <span class="test-icon">1</span>
+                <span class="test-text">Общие сведения о сварке, сварных соединениях и швах</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf08HIPoThguf5xPdZltsAmXLYiPJE_Y6L5lo60rhTHYItCCA/viewform" target="_blank" class="test-item">
+                <span class="test-icon">2</span>
+                <span class="test-text">Конструкции сварных изделий</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSezEoYvKQ7KV-soutO7VA4_l4p798ENJ_PWG_7RFcxws32s_Q/viewform" target="_blank" class="test-item">
+                <span class="test-icon">3</span>
+                <span class="test-text">Оборудование сварочного поста для ручной дуговой и газовой сварки</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsZU6wrWIE3z8nbuYqIF04jgAFIb7AOfiAqy9kfRfplDs-0A/viewform" target="_blank" class="test-item">
+                <span class="test-icon">4</span>
+                <span class="test-text">Электрическая дуга и ее применение в сварочных работах</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKytB1zBOBbaazn7CER2uCBMO7ZBi_iOtPMgoH_bngQPnCow/viewform" target="_blank" class="test-item">
+                <span class="test-icon">5</span>
+                <span class="test-text">Материалы для ручной дуговой сварки и резки</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-SC1ZwW0snVIugBQ0Sq8Z3pehOtqZFTPVvwqWiQct-VNW5g/viewform" target="_blank" class="test-item">
+                <span class="test-icon">6</span>
+                <span class="test-text">Технология ручной дуговой сварки</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf67oVVeGvtBvK5bhmSgsphbCyXS-lA0cEoas704dSvtGj3qA/viewform" target="_blank" class="test-item">
+                <span class="test-icon">7</span>
+                <span class="test-text">Деформация и напряжение при сварке</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScL5q46ZaiWvCb-YNCrfppfx8wrp__NKbouiMxacqmWtKaMrg/viewform?usp=sharing&ouid=108327605874254731501" target="_blank" class="test-item">
+                <span class="test-icon">8</span>
+                <span class="test-text">Дефекты и контроль сварных швов и соединений</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYJgSwBYwkqUDgecL35BNJK6nHKoSGpAmV3x6U0NlZGDp4kQ/viewform" target="_blank" class="test-item test-item-final">
+                <span class="test-icon">9</span>
+                <span class="test-text">Итоговый тест по спецтехнологии</span>
+                <span class="test-link">→</span>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfYq4-hrFoiddRoso48k0WTpeG4fKy-MCnn4ReEF3waeNrOiQ/viewform" target="_blank" class="test-item test-item-final">
+                <span class="test-icon">10</span>
+                <span class="test-text">Итоговый тест по материаловедению</span>
+                <span class="test-link">→</span>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p class="college-name">Гродненский государственный колледж строительных технологий</p>
+            <p>© 2026 Цифровой ресурс «Сварочные работы»</p>
+        </div>
+        <div class="social-icons">
+               <a href="https://www.instagram.com/center_competence_ggkst/" target="_blank" title="Instagram"><span><img src="image/free-icon-instagram.png" width="50" height="50"></span></a>
+	     <a href="https://www.youtube.com/channel/UCt0fTSw7fW61BVlxsQMVsoQ" target="_blank" title="YouTube"><span><img src="image/free-icon-youtube.png" width="50" height="50"></span></a>
+	     <a href="https://vk.com/ggkst_1973" target="_blank" title="VK"><span><img src="image/free-icon-vk.png" width="50" height="50"></span></a>
+             <a href="https://ggkst.by/" target="_blank" title="Website"><span><img src="image/free-icon-web.png" width="50" height="50"></span></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function(){
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 25) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlayMenu');
+        function closeMenu(){
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            if(menuToggle) menuToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openMenu(){
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            if(menuToggle) menuToggle.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        if(menuToggle){
+            menuToggle.addEventListener('click', () => {
+                if(navMenu.classList.contains('active')) closeMenu();
+                else openMenu();
+            });
+        }
+        if(overlay) overlay.addEventListener('click', closeMenu);
+        window.addEventListener('resize', () => {
+            if(window.innerWidth > 860 && navMenu.classList.contains('active')) closeMenu();
+        });
+    })();
+</script>
+</body>
+</html>

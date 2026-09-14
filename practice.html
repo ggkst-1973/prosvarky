@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/0.png">
+    <title>Практика</title>
+    <style>
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f5f9ff;
+            color: #0a2540;
+            line-height: 1.4;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0);
+            backdrop-filter: blur(0px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .header.scrolled {
+            background: rgba(15, 40, 70, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            transition: 0.2s;
+            padding: 0.5rem 0;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link:hover {
+            color: #b9e6ff !important;
+        }
+
+        .nav-link.active {
+            color: #f9c74f !important;
+        }
+
+        .header.scrolled .nav-link {
+            color: #f0f7ff !important;
+        }
+        .header.scrolled .nav-link.active {
+            color: #ffdd88 !important;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-area img {
+            height: 48px;
+            width: auto;
+            max-width: 180px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            padding: 6px;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 2.5px;
+            background-color: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .overlay-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1040;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-menu.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .practice-hero {
+            background-image: linear-gradient(0deg, rgba(0, 20, 40, 0.8), rgba(0, 0, 0, 0.7)), url('image/3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .practice-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .practice-hero h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .cards-section {
+            max-width: 1280px;
+            margin: 1rem auto 1.5rem;
+            padding: 0 2rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+        }
+
+        .card-item {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 15px 30px -12px rgba(0, 65, 102, 0.12);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            border: 1px solid #e2edff;
+        }
+
+        .card-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -16px rgba(27, 94, 158, 0.25);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 170px;
+            background-color: #d9e9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 28px 28px 0 0;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem 1rem 1.8rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a4972;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-btn {
+            display: inline-block;
+            background-color: #1f8a4c;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            margin-top: 0.5rem;
+            width: fit-content;
+        }
+
+        .card-item:hover .card-btn {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .card-btn:hover {
+            background-color: #0f6f3a;
+            transform: scale(0.96);
+        }
+
+        .instructions-wrapper {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .instructions-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 3.2rem;
+            flex-wrap: wrap;
+        }
+
+        .instructions-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0a2a44;
+        }
+
+        .badge {
+            background: #f97316;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .inst-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem 1.2rem;
+        }
+
+        .inst-group {
+            display: contents;
+        }
+
+        .group-title {
+            grid-column: 1 / -1;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #4a5a6a;
+            margin: 1.2rem 0 0.2rem 0;
+            padding-left: 0;
+            border-left: none;
+        }
+
+        .group-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .inst-card {
+            background: linear-gradient(135deg, #2e8062 0%, #276b52 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(39, 107, 82, 0.2);
+            transition: all 0.2s ease;
+            border: 1px solid #1f5a44;
+        }
+
+        .inst-card:hover {
+            transform: translateX(4px);
+            background: linear-gradient(135deg, #348f6d 0%, #2b7a5c 100%);
+            box-shadow: 0 6px 14px rgba(39, 107, 82, 0.35);
+            border-color: #348f6d;
+        }
+
+        .inst-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1.2rem;
+            text-decoration: none;
+            color: #ffffff;
+            height: 100%;
+        }
+
+        .inst-number {
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: #ffffff;
+            min-width: 48px;
+            flex-shrink: 0;
+        }
+
+        .inst-text {
+            flex: 1;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .inst-arrow {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .inst-card:hover .inst-arrow {
+            transform: translateX(3px);
+            color: #ffffff;
+        }
+
+        .footer {
+            background-color: #0a2a44;
+            color: #eef4ff;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cddfff;
+        }
+
+        .footer-left .college-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
+            transition: 0.2s ease;
+            text-decoration: none;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .social-icons a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 860px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(8, 36, 68, 0.97);
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.8rem;
+                transition: left 0.3s ease;
+                z-index: 1050;
+                padding: 2rem 1.5rem;
+                align-items: flex-start;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .nav-link {
+                color: #ffffff !important;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .practice-hero h1 {
+                font-size: 1.8rem;
+            }
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .inst-link {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .inst-grid {
+                grid-template-columns: 1fr;
+            }
+            .inst-group {
+                display: block;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .practice-hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="mainHeader">
+    <div class="nav-container">
+        <div class="logo-area">
+            <a href="index.html"><img src="image/0.png" alt="Логотип колледжа"></a>
+        </div>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="theory.html" class="nav-link">Теория</a>
+            <a href="practice.html" class="nav-link active">Практика</a>
+            <a href="test.html" class="nav-link">Контроль знаний</a>
+            <a href="help.html" class="nav-link">Компас достижений</a>
+        </nav>
+    </div>
+</header>
+
+<div class="overlay-menu" id="overlayMenu"></div>
+
+<main>
+    <section class="practice-hero">
+        <div class="practice-hero-content">
+            <h1>ПРАКТИЧЕСКИЙ РАЗДЕЛ</h1>
+        </div>
+    </section>
+
+    <div class="cards-section">
+        <div class="cards-grid">
+            <div class="card-item">
+                <div class="card-img"><a href="https://drive.google.com/file/d/1-v9leEPwJrWDrN8ikTFLpfAK6jPlnv0J/view" target="_blank"><img src="image/11.jpeg" alt="Профи-кейс №1"></a></div>
+                <div class="card-content">
+                    <div class="card-title">Профи-кейс №1</div>
+                    <a href="https://drive.google.com/file/d/1-v9leEPwJrWDrN8ikTFLpfAK6jPlnv0J/view" target="_blank" class="card-btn">Перейти →</a>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-img"><a href="https://drive.google.com/file/d/1qQhtJvb7juJY1hIklQrnsVZG1ceZnp6-/view" target="_blank"><img src="image/12.png" alt="Профи-кейс №2"></a></div>
+                <div class="card-content">
+                    <div class="card-title">Профи-кейс №2</div>
+                    <a href="https://drive.google.com/file/d/1qQhtJvb7juJY1hIklQrnsVZG1ceZnp6-/view" target="_blank" class="card-btn">Перейти →</a>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-img"><a href="https://drive.google.com/file/d/1JXM-17X5ALiPfVs-nkupVQDogcZytM63/view" target="_blank"><img src="image/13.png" alt="Профи-кейс №3"></a></div>
+                <div class="card-content">
+                    <div class="card-title">Профи-кейс №3</div>
+                    <a href="https://drive.google.com/file/d/1JXM-17X5ALiPfVs-nkupVQDogcZytM63/view" target="_blank" class="card-btn">Перейти →</a>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-img"><a href="https://drive.google.com/file/d/1ouBO97VA7oPrdrZT2foh9k--KdXog7x_/view" target="_blank"><img src="image/14.jpg" alt="Профи-кейс №4"></a></div>
+                <div class="card-content">
+                    <div class="card-title">Профи-кейс №4</div>
+                    <a href="https://drive.google.com/file/d/1ouBO97VA7oPrdrZT2foh9k--KdXog7x_/view" target="_blank" class="card-btn">Перейти →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions-wrapper">
+        <div class="instructions-header">
+            <h2>Инструкционные карты</h2>
+        </div>
+
+        <div class="inst-grid">
+            <div class="inst-group">
+                <div class="group-title">Вводные занятия и безопасность</div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1FgTINhdj37OEWsC9NB3oczhYuXpF66cL/view" target="_blank" class="inst-link"><span class="inst-number">1.1</span><span class="inst-text">Вводное занятие. Охрана труда и пожарная безопасность</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1fEpt2XgOloRnbAnpRaYmVBjaqYi9-hvB/view" target="_blank" class="inst-link"><span class="inst-number">2</span><span class="inst-text">Ознакомление с организацией</span><span class="inst-arrow">→</span></a></div>
+            </div>
+
+            <div class="inst-group">
+                <div class="group-title">Подготовка металла</div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/10OLttgOhB9VNZJvFxAyeQdjeqc7_73uA/view" target="_blank" class="inst-link"><span class="inst-number">3.1</span><span class="inst-text">Разметка. Рубка металла</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1tQSUOQ936uEGTUwWT2OLSsMHljvWXknq/view" target="_blank" class="inst-link"><span class="inst-number">3.2</span><span class="inst-text">Правка и гибка металла</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1GtdI4bj7MzcBzgxRCpRJjqomp08wiWwX/view" target="_blank" class="inst-link"><span class="inst-number">4</span><span class="inst-text">Освоение приемов работ с электросварочным оборудованием</span><span class="inst-arrow">→</span></a></div>
+            </div>
+
+            <div class="inst-group">
+                <div class="group-title">Ручная дуговая сварка (MMA)</div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1B6umStEmO3VAV8W9Fcjovw59YKSBTSPW/view" target="_blank" class="inst-link"><span class="inst-number">5.1</span><span class="inst-text">Наплавка валиков на стальные пластины в нижнем положении шва</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/100f3YRMNbyVetmCk2-8ADWbAWyQ41WVQ/view" target="_blank" class="inst-link"><span class="inst-number">5.2</span><span class="inst-text">Наплавка валиков электродами с различными типами покрытия</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1ISxhINbOdIOtPkN4PxdJsC27OOiSkzGZ/view" target="_blank" class="inst-link"><span class="inst-number">5.3</span><span class="inst-text">Сварка пластин одинаковой и разной толщины в нижнем положении сварного шва встык без скоса и
+
+со скошенными кромками непрерывными односторонними и двусторонними швами</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1u_3pk-nbLSTRTYDjRF37uQzfkleHsfuO/view" target="_blank" class="inst-link"><span class="inst-number">5.4</span><span class="inst-text">Однослойная наплавка горизонтальных валиков на вертикальную поверхность</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1mLoKLPmHJDVHdz9J8SGXcQ1cElblURf7/view" target="_blank" class="inst-link"><span class="inst-number">6.1</span><span class="inst-text">Сварка деталей из углеродистой стали встык</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1qcBmiYCnzhS63-FVDfHetzcsxiytUYB7/view" target="_blank" class="inst-link"><span class="inst-number">6.2</span><span class="inst-text">Сварка деталей из углеродистой стали внахлест</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1s4NJmZ6rDfBrlP33XMQRhT_Jxy-5A3ZA/view" target="_blank" class="inst-link"><span class="inst-number">6.3</span><span class="inst-text">Сварка деталей из углеродистой стали в тавр</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1MjbT1lVK58OE96qcXJia8sv1WTbQXZdn/view" target="_blank" class="inst-link"><span class="inst-number">6.4</span><span class="inst-text">Сварка деталей из углеродистой стали односторонним швом без разделки кромок
+
+в нижнем положении шва</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1wVhLtQ1xSMoNtdMYZbrnW89feWWA2IVD/view" target="_blank" class="inst-link"><span class="inst-number">6.5</span><span class="inst-text">Сварка деталей из углеродистой стали с однослойными и многослойными швами
+
+в нижнем положении сварного шва</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1K6AV0Auf9Sbrqpa6cLY0Bvt2NSTq_izW/view" target="_blank" class="inst-link"><span class="inst-number">6.6</span><span class="inst-text">Сварка деталей из углеродистой стали с однослойными и многослойными швами
+
+в вертикальном положении сварного шва</span><span class="inst-arrow">→</span></a></div>
+            </div>
+
+            <div class="inst-group">
+                <div class="group-title">Виртуальный тренажёр</div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1teR3VLWiHPibuumP2sWwhu6FxKu2vIsH/view" target="_blank" class="inst-link"><span class="inst-number">8.1–8.2</span><span class="inst-text">«Работа на сварочном тренажере «Soldamatic» 135 процесс</span><span class="inst-arrow">→</span></a></div>
+            </div>
+
+            <div class="inst-group">
+                <div class="group-title">Полуавтоматическая сварка (MIG/MAG)</div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1oYq-8QOiMHVe1H2YrbdBElCMwmK38-yZ/view" target="_blank" class="inst-link"><span class="inst-number">8.3</span><span class="inst-text">Наплавка валиков на стальные пластины в нижнем положении шва
+на оборудовании полуавтоматической сварки в среде защитных газов</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1B3y9hNSsXtduusw_UJRRk0KbY7jtJ_NK/view" target="_blank" class="inst-link"><span class="inst-number">8.4</span><span class="inst-text">Сварка деталей из углеродистой стали встык в нижнем пространственном положении шва на
+
+оборудовании полуавтоматической сварки в среде защитных газов</span><span class="inst-arrow">→</span></a></div>
+                <div class="inst-card"><a href="https://drive.google.com/file/d/1E1G2Nz-zJ_KXWRMhDjxL5byyHE3tQ47I/view" target="_blank" class="inst-link"><span class="inst-number">8.5</span><span class="inst-text">Сварка деталей из углеродистой стали в тавр в нижнем пространственном положении шва на оборудовании
+
+полуавтоматической сварки в среде защитных газов в среде защитных газов</span><span class="inst-arrow">→</span></a></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p class="college-name">Гродненский государственный колледж строительных технологий</p>
+            <p>© 2026 Цифровой ресурс «Сварочные работы»</p>
+        </div>
+        <div class="social-icons">
+           <a href="https://www.instagram.com/center_competence_ggkst/" target="_blank" title="Instagram"><span><img src="image/free-icon-instagram.png" width="50" height="50"></span></a>
+	     <a href="https://www.youtube.com/channel/UCt0fTSw7fW61BVlxsQMVsoQ" target="_blank" title="YouTube"><span><img src="image/free-icon-youtube.png" width="50" height="50"></span></a>
+	     <a href="https://vk.com/ggkst_1973" target="_blank" title="VK"><span><img src="image/free-icon-vk.png" width="50" height="50"></span></a>
+             <a href="https://ggkst.by/" target="_blank" title="Website"><span><img src="image/free-icon-web.png" width="50" height="50"></span></a>
+    </div>
+</footer>
+
+<script>
+    (function(){
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 25) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlayMenu');
+        function closeMenu(){
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            if(menuToggle) menuToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openMenu(){
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            if(menuToggle) menuToggle.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        if(menuToggle){
+            menuToggle.addEventListener('click', () => {
+                if(navMenu.classList.contains('active')) closeMenu();
+                else openMenu();
+            });
+        }
+        if(overlay) overlay.addEventListener('click', closeMenu);
+        window.addEventListener('resize', () => {
+            if(window.innerWidth > 860 && navMenu.classList.contains('active')) closeMenu();
+        });
+    })();
+</script>
+</body>
+</html>

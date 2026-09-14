@@ -1,0 +1,576 @@
+<title>Интерактивные обучающие модули</title>
+<link rel="icon" type="image/png" sizes="32x32" href="image/0.png">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div id="welding-app"
+  class="min-h-screen"
+  style="
+    background:#0f172a;
+    color:#f1f5f9;
+    font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  "
+>
+
+  <div class="sticky top-0 z-40 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-orange-500/30">
+    <div class="max-w-7xl mx-auto px-4 py-6 flex items-center gap-4">
+      <img src="https://i.imgur.com/uvrlE28.png" class="w-14 h-14 object-contain" loading="lazy">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+          Интерактивные обучающие модули
+        </h1>
+        <p class="text-slate-400 text-sm md:text-base mt-1">
+          Программа обучения сварочным работам
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 py-10">
+
+    <section class="mb-10">
+      <h2 class="flex items-center gap-2 text-lg font-semibold text-orange-400 mb-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-orange-600 text-white">Раздел 1</span>
+        Введение и основы
+      </h2>
+      <div id="section-1" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" ></div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="flex items-center gap-2 text-lg font-semibold text-orange-400 mb-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-orange-600 text-white">Раздел 5</span>
+        Дуговая наплавка и сварка пластин
+      </h2>
+      <div id="section-5" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="flex items-center gap-2 text-lg font-semibold text-orange-400 mb-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-orange-600 text-white">Раздел 6</span>
+        Сварка деталей из углеродистой стали
+      </h2>
+      <div id="section-6" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="flex items-center gap-2 text-lg font-semibold text-orange-400 mb-4">
+        <span class="px-3 py-1 rounded-full text-sm bg-orange-600 text-white">Раздел 8</span>
+        Полуавтоматическая сварка
+      </h2>
+      <div id="section-8" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+  </div>
+
+<div class="cds-bottom-wrapper" id="cdsBottomWrapper">
+    <div class="cds-bottom-nav" id="cdsBottomNav">
+        <div class="cds-nav-container">
+            <a href="index.html" class="cds-nav-link" data-cds-nav="home">
+                <img src="image/icon/home.png" width="24" height="24" alt="Главная" class="cds-nav-icon">Главная
+            </a>
+            <a href="theory.html" class="cds-nav-link" data-cds-nav="theory">
+                <img src="image/icon/book.png" width="24" height="24" alt="Теория" class="cds-nav-icon">Теория
+            </a>
+            <a href="practice.html" class="cds-nav-link" data-cds-nav="practice">
+                <img src="image/icon/mask.png" width="24" height="24" alt="Практика" class="cds-nav-icon">Практика
+            </a>
+            <a href="test.html" class="cds-nav-link" data-cds-nav="control">
+                <img src="image/icon/test.png" width="24" height="24" alt="Контроль знаний" class="cds-nav-icon">Контроль знаний
+            </a>
+            <a href="help.html" class="cds-nav-link" data-cds-nav="compass">
+                <img src="image/icon/compass.png" width="24" height="24" alt="Компас достижений" class="cds-nav-icon">Компас достижений
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    (function() {
+        
+        const bottomNav = document.getElementById('cdsBottomNav');
+        
+        function findFooter() {
+            return document.querySelector('footer') || document.querySelector('.footer') || document.querySelector('[data-footer]');
+        }
+        
+        function handleSticky() {
+            if (!bottomNav) return;
+            const footer = findFooter();
+            const scrollY = window.scrollY;
+            const documentHeight = document.documentElement.scrollHeight;
+            const viewportHeight = window.innerHeight;
+            const distanceToBottom = documentHeight - (scrollY + viewportHeight);
+            
+            if (footer) {
+                const footerHeight = footer.offsetHeight;
+                if (distanceToBottom <= footerHeight + 25) {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                } 
+                else if (scrollY > 150) {
+                    bottomNav.classList.add('cds-fixed-bottom');
+                } else {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                }
+            } else {
+                if (scrollY > 150) {
+                    bottomNav.classList.add('cds-fixed-bottom');
+                } else {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                }
+            }
+        }
+        
+        const navLinks = document.querySelectorAll('.cds-nav-link');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        function setActiveByUrl() {
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage || 
+                    (currentPage === 'index.html' && href === 'index.html') ||
+                    (href && href.includes(currentPage))) {
+                    link.classList.add('cds-active');
+                } else {
+                    link.classList.remove('cds-active');
+                }
+            });
+        }
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('cds-active'));
+                this.classList.add('cds-active');
+            });
+        });
+        
+        setActiveByUrl();
+        
+        window.addEventListener('scroll', handleSticky);
+        window.addEventListener('resize', handleSticky);
+        handleSticky();
+        
+        window.cdsBottomNav = {
+            refreshSticky: handleSticky,
+            setActiveByUrl: setActiveByUrl
+        };
+    })();
+</script>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p class="college-name">Гродненский государственный колледж строительных технологий</p>
+            <p>© 2026 Цифровой ресурс «Сварочные работы»</p>
+        </div>
+        <div class="social-icons">
+             <a href="https://www.instagram.com/center_competence_ggkst/" target="_blank" title="Instagram"><span><img src="image/free-icon-instagram.png" width="50" height="50"></span></a>
+	     <a href="https://www.youtube.com/channel/UCt0fTSw7fW61BVlxsQMVsoQ" target="_blank" title="YouTube"><span><img src="image/free-icon-youtube.png" width="50" height="50"></span></a>
+	     <a href="https://vk.com/ggkst_1973" target="_blank" title="VK"><span><img src="image/free-icon-vk.png" width="50" height="50"></span></a>
+             <a href="https://ggkst.by/" target="_blank" title="Website"><span><img src="image/free-icon-web.png" width="50" height="50"></span></a>
+        </div>
+    </div>
+</footer>
+
+<style>
+  .module-card {
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+  }
+  .module-card:hover {
+    transform: translateY(-4px);
+  }
+  .gradient-border {
+    background: linear-gradient(135deg,#f97316,#ea580c);
+    padding:3px;
+    border-radius:16px;
+  }
+  .card-inner {
+    background:#1e293b;
+    border-radius:14px;
+    height:100%;
+  }
+  .clickable-card {
+    cursor: pointer;
+  }
+  .clickable-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.2);
+  }
+  .icon-container {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #f97316;
+  }
+
+
+.cds-bottom-wrapper {
+        position: relative;
+        width: 100%;
+        height: 70px;
+        display: block;
+    }
+    
+    .cds-bottom-nav {
+        position: static;
+        width: 100%;
+        background: #FFFFFF;
+        border-top: 1px solid #E2EEFF;
+        border-bottom: 1px solid #E2EEFF;
+        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.02);
+        transition: all 0.2s ease;
+        z-index: 999;
+        font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .cds-bottom-nav.cds-fixed-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid #CDE3FF;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .cds-nav-container {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0.6rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .cds-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: #1A2C3E;
+        padding: 0.5rem 0.8rem;
+        transition: 0.2s;
+        border-bottom: 2px solid transparent;
+        background: transparent;
+        font-family: inherit;
+        border-radius: 40px;
+    }
+    
+    .cds-nav-icon {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .cds-nav-link.cds-active {
+        color: #1E6AF5;
+        border-bottom-color: #1E6AF5;
+        font-weight: 600;
+        background: rgba(30, 106, 245, 0.08);
+    }
+    
+    .cds-nav-link:hover {
+        color: #0F5BE3;
+        border-bottom-color: #8ABDFF;
+        background: rgba(30, 106, 245, 0.05);
+    }
+    
+    @media (max-width: 860px) {
+        .cds-nav-container {
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+        }
+        .cds-nav-link {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.6rem;
+            gap: 5px;
+        }
+        .cds-nav-icon {
+            width: 18px;
+            height: 18px;
+        }
+    }
+    
+    @media (max-width: 560px) {
+        .cds-nav-container {
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cds-nav-link {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.5rem;
+            gap: 4px;
+        }
+        .cds-nav-icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+        .footer {
+            background-color: #0a2a44;
+            color: #eef4ff;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #cddfff;
+        }
+
+        .footer-left .college-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
+            transition: 0.2s ease;
+            text-decoration: none;
+            font-size: 1.7rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,210,0.3);
+        }
+
+        .social-icons a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+            border-color: white;
+        }
+
+        .social-icons span {
+            font-size: 1.7rem;
+            line-height: 1;
+            color: #f0f7ff;
+        }
+
+
+</style>
+
+<script>
+  // SVG иконки
+  const icons = {
+    safety: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+    </svg>`,
+    organization: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+    </svg>`,
+    preparation: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+    </svg>`,
+    equipment: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M7 2v11h3v9l7-12h-4l4-8H7z"/>
+    </svg>`,
+    fire: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM12 20c-3.31 0-6-2.69-6-6 0-1.53 3.97-5.96 6-7.48 2.03 1.52 6 5.95 6 7.48 0 3.31-2.69 6-6 6z"/>
+    </svg>`,
+    electricity: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M7 2v11h3v9l7-12h-4l4-8H7z"/>
+    </svg>`,
+    gamepad: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M15 7.5V2H9v5.5l3 3 3-3zM7.5 9H2v6h5.5l3-3-3-3zM9 16.5V22h6v-5.5l-3-3-3 3zM16.5 9l-3 3 3 3H22V9h-5.5z"/>
+    </svg>`,
+    tools: `<svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+    </svg>`
+  };
+
+  const modules = {
+    section1: [
+      { 
+        id:'1', 
+        title:'Вводное занятие', 
+        desc:'Охрана труда и пожарная безопасность', 
+        icon: icons.safety,
+        link: 'https://klicbd.my.canva.site/bzp5v9hpezw07q7x'
+      },
+      { 
+        id:'2', 
+        title:'Ознакомление с организацией', 
+        desc:'Структура и правила работы', 
+        icon: icons.organization,
+        link: 'https://klicbd.my.canva.site/welding-workshop-guide'
+      },
+      { 
+        id:'3', 
+        title:'Подготовка металла к сварке', 
+        desc:'Очистка и обработка материалов', 
+        icon: icons.preparation,
+        link: 'https://klicbd.my.canva.site/metal-preparation-for-welding'
+      },
+      { 
+        id:'4', 
+        title:'Освоение приемов работы', 
+        desc:'Работа с электросварочным оборудованием', 
+        icon: icons.equipment,
+        link: 'https://klicbd.my.canva.site/welding-equipment-training'
+      }
+    ],
+    section5: [
+      { 
+        id:'5.1', 
+        title:'Модуль 5.1', 
+        desc:'Дуговая наплавка валиков и сварка пластин в нижнем положении шва', 
+        icon: icons.fire,
+        link: 'https://klicbd.my.canva.site/bzpc8asc1ccntx6t'
+      },
+      { 
+        id:'5.2', 
+        title:'Модуль 5.2', 
+        desc:'Дуговая наплавка валиков и сварка пластин', 
+        icon: icons.fire,
+        link: 'https://klicbd.my.canva.site/electrode-coating-training-module'
+      },
+      { 
+        id:'5.3', 
+        title:'Модуль 5.3', 
+        desc:'Дуговая наплавка валиков и сварка пластин', 
+        icon: icons.fire,
+        link: 'https://klicbd.my.canva.site/bzpczh82t9q1fqgm'
+      },
+      { 
+        id:'5.4', 
+        title:'Модуль 5.4', 
+        desc:'Дуговая наплавка валиков и сварка пластин', 
+        icon: icons.fire,
+        link: 'https://klicbd.my.canva.site/welding-training-module-5-4'
+      }
+    ],
+    section6: [
+      { 
+        id:'6.1', 
+        title:'Модуль 6.1', 
+        desc:'Сварка деталей из углеродистой стали встык', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/bzpenyh1jnvc2f4z'
+      },
+      { 
+        id:'6.2', 
+        title:'Модуль 6.2', 
+        desc:'Сварка деталей из углеродистой стали внахлест', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/bzpez1k268j328xd'
+      },
+      { 
+        id:'6.3', 
+        title:'Модуль 6.3', 
+        desc:'Сварка деталей из углеродистой стали втавр', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/t-joint-welding-guide'
+      },
+      { 
+        id:'6.4', 
+        title:'Модуль 6.4', 
+        desc:'Сварка деталей из углеродистой стали', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/bzpfd9tya4wtwgfm'
+      },
+      { 
+        id:'6.5', 
+        title:'Модуль 6.5', 
+        desc:'Сварка деталей из углеродистой стали', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/bzpfe7tn1y6qx16g'
+      },
+      { 
+        id:'6.6', 
+        title:'Модуль 6.6', 
+        desc:'Сварка деталей из углеродистой стали', 
+        icon: icons.electricity,
+        link: 'https://klicbd.my.canva.site/bzpfpsv8r8zwak3h'
+      }
+    ],
+    section8: [
+      { 
+        id:'8.1–8.2', 
+        title:'Soldamatic', 
+        desc:'Сварочный тренажер Soldamatic 135', 
+        icon: icons.gamepad,
+        link: 'https://klicbd.my.canva.site/soldamatic-135-training-module'
+      },
+      { 
+        id:'8.3', 
+        title:'Модуль 8.3', 
+        desc:'Наплавка валиков на стальные пластины в нижнем положении шва на оборудовании полуавтоматической сварки в среде', 
+        icon: icons.fire,
+        link: 'https://klicbd.my.canva.site/mig-mag-welding-simulator'
+      },
+      { 
+        id:'8.4', 
+        title:'Модуль 8.4', 
+        desc:'Сварка деталей из углеродистой стали встык в нижнем пространственном положении на оборудовании полуавтоматической сварки', 
+        icon: icons.tools,
+        link: 'https://klicbd.my.canva.site/mig-mag'
+      },
+      { 
+        id:'8.5', 
+        title:'Модуль 8.5', 
+        desc:'Сварка деталей из углеродистой стали в тавр в нижнем пространственном положении на оборудовании полуавтоматической сварки в среде', 
+        icon: icons.tools,
+        link: 'https://klicbd.my.canva.site/t-joint-welding-training-module'
+      }
+    ]
+  };
+
+  function card(m){
+    const isClickable = m.link;
+    
+    return `
+      <div class="module-card gradient-border ${isClickable ? 'clickable-card' : ''}" 
+           ${isClickable ? `onclick="window.open('${m.link}', '_blank')"` : ''}>
+        <div class="card-inner p-5 flex gap-4">
+          <div class="icon-container">${m.icon}</div>
+          <div class="flex-1">
+            <h3 class="font-semibold text-lg mb-1">${m.title}</h3>
+            <p class="text-sm text-slate-400 mb-2">${m.desc}</p>
+            ${isClickable ? '<p class="text-xs text-orange-400 mt-2 flex items-center gap-1"><span>Нажмите для перехода</span><span>→</span></p>' : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('section-1').innerHTML = modules.section1.map(card).join('');
+  document.getElementById('section-5').innerHTML = modules.section5.map(card).join('');
+  document.getElementById('section-6').innerHTML = modules.section6.map(card).join('');
+  document.getElementById('section-8').innerHTML = modules.section8.map(card).join('');
+</script>

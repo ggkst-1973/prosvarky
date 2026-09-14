@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мобильный видеоконтент</title>
+<link rel="icon" type="image/png" sizes="32x32" href="C:/Users/Валера/Desktop/prosvarky/image/0.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .video-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, #f97316, #ea580c, #c2410c);
+      padding: 3px;
+      border-radius: 16px;
+    }
+    .spark {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fbbf24;
+      border-radius: 50%;
+      animation: spark 2s ease-out infinite;
+    }
+    @keyframes spark {
+      0% { opacity: 1; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+    }
+    
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .page-content {
+      flex: 1;
+    }
+    
+    .cds-bottom-wrapper {
+      position: relative;
+      width: 100%;
+      background: transparent;
+      z-index: 999;
+    }
+    
+    .cds-bottom-nav {
+      width: 100%;
+      background: #FFFFFF;
+      border-top: 1px solid #E2EEFF;
+      border-bottom: 1px solid #E2EEFF;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+    
+    .cds-bottom-nav.cds-fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #CDE3FF;
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cds-nav-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0.6rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .cds-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1A2C3E;
+      padding: 0.5rem 0.8rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      border-radius: 40px;
+    }
+    
+    .cds-nav-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .cds-nav-link.cds-active {
+      color: #1E6AF5;
+      border-bottom-color: #1E6AF5;
+      font-weight: 600;
+      background: rgba(30, 106, 245, 0.08);
+    }
+    
+    .cds-nav-link:hover {
+      color: #0F5BE3;
+      border-bottom-color: #8ABDFF;
+      background: rgba(30, 106, 245, 0.05);
+    }
+    
+    @media (max-width: 860px) {
+      .cds-nav-container {
+        gap: 0.8rem;
+        padding: 0.5rem 1rem;
+      }
+      .cds-nav-link {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+        gap: 5px;
+      }
+      .cds-nav-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    @media (max-width: 560px) {
+      .cds-nav-container {
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .cds-nav-link {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+        gap: 4px;
+      }
+      .cds-nav-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-900">
+  
+  <div class="page-container">
+    
+    <div class="page-content">
+      <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="spark" style="top: 20%; left: 10%; --tx: 30px; --ty: -40px; animation-delay: 0s;"></div>
+        <div class="spark" style="top: 40%; left: 85%; --tx: -20px; --ty: -30px; animation-delay: 0.5s;"></div>
+        <div class="spark" style="top: 60%; left: 15%; --tx: 25px; --ty: -35px; animation-delay: 1s;"></div>
+        <div class="spark" style="top: 80%; left: 90%; --tx: -15px; --ty: -25px; animation-delay: 1.5s;"></div>
+      </div>
+      
+      <header class="relative px-4 pt-8 pb-6">
+        <div class="text-center">
+          <div class="mb-6">
+            <img src="https://i.imgur.com/uvrlE28.png" alt="Логотип колледжа" class="h-20 sm:h-24 mx-auto" loading="lazy">
+          </div>
+          <h1 id="page-title" class="text-2xl sm:text-3xl font-bold text-white mb-2">Мобильный видеоконтент</h1>
+          <p class="text-gray-400 text-sm">Обучающие видео по сварке</p>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-semibold rounded-full">8 видео</span>
+            <span class="px-3 py-1 bg-gray-700/50 text-gray-300 text-xs font-semibold rounded-full">YouTube</span>
+          </div>
+        </div>
+      </header>
+      
+      <main class="px-4 pb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-7xl mx-auto">
+          <!-- Video 1 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Сварка стыкового соединения в нижнем положении шва</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/3RiMQlOGGEo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 2 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Сварка деталей в угол односторонним швом без разделки кромок</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/GOkK1YRBem8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 3 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Наплавка валиков на стальные пластины в нижнем положении шва</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/_t9EX3LkBTs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 4 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">4</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Рабочее место сварщика</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/J_8YY-TbDCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 5 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">5</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Настройка параметрической кривой</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/1bpw2Z4XJE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 6 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">6</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Сборка горелки для TIG сварки</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/3f51TdOt-A4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 7 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">7</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Подготовительные операции перед сваркой</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/ERoLutj_aYw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <!-- Video 8 -->
+          <div class="video-card gradient-border">
+            <div class="bg-gray-800 rounded-xl p-4">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">8</span>
+                <h3 class="text-white font-semibold text-sm leading-tight">Средства индивидуальной защиты при сварочных работах</h3>
+              </div>
+              <div class="aspect-[9/16] bg-black rounded-xl overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/2AL9Q2Yl_5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <div class="cds-bottom-wrapper" id="cdsBottomWrapper">
+      <div class="cds-bottom-nav" id="cdsBottomNav">
+        <div class="cds-nav-container">
+          <a href="index.html" class="cds-nav-link" data-cds-nav="home">
+            <img src="image/icon/home.png" width="24" height="24" alt="Главная" class="cds-nav-icon" onerror="this.style.display='none'">Главная
+          </a>
+          <a href="theory.html" class="cds-nav-link" data-cds-nav="theory">
+            <img src="image/icon/book.png" width="24" height="24" alt="Теория" class="cds-nav-icon" onerror="this.style.display='none'">Теория
+          </a>
+          <a href="practice.html" class="cds-nav-link" data-cds-nav="practice">
+            <img src="image/icon/mask.png" width="24" height="24" alt="Практика" class="cds-nav-icon" onerror="this.style.display='none'">Практика
+          </a>
+          <a href="test.html" class="cds-nav-link" data-cds-nav="control">
+            <img src="image/icon/test.png" width="24" height="24" alt="Контроль знаний" class="cds-nav-icon" onerror="this.style.display='none'">Контроль знаний
+          </a>
+          <a href="help.html" class="cds-nav-link" data-cds-nav="compass">
+            <img src="image/icon/compass.png" width="24" height="24" alt="Компас достижений" class="cds-nav-icon" onerror="this.style.display='none'">Компас достижений
+          </a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    const bottomNav = document.getElementById('cdsBottomNav');
+    
+    function handleSticky() {
+      if (!bottomNav) return;
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 100) {
+        bottomNav.classList.add('cds-fixed-bottom');
+        document.body.style.paddingBottom = bottomNav.offsetHeight + 'px';
+      } else {
+        bottomNav.classList.remove('cds-fixed-bottom');
+        document.body.style.paddingBottom = '0px';
+      }
+    }
+    
+    const navLinks = document.querySelectorAll('.cds-nav-link');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.classList.add('cds-active');
+      }
+      link.addEventListener('click', function() {
+        navLinks.forEach(l => l.classList.remove('cds-active'));
+        this.classList.add('cds-active');
+      });
+    });
+    
+    window.addEventListener('scroll', handleSticky);
+    window.addEventListener('resize', handleSticky);
+    handleSticky(); // Запускаем сразу
+    
+    const defaultConfig = {
+      page_title: 'Мобильный видеоконтент',
+      background_color: '#111827',
+      accent_color: '#f97316',
+      text_color: '#ffffff',
+      font_family: 'Montserrat'
+    };
+
+    let config = { ...defaultConfig };
+
+    async function onConfigChange(newConfig) {
+      const title = newConfig.page_title || defaultConfig.page_title;
+      document.getElementById('page-title').textContent = title;
+      const font = newConfig.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${font}, sans-serif`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ accent_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['page_title', config.page_title || defaultConfig.page_title]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+</body>
+</html>

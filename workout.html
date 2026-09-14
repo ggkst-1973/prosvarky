@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контроль знаний по сварке</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+   body {
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #191970 60%, #000080 100%);
+      color: white;
+    }
+    #app {
+  padding-bottom: 110px;
+}
+    * {
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .page-content {
+      flex: 1;
+    }
+    
+    .cds-bottom-wrapper {
+      position: relative;
+      width: 100%;
+      background: transparent;
+      z-index: 999;
+    }
+    
+    .cds-bottom-nav {
+      width: 100%;
+      background: #FFFFFF;
+      border-top: 1px solid #E2EEFF;
+      border-bottom: 1px solid #E2EEFF;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+    
+    .cds-bottom-nav.cds-fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #CDE3FF;
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cds-nav-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0.6rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .cds-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1A2C3E;
+      padding: 0.5rem 0.8rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      border-radius: 40px;
+    }
+    
+    .cds-nav-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .cds-nav-link.cds-active {
+      color: #1E6AF5;
+      border-bottom-color: #1E6AF5;
+      font-weight: 600;
+      background: rgba(30, 106, 245, 0.08);
+    }
+    
+    .cds-nav-link:hover {
+      color: #0F5BE3;
+      border-bottom-color: #8ABDFF;
+      background: rgba(30, 106, 245, 0.05);
+    }
+    
+    @media (max-width: 860px) {
+      .cds-nav-container {
+        gap: 0.8rem;
+        padding: 0.5rem 1rem;
+      }
+      .cds-nav-link {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+        gap: 5px;
+      }
+      .cds-nav-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    @media (max-width: 560px) {
+      .cds-nav-container {
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .cds-nav-link {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+        gap: 4px;
+      }
+      .cds-nav-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .card-glow {
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      background: rgba(18, 22, 28, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-glow:hover {
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+      transform: translateY(-5px);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .spark {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fbbf24;
+      border-radius: 50%;
+      animation: spark 2s infinite;
+    }
+    
+    @keyframes spark {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+      transform: scale(1.02);
+    }
+    
+    .question-card {
+      background: rgba(18, 22, 28, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .option-btn {
+      transition: all 0.2s ease;
+      background: rgba(18, 22, 28, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: white;
+    }
+    
+    .option-btn:hover:not(.selected):not(.correct):not(.incorrect) {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: #F59E0B;
+    }
+    
+    .option-btn.selected {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #F59E0B;
+    }
+    
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10B981;
+    }
+    
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #EF4444;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .welding-icon {
+      filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.3));
+    }
+    
+    .stat-card {
+      background: rgba(18, 22, 28, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .history-item {
+      background: rgba(18, 22, 28, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .history-item:hover {
+      background: rgba(30, 35, 40, 0.8);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    
+    p, span, div, h1, h2, h3, h4, h5, h6 {
+      color: white;
+    }
+    
+    .text-gray-400 {
+      color: rgb(156 163 175) !important;
+    }
+    
+    .text-gray-300 {
+      color: rgb(209 213 219) !important;
+    }
+    
+    .text-gray-500 {
+      color: rgb(107 114 128) !important;
+    }
+
+    .footer {
+      background-color: #0a2a44;
+      color: #eef4ff;
+      padding: 1.6rem 2rem;
+      margin-top: 2rem;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #cddfff;
+    }
+
+    .footer-left .college-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(245, 245, 255, 0.15);
+      width: 48px;
+      height: 48px;
+      border-radius: 28px;
+      transition: 0.2s ease;
+      text-decoration: none;
+      font-size: 1.7rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,210,0.3);
+    }
+
+    .social-icons a:hover {
+      background: #3b82f6;
+      transform: translateY(-3px);
+      border-color: white;
+    }
+
+    .social-icons span {
+      font-size: 1.7rem;
+      line-height: 1;
+      color: #f0f7ff;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full gradient-bg text-white">
+  <div id="app" class="min-h-full w-full"><!-- Main Menu -->
+   <div id="main-menu" class="min-h-full w-full p-6">
+    <div class="max-w-6xl mx-auto"><!-- Header -->
+     <header class="text-center mb-12 fade-in">
+      <div class="inline-block relative mb-6">
+       <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="welding-icon">
+        <circle cx="40" cy="40" r="36" stroke="#F59E0B" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+        <path d="M24 56L40 24L56 56" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="40" cy="24" r="6" fill="#F59E0B">
+         <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <path d="M40 30L40 44" stroke="#F59E0B" stroke-width="2" stroke-linecap="round">
+         <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/>
+        </path>
+        <ellipse cx="40" cy="56" rx="16" ry="4" fill="#F59E0B" opacity="0.2"/>
+        <path d="M32 48L36 44M48 48L44 44" stroke="#F59E0B" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+       </svg>
+       <div class="spark" style="top: 10px; left: 30%;"></div>
+       <div class="spark" style="top: 20px; right: 25%; animation-delay: 0.3s;"></div>
+       <div class="spark" style="top: 5px; right: 35%; animation-delay: 0.7s;"></div>
+      </div>
+      <h1 id="main-title" class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-yellow-500 via-orange-400 to-yellow-500 bg-clip-text text-transparent">Контроль знаний по сварке</h1>
+      <p id="welcome-text" class="text-lg text-gray-300 max-w-2xl mx-auto">Проверьте свои знания в области сварочного производства. Выберите тест для прохождения.</p>
+     </header><!-- Stats -->
+     <div id="stats-section" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 fade-in" style="animation-delay: 0.2s;">
+      <div class="stat-card rounded-xl p-4 text-center">
+       <div class="text-3xl font-bold text-yellow-400" id="total-tests">0</div>
+       <div class="text-sm text-gray-400">Тестов пройдено</div>
+      </div>
+      <div class="stat-card rounded-xl p-4 text-center">
+       <div class="text-3xl font-bold text-green-400" id="avg-score">0%</div>
+       <div class="text-sm text-gray-400">Средний балл</div>
+      </div>
+      <div class="stat-card rounded-xl p-4 text-center">
+       <div class="text-3xl font-bold text-red-400" id="best-score">0%</div>
+       <div class="text-sm text-gray-400">Лучший результат</div>
+      </div>
+      <div class="stat-card rounded-xl p-4 text-center">
+       <div class="text-3xl font-bold text-blue-400">9</div>
+       <div class="text-sm text-gray-400">Всего тестов</div>
+      </div>
+     </div><!-- Test Cards Grid -->
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <!-- Test 1 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.3s;" onclick="startTest('general')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Общие сведения</h3>
+         <p class="text-sm text-gray-400">о сварке и швах</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Базовые понятия сварки, типы сварных соединений и швов</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 2 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.4s;" onclick="startTest('constructions')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 20L20 20" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 20L6 10L12 4L18 10L18 20" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="10" y="14" width="4" height="6" stroke="#60A5FA" stroke-width="2"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Конструкции</h3>
+         <p class="text-sm text-gray-400">сварных изделий</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Типы конструкций, требования к сварным изделиям</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 3 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.5s;" onclick="startTest('equipment')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="12" height="12" rx="2" stroke="#34D399" stroke-width="2"/>
+          <path d="M12 6L12 2M12 22L12 18" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 12L2 12M22 12L18 12" stroke="#34D399" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="2" fill="#34D399"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Оборудование</h3>
+         <p class="text-sm text-gray-400">сварочного поста</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Оборудование для ручной дуговой и газовой сварки</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 4 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.6s;" onclick="startTest('arc')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-amber-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 16L16 8" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 20L20 12" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 12L12 4" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="3" stroke="#FBBF24" stroke-width="2"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Электрическая дуга</h3>
+         <p class="text-sm text-gray-400">и её применение</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Физика дуги, её характеристики и применение</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 5 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.7s;" onclick="startTest('materials')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="16" height="16" rx="2" stroke="#A78BFA" stroke-width="2"/>
+          <path d="M8 8H16M8 12H14M8 16H12" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Материалы</h3>
+         <p class="text-sm text-gray-400">для сварки и резки</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Электроды, флюсы, защитные газы и проволока</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 6 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.8s;" onclick="startTest('technology')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 12H18M12 6V18" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="8" stroke="#2DD4BF" stroke-width="2"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Технология</h3>
+         <p class="text-sm text-gray-400">ручной дуговой сварки</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Режимы, техника и последовательность сварки</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-teal-500/20 text-teal-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 7 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 0.9s;" onclick="startTest('deformation')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-rose-500/20 to-red-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4L20 20M4 20L20 4" stroke="#F87171" stroke-width="2" stroke-linecap="round"/>
+          <rect x="8" y="8" width="8" height="8" stroke="#F87171" stroke-width="2"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Деформации</h3>
+         <p class="text-sm text-gray-400">и напряжения</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Причины, виды и методы борьбы с деформациями</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-rose-500/20 text-rose-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Test 8 -->
+      <div class="card-glow rounded-2xl p-6 cursor-pointer fade-in" style="animation-delay: 1s;" onclick="startTest('defects')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="8" stroke="#818CF8" stroke-width="2"/>
+          <path d="M12 8V12M12 16H12.01" stroke="#818CF8" stroke-width="2" stroke-linecap="round"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-white">Дефекты и контроль</h3>
+         <p class="text-sm text-gray-400">сварных швов</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Виды дефектов и методы контроля качества</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">10 вопросов</span> 
+        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-full text-xs font-medium">Начать →</span>
+       </div>
+      </div>
+      <!-- Final Test -->
+      <div class="card-glow rounded-2xl p-6 border-2 border-yellow-500/30 cursor-pointer fade-in" style="animation-delay: 1.1s;" onclick="startTest('final')">
+       <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/30 to-orange-500/30 flex items-center justify-center">
+         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#F59E0B" stroke-width="2" fill="none"/>
+         </svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="font-bold text-lg text-yellow-400">Итоговый тест</h3>
+         <p class="text-sm text-gray-400">проверочная работа</p>
+        </div>
+       </div>
+       <p class="text-gray-300 text-sm mb-4">Комплексная проверка знаний по всем темам курса</p>
+       <div class="flex justify-between items-center">
+        <span class="text-xs text-gray-500">20 вопросов</span> 
+        <span class="px-3 py-1 bg-yellow-500/30 text-yellow-400 rounded-full text-xs font-bold">Пройти →</span>
+       </div>
+      </div>
+     </div><!-- Results History -->
+     <div id="history-section" class="stat-card rounded-2xl p-6 fade-in" style="animation-delay: 1.2s;">
+      <div class="flex items-center justify-between mb-4">
+       <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M3 12H6L9 3L15 21L18 12H21" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        История результатов
+       </h2>
+       <button onclick="clearAllData()" class="text-sm text-gray-400 hover:text-yellow-400 transition-colors px-3 py-1 rounded-full border border-white/10 hover:border-yellow-500/50">Очистить историю</button>
+      </div>
+      <div id="history-list" class="space-y-3">
+       <p class="text-gray-400 text-center py-8">Загрузка результатов...</p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Test Screen -->
+   <div id="test-screen" class="hidden min-h-full w-full p-6">
+    <div class="max-w-3xl mx-auto">
+     <div class="flex items-center justify-between mb-8">
+      <button onclick="goToMenu()" class="flex items-center gap-2 text-gray-400 hover:text-yellow-400 transition-colors">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+       </svg>
+       <span>К списку тестов</span> 
+      </button>
+      <div class="text-right">
+       <div id="test-progress" class="text-sm text-gray-400">Вопрос 1 из 10</div>
+       <div id="test-name" class="font-bold text-yellow-400">Общие сведения</div>
+      </div>
+     </div>
+     <div class="w-full h-2 bg-white/5 rounded-full mb-8 overflow-hidden">
+      <div id="progress-bar" class="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all duration-500" style="width: 10%"></div>
+     </div>
+     <div id="question-card" class="question-card rounded-2xl p-8 mb-6 fade-in">
+      <h2 id="question-text" class="text-xl md:text-2xl font-bold mb-8 text-white">Вопрос загружается...</h2>
+      <div id="options-container" class="space-y-4"></div>
+     </div>
+     <div class="flex justify-between items-center">
+      <div id="answer-feedback" class="text-lg font-medium"></div>
+      <button id="next-btn" onclick="nextQuestion()" class="hidden btn-primary px-8 py-3 rounded-xl font-bold text-white"> Далее → </button>
+     </div>
+    </div>
+   </div><!-- Results Screen -->
+   <div id="results-screen" class="hidden min-h-full w-full p-6">
+    <div class="max-w-2xl mx-auto text-center">
+     <div class="fade-in">
+      <div id="result-icon" class="text-8xl mb-6"></div>
+      <h1 id="result-title" class="text-3xl md:text-4xl font-extrabold mb-4 text-white">Тест завершён!</h1>
+      <div class="relative w-48 h-48 mx-auto mb-8">
+       <svg class="w-48 h-48 progress-ring" viewbox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="12" /> 
+        <circle id="score-circle" cx="100" cy="100" r="90" fill="none" stroke="#F59E0B" stroke-width="12" stroke-linecap="round" stroke-dasharray="565.48" stroke-dashoffset="565.48" style="transition: stroke-dashoffset 1.5s ease" />
+       </svg>
+       <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <span id="score-percent" class="text-5xl font-extrabold text-white">0%</span> 
+        <span class="text-gray-400">результат</span>
+       </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mb-8">
+       <div class="stat-card rounded-xl p-4">
+        <div id="correct-count" class="text-2xl font-bold text-green-400">0</div>
+        <div class="text-sm text-gray-400">Верно</div>
+       </div>
+       <div class="stat-card rounded-xl p-4">
+        <div id="incorrect-count" class="text-2xl font-bold text-red-400">0</div>
+        <div class="text-sm text-gray-400">Неверно</div>
+       </div>
+       <div class="stat-card rounded-xl p-4">
+        <div id="total-count" class="text-2xl font-bold text-blue-400">10</div>
+        <div class="text-sm text-gray-400">Всего</div>
+       </div>
+      </div>
+      <div id="grade-section" class="stat-card rounded-xl p-6 mb-8">
+       <div class="text-lg text-gray-400 mb-2">Ваша оценка</div>
+       <div id="grade" class="text-4xl font-extrabold text-yellow-400">-</div>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+       <button onclick="retryTest()" class="btn-primary px-8 py-4 rounded-xl font-bold text-white"> Пройти ещё раз </button> 
+       <button onclick="goToMenu()" class="bg-white/5 hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-white transition-colors border border-white/10">  К списку тестов </button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+    <div class="cds-bottom-wrapper" id="cdsBottomWrapper">
+      <div class="cds-bottom-nav" id="cdsBottomNav">
+        <div class="cds-nav-container">
+          <a href="index.html" class="cds-nav-link" data-cds-nav="home">
+            <img src="image/icon/home.png" width="24" height="24" alt="Главная" class="cds-nav-icon" onerror="this.style.display='none'">Главная
+          </a>
+          <a href="theory.html" class="cds-nav-link" data-cds-nav="theory">
+            <img src="image/icon/book.png" width="24" height="24" alt="Теория" class="cds-nav-icon" onerror="this.style.display='none'">Теория
+          </a>
+          <a href="practice.html" class="cds-nav-link" data-cds-nav="practice">
+            <img src="image/icon/mask.png" width="24" height="24" alt="Практика" class="cds-nav-icon" onerror="this.style.display='none'">Практика
+          </a>
+          <a href="test.html" class="cds-nav-link" data-cds-nav="control">
+            <img src="image/icon/test.png" width="24" height="24" alt="Контроль знаний" class="cds-nav-icon" onerror="this.style.display='none'">Контроль знаний
+          </a>
+          <a href="help.html" class="cds-nav-link" data-cds-nav="compass">
+            <img src="image/icon/compass.png" width="24" height="24" alt="Компас достижений" class="cds-nav-icon" onerror="this.style.display='none'">Компас достижений
+          </a>
+        </div>
+      </div>
+    </div>
+
+  <div id="modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/90" onclick="closeModal()"></div>
+    <div class="absolute inset-4 md:inset-8 lg:inset-12 bg-slate-800 rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between p-4 bg-slate-900 border-b border-slate-700">
+        <h3 id="modal-title" class="text-lg md:text-xl font-bold text-white truncate pr-4"></h3>
+        <div class="flex items-center gap-2">
+          <span id="modal-counter" class="text-orange-400 text-sm font-medium px-3 py-1 bg-slate-800 rounded-full"></span>
+          <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-700 hover:bg-slate-600 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+      </div>
+      <div id="modal-image-container" class="flex-1 flex items-center justify-center bg-slate-900 relative p-4 overflow-hidden">
+        <img id="modal-image" class="modal-image" alt="Плакат">
+      </div>
+      <div class="p-4 bg-slate-900 border-t border-slate-700">
+        <div class="flex items-center justify-center gap-4 max-w-md mx-auto">
+          <button onclick="zoomOut()" class="w-10 h-10 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg>
+          </button>
+          <input type="range" id="zoom-slider" class="zoom-slider" min="100" max="300" value="100" step="10" oninput="updateZoom(this.value)">
+          <button onclick="zoomIn()" class="w-10 h-10 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+          </button>
+          <span id="zoom-level" class="text-orange-400 text-sm font-semibold min-w-[3.5rem] text-center">100%</span>
+        </div>
+      </div>
+      <button onclick="prevPoster()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-orange-600 backdrop-blur-sm flex items-center justify-center border border-slate-700">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button onclick="nextPoster()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-orange-600 backdrop-blur-sm flex items-center justify-center border border-slate-700">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+
+    const defaultConfig = {
+      site_title: 'Контроль знаний по сварке',
+      welcome_text: 'Проверьте свои знания в области сварочного производства. Выберите тест для прохождения.',
+      primary_color: '#F59E0B',
+      secondary_color: '#0B0C10',
+      accent_color: '#fbbf24',
+      text_color: '#ffffff',
+      card_color: 'rgba(18, 22, 28, 0.7)'
+    };
+    
+    let config = { ...defaultConfig };
+    let resultsData = [];
+    
+const tests = {
+  general: {
+    name: 'Общие сведения о сварке',
+    questions: [
+      { q: 'Что такое сварка?', options: ['Процесс соединения материалов путём нагрева', 'Процесс резки металла', 'Процесс окраски металла', 'Процесс шлифовки поверхности'], correct: 0 },
+      { q: 'Какой тип сварного соединения образуется при соединении деталей под углом?', options: ['Стыковое', 'Нахлёсточное', 'Угловое', 'Тавровое'], correct: 2 },
+      { q: 'Что такое сварной шов?', options: ['Дефект сварки', 'Участок сварного соединения, образованный затвердевшим расплавленным металлом', 'Электрод', 'Место разреза металла'], correct: 1 },
+      { q: 'Какое соединение называется стыковым?', options: ['Детали накладываются друг на друга', 'Детали соединяются под прямым углом', 'Детали соединяются внахлёст', 'Детали соединяются торцами'], correct: 3 },
+      { q: 'Что такое катет углового шва?', options: ['Глубина проплавления', 'Длина шва', 'Кратчайшее расстояние от поверхности одной детали до границы шва на другой детали', 'Ширина шва'], correct: 2 },
+      { q: 'Какой шов называется прерывистым?', options: ['Выполненный за один проход', 'Состоящий из отдельных участков', 'Непрерывный по всей длине', 'Многослойный шов'], correct: 1 },
+      { q: 'Что такое корень шва?', options: ['Усиление шва', 'Верхняя часть шва', 'Боковая поверхность шва', 'Часть шва, наиболее удалённая от его лицевой поверхности'], correct: 3 },
+      { q: 'Какое соединение называется нахлёсточным?', options: ['Детали расположены в одной плоскости', 'Детали частично перекрывают друг друга', 'Детали соединены торцами', 'Детали под углом 90°'], correct: 1 },
+      { q: 'Что характеризует выпуклость шва?', options: ['Ширину шва', 'Глубину проплавления', 'Вогнутость поверхности', 'Выступание шва над поверхностью основного металла'], correct: 3 },
+      { q: 'Какой шов называется многопроходным?', options: ['Односторонний шов', 'Прерывистый шов', 'Выполненный несколькими проходами', 'Выполненный за один проход'], correct: 2 }
+    ]
+  },
+  constructions: {
+    name: 'Конструкции сварных изделий',
+    questions: [
+      { q: 'Какие сварные конструкции относятся к решётчатым?', options: ['Балки и колонны', 'Корпуса судов', 'Фермы и мачты', 'Резервуары и трубопроводы'], correct: 2 },
+      { q: 'Что такое технологичность сварной конструкции?', options: ['Коррозионная стойкость', 'Возможность изготовления с минимальными затратами', 'Способность выдерживать нагрузки', 'Внешний вид изделия'], correct: 1 },
+      { q: 'Какие конструкции относятся к листовым?', options: ['Резервуары и обечайки', 'Колонны', 'Фермы', 'Рамы'], correct: 0 },
+      { q: 'Что такое несущие сварные конструкции?', options: ['Вспомогательные элементы', 'Защитные кожухи', 'Декоративные элементы', 'Конструкции, воспринимающие основные нагрузки'], correct: 3 },
+      { q: 'Какой фактор наиболее важен при проектировании ответственных конструкций?', options: ['Быстрота изготовления', 'Минимальный вес', 'Прочность и надёжность', 'Внешний вид'], correct: 2 },
+      { q: 'Что такое сборочно-сварочные приспособления?', options: ['Сварочные аппараты', 'Защитная одежда', 'Электроды', 'Устройства для фиксации деталей при сварке'], correct: 3 },
+      { q: 'Какие конструкции называются балочными?', options: ['Решётчатые фермы', 'Только круглые трубы', 'Изогнутые элементы', 'Элементы, работающие на изгиб'], correct: 3 },
+      { q: 'Что такое жёсткость сварной конструкции?', options: ['Внешний вид', 'Коррозионная стойкость', 'Масса изделия', 'Способность сопротивляться деформациям'], correct: 3 },
+      { q: 'Какие сварные соединения предпочтительны для ответственных конструкций?', options: ['Угловые без разделки', 'Прерывистые швы', 'Нахлёсточные', 'Стыковые с полным проваром'], correct: 3 },
+      { q: 'Что определяет выбор типа сварного соединения?', options: ['Цвет металла', 'Только внешний вид', 'Только стоимость', 'Условия работы, нагрузки и технология изготовления'], correct: 3 }
+    ]
+  },
+  equipment: {
+    name: 'Оборудование сварочного поста',
+    questions: [
+      { q: 'Что входит в состав поста для ручной дуговой сварки?', options: ['Источник питания, кабели, электрододержатель', 'Только защитная маска', 'Газовый баллон', 'Только электроды'], correct: 0 },
+      { q: 'Какой источник питания используется для ручной дуговой сварки?', options: ['Солнечная батарея', 'Газовая горелка', 'Только аккумулятор', 'Сварочный трансформатор или инвертор'], correct: 3 },
+      { q: 'Для чего служит электрододержатель?', options: ['Для подачи газа', 'Для защиты глаз', 'Для резки металла', 'Для закрепления и подвода тока к электроду'], correct: 3 },
+      { q: 'Какой газ используется в ацетилено-кислородной сварке в качестве горючего?', options: ['Аргон', 'Кислород', 'Ацетилен', 'Углекислый газ'], correct: 2 },
+      { q: 'Что такое редуктор в газовой сварке?', options: ['Шланг', 'Горелка', 'Устройство для понижения и регулировки давления газа', 'Баллон'], correct: 2 },
+      { q: 'Какого цвета баллон для кислорода?', options: ['Чёрного', 'Красного', 'Белого', 'Синего (голубого)'], correct: 3 },
+      { q: 'Для чего предназначен сварочный кабель?', options: ['Для защиты от излучения', 'Для подачи газа', 'Для подвода сварочного тока', 'Для охлаждения'], correct: 2 },
+      { q: 'Что такое обратный клапан в газовой аппаратуре?', options: ['Манометр', 'Редуктор', 'Защитное устройство от обратного удара пламени', 'Горелка'], correct: 2 },
+      { q: 'Какое напряжение холостого хода у сварочного трансформатора?', options: ['500 В', '220-380 В', '5-10 В', '60-80 В'], correct: 3 },
+      { q: 'Для чего служит зажим массы (клемма заземления)?', options: ['Для измерения тока', 'Для подачи газа', 'Для держания электрода', 'Для подключения обратного провода к изделию'], correct: 3 }
+    ]
+  },
+  arc: {
+    name: 'Электрическая дуга',
+    questions: [
+      { q: 'Что такое сварочная дуга?', options: ['Магнитное поле', 'Механическое устройство', 'Устойчивый электрический разряд в газовой среде', 'Химическая реакция'], correct: 2 },
+      { q: 'Какая температура в столбе сварочной дуги?', options: ['10000-15000°C', '500-1000°C', '2000-3000°C', '5000-6000°C и выше'], correct: 3 },
+      { q: 'Что такое катод в сварочной дуге?', options: ['Столб дуги', 'Положительный полюс', 'Отрицательный полюс', 'Нейтральная зона'], correct: 2 },
+      { q: 'Какая полярность называется прямой?', options: ['Электрод подключён к минусу, изделие к плюсу', 'Полярность не имеет значения', 'Электрод подключён к плюсу, изделие к минусу', 'Оба полюса на изделии'], correct: 0 },
+      { q: 'Что такое длина дуги?', options: ['Длина кабеля', 'Диаметр электрода', 'Расстояние между концом электрода и поверхностью сварочной ванны', 'Длина шва'], correct: 2 },
+      { q: 'Как называется явление отклонения дуги под действием магнитных полей?', options: ['Прожог', 'Разбрызгивание', 'Кратер', 'Магнитное дутьё'], correct: 3 },
+      { q: 'Что происходит в анодной области дуги?', options: ['Образование шлака', 'Охлаждение', 'Выделение тепла при бомбардировке электронами', 'Испарение газов'], correct: 2 },
+      { q: 'Какое напряжение необходимо для зажигания дуги?', options: ['Напряжение не влияет', 'Равно рабочему', 'Ниже рабочего', 'Выше рабочего (напряжение холостого хода)'], correct: 3 },
+      { q: 'Что такое вольт-амперная характеристика дуги?', options: ['Скорость сварки', 'Температура металла', 'Зависимость напряжения дуги от силы тока', 'Масса электрода'], correct: 2 },
+      { q: 'Какой род тока обеспечивает более стабильное горение дуги?', options: ['Род тока не влияет', 'Переменный ток', 'Импульсный', 'Постоянный ток'], correct: 3 }
+    ]
+  },
+  materials: {
+    name: 'Материалы для сварки',
+    questions: [
+      { q: 'Из чего состоит покрытый электрод?', options: ['Только из обмазки', 'Из пластика', 'Только из металла', 'Из металлического стержня и обмазки (покрытия)'], correct: 3 },
+      { q: 'Для чего служит покрытие электрода?', options: ['Для увеличения веса', 'Для охлаждения', 'Для защиты сварочной ванны, стабилизации дуги и легирования', 'Только для красоты'], correct: 2 },
+      { q: 'Какой тип покрытия обозначается буквой "Б"?', options: ['Рутиловое', 'Кислое', 'Целлюлозное', 'Основное (фтористо-кальциевое)'], correct: 3 },
+      { q: 'Что обозначает маркировка Э46 на электроде?', options: ['Длину электрода', 'Массу электрода', 'Диаметр электрода', 'Минимальный предел прочности наплавленного металла (46 кгс/мм²)'], correct: 3 },
+      { q: 'Какие электроды применяются для сварки углеродистых сталей?', options: ['Только вольфрамовые', 'Медные электроды', 'Только алюминиевые', 'Электроды типа Э42, Э46, Э50'], correct: 3 },
+      { q: 'Для чего нужна прокалка электродов?', options: ['Для изменения цвета', 'Для увеличения диаметра', 'Для охлаждения', 'Для удаления влаги из покрытия'], correct: 3 },
+      { q: 'Какой газ используется для защиты при аргонодуговой сварке?', options: ['Ацетилен', 'Кислород', 'Аргон', 'Водород'], correct: 2 },
+      { q: 'Что такое сварочная проволока?', options: ['Проволока для ограждений', 'Кабель для сварки', 'Проволока для вязки арматуры', 'Присадочный материал для механизированной сварки'], correct: 3 },
+      { q: 'Какое покрытие электродов обозначается буквой "Р"?', options: ['Основное', 'Кислое', 'Рутиловое', 'Целлюлозное'], correct: 2 },
+      { q: 'Какой флюс применяется при автоматической сварке?', options: ['Газообразный', 'Твёрдый пластинчатый', 'Жидкий', 'Гранулированный (зернистый)'], correct: 3 }
+    ]
+  },
+  technology: {
+    name: 'Технология ручной дуговой сварки',
+    questions: [
+      { q: 'Какой параметр в первую очередь выбирается при назначении режима сварки?', options: ['Марка электрода', 'Длина дуги', 'Напряжение', 'Диаметр электрода в зависимости от толщины металла'], correct: 3 },
+      { q: 'Что такое сварочный ток?', options: ['Мощность источника', 'Сопротивление цепи', 'Напряжение сети', 'Сила тока, протекающего через дугу'], correct: 3 },
+      { q: 'Какое положение шва считается наиболее удобным для сварки?', options: ['Вертикальное', 'Горизонтальное на вертикальной плоскости', 'Потолочное', 'Нижнее'], correct: 3 },
+      { q: 'Как зажигается сварочная дуга?', options: ['Подачей газа', 'Автоматически', 'Нажатием кнопки', 'Касанием или чирканьем электрода об изделие'], correct: 3 },
+      { q: 'Что такое сварочная ванна?', options: ['Источник питания', 'Ёмкость с водой', 'Защитный экран', 'Объём расплавленного металла в зоне сварки'], correct: 3 },
+      { q: 'Для чего применяется колебательное движение электрода поперёк шва?', options: ['Для экономии электродов', 'Для охлаждения', 'Для красоты', 'Для получения шва нужной ширины и хорошего провара'], correct: 3 },
+      { q: 'Что такое подогрев перед сваркой?', options: ['Плавление электрода', 'Сушка деталей', 'Охлаждение металла', 'Нагрев металла для снижения скорости охлаждения и предотвращения трещин'], correct: 3 },
+      { q: 'Как влияет увеличение силы тока на глубину проплавления?', options: ['Зависит от погоды', 'Не влияет', 'Уменьшает', 'Увеличивает'], correct: 3 },
+      { q: 'Что такое многослойная сварка?', options: ['Газовая резка', 'Сварка одним слоем', 'Сварка без присадки', 'Сварка, при которой шов выполняется несколькими слоями'], correct: 3 },
+      { q: 'Какова оптимальная длина дуги?', options: ['Длина не имеет значения', 'Минимально возможная', 'Больше диаметра электрода', 'Примерно равна диаметру электрода'], correct: 3 }
+    ]
+  },
+  deformation: {
+    name: 'Деформации и напряжения',
+    questions: [
+      { q: 'Почему возникают сварочные деформации?', options: ['Из-за цвета металла', 'Из-за плохой погоды', 'Из-за неправильных электродов', 'Из-за неравномерного нагрева и охлаждения металла'], correct: 3 },
+      { q: 'Что такое остаточные сварочные напряжения?', options: ['Напряжение дуги', 'Напряжения при сварке', 'Напряжение в сети', 'Напряжения, остающиеся в изделии после сварки и охлаждения'], correct: 3 },
+      { q: 'Какой вид деформации наиболее распространён при сварке?', options: ['Скручивание', 'Увеличение объёма', 'Растяжение', 'Укорочение (усадка) металла шва'], correct: 3 },
+      { q: 'Как уменьшить сварочные деформации?', options: ['Не охлаждать изделие', 'Варить быстрее', 'Увеличить ток', 'Использовать правильную последовательность наложения швов'], correct: 3 },
+      { q: 'Что такое обратноступенчатый способ сварки?', options: ['Сварка сверху вниз', 'Сварка снизу вверх', 'Сварка в одном направлении', 'Разбивка шва на участки с их заваркой в направлении, обратном общему'], correct: 3 },
+      { q: 'Для чего применяется предварительный обратный выгиб?', options: ['Для охлаждения', 'Для увеличения деформации', 'Для красоты', 'Для компенсации ожидаемой угловой деформации'], correct: 3 },
+      { q: 'Что такое термообработка после сварки?', options: ['Механическая обработка', 'Охлаждение водой', 'Покраска изделия', 'Нагрев и выдержка для снятия остаточных напряжений'], correct: 3 },
+      { q: 'Как влияет жёсткое закрепление деталей на напряжения?', options: ['Устраняет напряжения', 'Не влияет', 'Уменьшает напряжения', 'Увеличивает остаточные напряжения'], correct: 3 },
+      { q: 'Какая деформация называется угловой?', options: ['Изгиб в плоскости', 'Скручивание', 'Удлинение', 'Изменение угла между свариваемыми элементами'], correct: 3 },
+      { q: 'Что такое проковка сварного шва?', options: ['Зачистка шва', 'Охлаждение водой', 'Нагрев шва', 'Механическая обработка шва ударами для снижения напряжений'], correct: 3 }
+    ]
+  },
+  defects: {
+    name: 'Дефекты и контроль',
+    questions: [
+      { q: 'Что такое пора в сварном шве?', options: ['Непровар', 'Трещина', 'Включение шлака', 'Полость округлой формы, заполненная газом'], correct: 3 },
+      { q: 'Что является причиной образования трещин в сварных швах?', options: ['Медленное охлаждение', 'Правильный режим сварки', 'Высокая пластичность', 'Высокие напряжения и наличие хрупких структур'], correct: 3 },
+      { q: 'Что такое непровар?', options: ['Пора', 'Трещина', 'Избыток металла', 'Несплавление основного металла с наплавленным или между слоями'], correct: 3 },
+      { q: 'Какой метод контроля позволяет обнаружить внутренние дефекты?', options: ['Осмотр невооружённым глазом', 'Визуальный осмотр', 'Измерение размеров', 'Рентгеновский или ультразвуковой контроль'], correct: 3 },
+      { q: 'Что такое подрез?', options: ['Пора', 'Трещина', 'Избыток металла', 'Углубление в основном металле вдоль границы шва'], correct: 3 },
+      { q: 'Для чего применяется визуальный контроль?', options: ['Для измерения температуры', 'Для определения химического состава', 'Для обнаружения внутренних дефектов', 'Для обнаружения наружных дефектов и оценки качества формирования шва'], correct: 3 },
+      { q: 'Что такое шлаковое включение?', options: ['Прожог', 'Газовый пузырь', 'Трещина', 'Частицы шлака, оставшиеся в металле шва'], correct: 3 },
+      { q: 'Какой дефект называется прожогом?', options: ['Пора', 'Трещина', 'Недостаточное проплавление', 'Сквозное проплавление с образованием отверстия'], correct: 3 },
+      { q: 'Что такое капиллярный метод контроля?', options: ['Измерение твёрдости', 'Ультразвуковой контроль', 'Рентгеновский контроль', 'Метод обнаружения поверхностных дефектов с помощью проникающих жидкостей'], correct: 3 },
+      { q: 'Какой дефект образуется при слишком большой силе тока?', options: ['Холодные трещины', 'Пористость', 'Непровар', 'Прожог или чрезмерное проплавление'], correct: 3 }
+    ]
+  },
+  final: {
+    name: 'Итоговый тест',
+    questions: [
+      { q: 'Что такое сварка плавлением?', options: ['Склеивание', 'Соединение давлением', 'Пайка', 'Соединение путём местного расплавления соединяемых частей'], correct: 3 },
+      { q: 'Какое сварное соединение обеспечивает наибольшую прочность?', options: ['Торцевое', 'Угловое', 'Нахлёсточное', 'Стыковое с полным проваром'], correct: 3 },
+      { q: 'Что является источником теплоты при дуговой сварке?', options: ['Химическая реакция', 'Газовое пламя', 'Трение', 'Электрическая дуга'], correct: 3 },
+      { q: 'Какая функция у покрытия электрода?', options: ['Охлаждение', 'Только эстетическая', 'Увеличение массы', 'Защита, стабилизация дуги, легирование'], correct: 3 },
+      { q: 'При какой полярности больше тепла выделяется на изделии?', options: ['Одинаково', 'Зависит от электрода', 'При обратной', 'При прямой'], correct: 3 },
+      { q: 'Какой дефект возникает при загрязнении кромок?', options: ['Укорочение шва', 'Перегрев', 'Прожог', 'Поры или шлаковые включения'], correct: 3 },
+      { q: 'Какой контроль обязателен для всех сварных соединений?', options: ['Разрушающий', 'Ультразвуковой', 'Рентгеновский', 'Визуально-измерительный'], correct: 3 },
+      { q: 'Чем определяется выбор диаметра электрода?', options: ['Временем года', 'Длиной шва', 'Цветом металла', 'Толщиной свариваемого металла и положением шва'], correct: 3 },
+      { q: 'Как называется область дуги с наивысшей температурой?', options: ['Сварочная ванна', 'Анодная область', 'Катодная область', 'Столб дуги'], correct: 3 },
+      { q: 'Какой газ поддерживает горение при газовой сварке?', options: ['Азот', 'Аргон', 'Ацетилен', 'Кислород'], correct: 3 },
+      { q: 'Что такое разделка кромок?', options: ['Окраска кромок', 'Зачистка после сварки', 'Резка металла', 'Подготовка кромок определённой формы для обеспечения провара'], correct: 3 },
+      { q: 'Как уменьшить угловую деформацию при сварке таврового соединения?', options: ['Увеличить скорость сварки', 'Охладить водой', 'Увеличить ток', 'Сваривать двусторонним швом или обратноступенчатым способом'], correct: 3 },
+      { q: 'Что такое механические испытания сварных соединений?', options: ['Магнитный контроль', 'Визуальный осмотр', 'Рентген', 'Испытания образцов на прочность, изгиб, ударную вязкость'], correct: 3 },
+      { q: 'Какое оборудование необходимо для MIG/MAG сварки?', options: ['Только электроды', 'Газовые баллоны без электричества', 'Только трансформатор', 'Полуавтомат с подачей проволоки и защитным газом'], correct: 3 },
+      { q: 'Что такое горячие трещины?', options: ['Поверхностные царапины', 'Трещины от холода', 'Трещины от удара', 'Трещины, образующиеся при высоких температурах во время кристаллизации'], correct: 3 },
+      { q: 'Какой метод применяется для снятия остаточных напряжений?', options: ['Дополнительная сварка', 'Увеличение тока', 'Быстрое охлаждение', 'Отпуск (термообработка)'], correct: 3 },
+      { q: 'Что означает маркировка электрода УОНИ 13/55?', options: ['Масса 13 г', 'Длина 55 см', 'Диаметр 13 мм', 'Тип Э55 (предел прочности 55 кгс/мм²), марка УОНИ 13'], correct: 3 },
+      { q: 'Для чего служит осушитель в газовой магистрали?', options: ['Для смешивания газов', 'Для повышения давления', 'Для нагрева газа', 'Для удаления влаги из газа'], correct: 3 },
+      { q: 'Какое основное требование безопасности при сварочных работах?', options: ['Работать во влажной одежде', 'Работать без защиты', 'Не проветривать помещение', 'Использовать средства защиты глаз, органов дыхания и кожи'], correct: 3 },
+      { q: 'Что определяет качество сварного соединения?', options: ['Прочность, герметичность, отсутствие дефектов', 'Скорость сварки', 'Только цвет шва', 'Только внешний вид'], correct: 0 }
+    ]
+  }
+};
+    
+    const shuffledQuestions = {};
+    
+    function shuffleArray(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+    
+    function prepareTest(testId) {
+      if (shuffledQuestions[testId]) return shuffledQuestions[testId];
+      const originalTest = tests[testId];
+      const testCopy = JSON.parse(JSON.stringify(originalTest));
+      testCopy.questions = testCopy.questions.map(question => {
+        const optionPairs = question.options.map((text, index) => ({
+          text,
+          isCorrect: index === question.correct
+        }));
+        const shuffledPairs = shuffleArray(optionPairs);
+        const newCorrectIndex = shuffledPairs.findIndex(pair => pair.isCorrect);
+        return {
+          q: question.q,
+          options: shuffledPairs.map(pair => pair.text),
+          correct: newCorrectIndex
+        };
+      });
+      shuffledQuestions[testId] = testCopy;
+      return testCopy;
+    }
+    
+    function resetPreparedTest(testId) {
+      delete shuffledQuestions[testId];
+    }
+    
+    let currentTest = null;
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedAnswer = null;
+    let answered = false;
+    
+    const STORAGE_KEYS = {
+      RESULTS: 'welding_test_results',
+      USER_ID: 'welding_user_id',
+      SESSION_ID: 'welding_session_id'
+    };
+    
+    function getUserId() {
+      let userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
+      if (!userId) {
+        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem(STORAGE_KEYS.USER_ID, userId);
+      }
+      return userId;
+    }
+    
+    function getSessionId() {
+      let sessionId = sessionStorage.getItem(STORAGE_KEYS.SESSION_ID);
+      if (!sessionId) {
+        sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        sessionStorage.setItem(STORAGE_KEYS.SESSION_ID, sessionId);
+      }
+      return sessionId;
+    }
+    
+    function loadUserResults() {
+      const userId = getUserId();
+      const allResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.RESULTS) || '{}');
+      resultsData = allResults[userId] || [];
+      return resultsData;
+    }
+    
+    function saveUserResults() {
+      const userId = getUserId();
+      const allResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.RESULTS) || '{}');
+      allResults[userId] = resultsData;
+      localStorage.setItem(STORAGE_KEYS.RESULTS, JSON.stringify(allResults));
+    }
+    
+    function clearAllData() {
+      if (confirm('Вы уверены, что хотите очистить всю историю результатов?')) {
+        const userId = getUserId();
+        const allResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.RESULTS) || '{}');
+        delete allResults[userId];
+        localStorage.setItem(STORAGE_KEYS.RESULTS, JSON.stringify(allResults));
+        resultsData = [];
+        updateStats();
+        renderHistory();
+      }
+    }
+    
+    const dataHandler = {
+      onDataChanged(data) {
+        const userId = getUserId();
+        const allResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.RESULTS) || '{}');
+        allResults[userId] = data;
+        localStorage.setItem(STORAGE_KEYS.RESULTS, JSON.stringify(allResults));
+        resultsData = data;
+        updateStats();
+        renderHistory();
+      }
+    };
+    
+    async function initApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (cfg) => {
+            config = { ...defaultConfig, ...cfg };
+            applyConfig();
+          },
+          mapToCapabilities: (cfg) => ({
+            recolorables: [
+              {
+                get: () => cfg.primary_color || defaultConfig.primary_color,
+                set: (v) => window.elementSdk.setConfig({ primary_color: v })
+              },
+              {
+                get: () => cfg.secondary_color || defaultConfig.secondary_color,
+                set: (v) => window.elementSdk.setConfig({ secondary_color: v })
+              },
+              {
+                get: () => cfg.accent_color || defaultConfig.accent_color,
+                set: (v) => window.elementSdk.setConfig({ accent_color: v })
+              },
+              {
+                get: () => cfg.text_color || defaultConfig.text_color,
+                set: (v) => window.elementSdk.setConfig({ text_color: v })
+              },
+              {
+                get: () => cfg.card_color || defaultConfig.card_color,
+                set: (v) => window.elementSdk.setConfig({ card_color: v })
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ['site_title', cfg.site_title || defaultConfig.site_title],
+            ['welcome_text', cfg.welcome_text || defaultConfig.welcome_text]
+          ])
+        });
+      }
+      
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize data SDK');
+          loadUserResults();
+        }
+      } else {
+        loadUserResults();
+      }
+
+      getSessionId();
+      
+      applyConfig();
+      updateStats();
+      renderHistory();
+    }
+    
+    function applyConfig() {
+      const title = document.getElementById('main-title');
+      const welcome = document.getElementById('welcome-text');
+      if (title) title.textContent = config.site_title || defaultConfig.site_title;
+      if (welcome) welcome.textContent = config.welcome_text || defaultConfig.welcome_text;
+    }
+    
+    function updateStats() {
+      const totalTests = resultsData.length;
+      const avgScore = totalTests > 0 
+        ? Math.round(resultsData.reduce((sum, r) => sum + (r.percentage || 0), 0) / totalTests) 
+        : 0;
+      const bestScore = totalTests > 0 
+        ? Math.max(...resultsData.map(r => r.percentage || 0)) 
+        : 0;
+      
+      document.getElementById('total-tests').textContent = totalTests;
+      document.getElementById('avg-score').textContent = avgScore + '%';
+      document.getElementById('best-score').textContent = bestScore + '%';
+    }
+    
+    function renderHistory() {
+      const container = document.getElementById('history-list');
+      if (!container) return;
+      
+      if (resultsData.length === 0) {
+        container.innerHTML = '<p class="text-gray-400 text-center py-8">У вас пока нет результатов. Пройдите первый тест!</p>';
+        return;
+      }
+      
+      const sorted = [...resultsData].sort((a, b) => new Date(b.completed_at) - new Date(a.completed_at)).slice(0, 10);
+      
+      container.innerHTML = sorted.map(r => {
+        const testInfo = tests[r.test_id];
+        const testName = testInfo ? testInfo.name : r.test_id;
+        const date = new Date(r.completed_at).toLocaleString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        const percentage = r.percentage || 0;
+        const colorClass = percentage >= 80 ? 'text-green-400' : percentage >= 60 ? 'text-yellow-400' : 'text-red-400';
+        
+        return `
+          <div class="history-item flex items-center justify-between p-4 rounded-xl transition-all">
+            <div>
+              <div class="font-medium text-white">${testName}</div>
+              <div class="text-sm text-gray-400">${date}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold ${colorClass}">${percentage}%</div>
+              <div class="text-sm text-gray-400">${r.score}/${r.total_questions}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function startTest(testId) {
+      const preparedTest = prepareTest(testId);
+      
+      currentTest = testId;
+      currentQuestionIndex = 0;
+      score = 0;
+      selectedAnswer = null;
+      answered = false;
+      
+      document.getElementById('main-menu').classList.add('hidden');
+      document.getElementById('test-screen').classList.remove('hidden');
+      document.getElementById('results-screen').classList.add('hidden');
+      
+      document.getElementById('test-name').textContent = preparedTest.name;
+      
+      showQuestion();
+    }
+    
+    function showQuestion() {
+      const test = shuffledQuestions[currentTest];
+      const question = test.questions[currentQuestionIndex];
+      const total = test.questions.length;
+      
+      document.getElementById('test-progress').textContent = `Вопрос ${currentQuestionIndex + 1} из ${total}`;
+      document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
+      document.getElementById('question-text').textContent = question.q;
+      
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = question.options.map((opt, idx) => `
+        <button onclick="selectAnswer(${idx})" id="option-${idx}" class="option-btn w-full text-left p-4 rounded-xl border border-white/20 hover:border-yellow-500 transition-all text-white">
+          <span class="inline-block w-8 h-8 rounded-full bg-white/5 text-center leading-8 mr-3 font-bold border border-white/10 text-white">${String.fromCharCode(65 + idx)}</span>
+          ${opt}
+        </button>
+      `).join('');
+      
+      document.getElementById('next-btn').classList.add('hidden');
+      document.getElementById('answer-feedback').textContent = '';
+      selectedAnswer = null;
+      answered = false;
+      
+      const card = document.getElementById('question-card');
+      card.classList.remove('fade-in');
+      void card.offsetWidth;
+      card.classList.add('fade-in');
+    }
+    
+    function selectAnswer(idx) {
+      if (answered) return;
+      
+      answered = true;
+      selectedAnswer = idx;
+      
+      const test = shuffledQuestions[currentTest];
+      const question = test.questions[currentQuestionIndex];
+      const correct = question.correct;
+      
+      question.options.forEach((_, i) => {
+        const btn = document.getElementById(`option-${i}`);
+        btn.classList.remove('selected');
+        if (i === correct) {
+          btn.classList.add('correct');
+        } else if (i === idx && i !== correct) {
+          btn.classList.add('incorrect');
+        }
+      });
+      
+      const feedback = document.getElementById('answer-feedback');
+      if (idx === correct) {
+        score++;
+        feedback.textContent = '✅ Верно!';
+        feedback.className = 'text-lg font-medium text-green-400';
+      } else {
+        feedback.textContent = '❌ Неверно';
+        feedback.className = 'text-lg font-medium text-red-400';
+      }
+      
+      document.getElementById('next-btn').classList.remove('hidden');
+      document.getElementById('next-btn').textContent = currentQuestionIndex < test.questions.length - 1 ? 'Далее →' : 'Завершить';
+    }
+    
+    async function nextQuestion() {
+      const test = shuffledQuestions[currentTest];
+      
+      if (currentQuestionIndex < test.questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        await showResults();
+      }
+    }
+    
+    async function showResults() {
+      const test = tests[currentTest];
+      const shuffledTest = shuffledQuestions[currentTest];
+      const total = shuffledTest.questions.length;
+      const percentage = Math.round((score / total) * 100);
+      
+      const result = {
+        test_id: currentTest,
+        test_name: test.name,
+        score: score,
+        total_questions: total,
+        percentage: percentage,
+        completed_at: new Date().toISOString(),
+        session_id: getSessionId()
+      };
+      
+      resultsData.push(result);
+      saveUserResults();
+      
+      if (window.dataSdk) {
+        const sdkResult = await window.dataSdk.create(result);
+        if (!sdkResult.isOk) {
+          console.error('Failed to save result via SDK');
+        }
+      }
+      
+      document.getElementById('test-screen').classList.add('hidden');
+      document.getElementById('results-screen').classList.remove('hidden');
+      
+      const scorePercent = document.getElementById('score-percent');
+      const scoreCircle = document.getElementById('score-circle');
+      const circumference = 2 * Math.PI * 90;
+      
+      let currentPercent = 0;
+      const interval = setInterval(() => {
+        currentPercent += 2;
+        if (currentPercent > percentage) currentPercent = percentage;
+        scorePercent.textContent = currentPercent + '%';
+        scoreCircle.style.strokeDashoffset = circumference - (circumference * currentPercent / 100);
+        
+        if (currentPercent >= percentage) clearInterval(interval);
+      }, 30);
+      
+      if (percentage >= 80) {
+        scoreCircle.style.stroke = '#10B981';
+      } else if (percentage >= 60) {
+        scoreCircle.style.stroke = '#F59E0B';
+      } else {
+        scoreCircle.style.stroke = '#EF4444';
+      }
+      
+      document.getElementById('correct-count').textContent = score;
+      document.getElementById('incorrect-count').textContent = total - score;
+      document.getElementById('total-count').textContent = total;
+      
+      const grade = document.getElementById('grade');
+      if (percentage >= 90) grade.textContent = 'Отлично (5)';
+      else if (percentage >= 75) grade.textContent = 'Хорошо (4)';
+      else if (percentage >= 60) grade.textContent = 'Удовлетворительно (3)';
+      else grade.textContent = 'Неудовлетворительно (2)';
+      
+      updateStats();
+      renderHistory();
+      
+      resetPreparedTest(currentTest);
+    }
+    
+    function retryTest() {
+      resetPreparedTest(currentTest);
+      startTest(currentTest);
+    }
+    
+    function goToMenu() {
+      document.getElementById('main-menu').classList.remove('hidden');
+      document.getElementById('test-screen').classList.add('hidden');
+      document.getElementById('results-screen').classList.add('hidden');
+    }
+    
+    initApp();
+
+    // ========== НИЖНЯЯ НАВИГАЦИЯ (ИСПРАВЛЕНО) ==========
+    const bottomNav = document.getElementById('cdsBottomNav');
+    const bottomWrapper = document.getElementById('cdsBottomWrapper');
+    
+    function applyNavOffset() {
+      if (!bottomNav) return;
+      bottomNav.classList.add('cds-fixed-bottom');
+      requestAnimationFrame(() => {
+        const h = bottomNav.offsetHeight || 90;
+        document.body.style.paddingBottom = (h + 24) + 'px';
+      });
+    }
+    
+    const navLinks = document.querySelectorAll('.cds-nav-link');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.classList.add('cds-active');
+      }
+      link.addEventListener('click', function() {
+        navLinks.forEach(l => l.classList.remove('cds-active'));
+        this.classList.add('cds-active');
+      });
+    });
+    
+    window.addEventListener('resize', applyNavOffset);
+    window.addEventListener('load', applyNavOffset);
+    applyNavOffset();
+  </script>
+ </body>
+</html>

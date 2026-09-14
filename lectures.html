@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магия дуги: от А до Я (узнай больше)</title>
+<link rel="icon" type="image/png" sizes="32x32" href="image/0.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0a1f2e, #03080f 90%);
+            color: #e0e9f5;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
+            background: rgba(18, 30, 41, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(74, 128, 184, 0.25);
+            justify-content: center;
+        }
+        .nav-item {
+            text-decoration: none;
+            color: #cbd5e6;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: #ffb08c;
+            border-bottom-color: #ff8a5c;
+        }
+
+        .page-header { margin-bottom: 2rem; }
+        .title-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,20,40,0.7);
+            margin-bottom: 0.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 700px) {
+            .title-section h1 { white-space: normal; font-size: 2rem; }
+        }
+        .subhead {
+            font-size: 1.2rem;
+            color: #b4d0f0;
+            border-left: 4px solid #ff8a5c;
+            padding-left: 1rem;
+        }
+
+        .content-area {
+            background: #f5faff;
+            color: #092033;
+            border-radius: 40px;
+            padding: 2.2rem;
+            margin: 2rem 0;
+            border: 1px solid white;
+            min-height: 60vh;
+        }
+
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; color: #022142; }
+        h3 { font-size: 1.5rem; margin: 1.8rem 0 1rem; color: #033063; }
+        h4 { font-size: 1.2rem; margin: 1.2rem 0 0.5rem; color: #04427c; }
+        
+        .definition-box {
+            background: #e1ebf7; padding: 1.5rem; border-radius: 28px;
+            border-left: 6px solid #ff6b4a; margin: 1.5rem 0;
+        }
+        
+  .char-list { 
+    list-style: none; 
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem;
+}
+
+.char-list li { 
+    margin-bottom: 0.5rem; 
+    display: flex; 
+    align-items: center;
+    gap: 0.8rem;
+    background: #eef4fd;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    word-break: break-word; 
+}
+    .char-list li i {
+            color: #ff6b4a;
+            width: 1.2rem;
+        }
+        
+        
+        .char-listt { 
+    list-style: none; 
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.char-listt li { 
+    display: flex; 
+    align-items: center;
+    gap: 0.8rem;
+    background: #eef4fd;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.char-listt li i {
+    color: #ff6b4a;
+    width: 1.2rem;
+    flex-shrink: 0;
+}
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .main-card {
+            background: #e1ebf7;
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #b3cef0;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+        }
+        .main-card:hover {
+            transform: translateY(-5px);
+            background: #d0e0f5;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.4);
+        }
+        .main-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #022142;
+            border-bottom: 2px solid #ff8a5c;
+            padding-bottom: 0.5rem;
+        }
+        .main-card ul {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+        .main-card li {
+            margin-bottom: 0.6rem;
+            color: #1f446b;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+        .main-card li i {
+            color: #ff6b4a;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            min-width: 1rem;
+        }
+        .main-card li span {
+            color: #033063;
+            font-weight: 500;
+        }
+        
+        .scheme-item-large {
+    background: #264a70;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 40px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0.2rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+        .glossary-alphabet {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: #dde5f0;
+            padding: 1rem;
+            border-radius: 50px;
+        }
+        .alpha-link {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #264a70;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .alpha-link:hover {
+            background: #ff8a5c;
+            transform: scale(1.1);
+        }
+        .glossary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .glossary-section {
+            scroll-margin-top: 2rem;
+        }
+        .section-letter {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #022142;
+            margin: 1rem 0 0.5rem 0;
+            border-bottom: 3px solid #ff8a5c;
+            padding-bottom: 0.3rem;
+        }
+        .term-row {
+            background: #eef4fd;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border: 1px solid #b3cef0;
+            transition: 0.2s;
+        }
+        .term-row:hover {
+            background: #e1ebf7;
+            transform: translateX(5px);
+            border-left: 4px solid #ff8a5c;
+        }
+        .term-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #022142;
+            min-width: 220px;
+        }
+        .term-desc {
+            color: #1d3853;
+            flex: 1;
+        }
+        @media (max-width: 700px) {
+            .term-row { flex-direction: column; gap: 0.3rem; }
+            .term-name { min-width: auto; }
+        }
+
+        .image-container {
+            margin: 1rem 0;
+            text-align: center;
+            background: #eef4fd;
+            padding: 0.8rem;
+            border-radius: 16px;
+            border: 1px solid #b3cef0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: #ff8a5c;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 12px;
+            border: 2px solid #264a70;
+        }
+        .image-container figcaption {
+            margin-top: 0.3rem;
+            font-size: 0.85rem;
+            color: #4a6b8a;
+            font-style: italic;
+        }
+        
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        .image-row .image-container {
+            flex: 1 1 200px;
+            margin: 0;
+        }
+
+        .compact-list {
+            list-style: none;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .compact-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            background: #eef4fd;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #b3cef0;
+            white-space: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .compact-list li::-webkit-scrollbar {
+            height: 4px;
+        }
+        .compact-list li::-webkit-scrollbar-thumb {
+            background: #264a70;
+            border-radius: 4px;
+        }
+        .compact-list .num {
+            font-weight: 700;
+            color: #ff6b4a;
+            min-width: 1.8rem;
+        }
+.numbered-list {
+    list-style: none;
+    counter-reset: step-counter;
+    margin: 1.2rem 0;
+}
+
+.numbered-list li {
+    counter-increment: step-counter;
+    margin-bottom: 1.5rem;
+    display: block; 
+}
+
+.numbered-list li .list-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.numbered-list li::before {
+    content: counter(step-counter) ".";
+    color: #ff6b4a;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+ .cds-bottom-wrapper {
+        position: relative;
+        width: 100%;
+        height: 70px;
+        display: block;
+    }
+    
+    .cds-bottom-nav {
+        position: static;
+        width: 100%;
+        background: #FFFFFF;
+        border-top: 1px solid #E2EEFF;
+        border-bottom: 1px solid #E2EEFF;
+        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.02);
+        transition: all 0.2s ease;
+        z-index: 999;
+        font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .cds-bottom-nav.cds-fixed-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid #CDE3FF;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .cds-nav-container {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0.6rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .cds-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: #1A2C3E;
+        padding: 0.5rem 0.8rem;
+        transition: 0.2s;
+        border-bottom: 2px solid transparent;
+        background: transparent;
+        font-family: inherit;
+        border-radius: 40px;
+    }
+    
+    .cds-nav-icon {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .cds-nav-link.cds-active {
+        color: #1E6AF5;
+        border-bottom-color: #1E6AF5;
+        font-weight: 600;
+        background: rgba(30, 106, 245, 0.08);
+    }
+    
+    .cds-nav-link:hover {
+        color: #0F5BE3;
+        border-bottom-color: #8ABDFF;
+        background: rgba(30, 106, 245, 0.05);
+    }
+    
+    @media (max-width: 860px) {
+        .cds-nav-container {
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+        }
+        .cds-nav-link {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.6rem;
+            gap: 5px;
+        }
+        .cds-nav-icon {
+            width: 18px;
+            height: 18px;
+        }
+    }
+    
+    @media (max-width: 560px) {
+        .cds-nav-container {
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cds-nav-link {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.5rem;
+            gap: 4px;
+        }
+        .cds-nav-icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+        .footer {
+            background-color: #0a2a44;
+            color: #eef4ff;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #cddfff;
+        }
+
+        .footer-left .college-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
+            transition: 0.2s ease;
+            text-decoration: none;
+            font-size: 1.7rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,210,0.3);
+        }
+
+        .social-icons a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+            border-color: white;
+        }
+
+        .social-icons span {
+            font-size: 1.7rem;
+            line-height: 1;
+            color: #f0f7ff;
+        }
+
+.numbered-list li > *:not(.list-header) {
+    margin-left: 0.5rem;
+}
+
+        .letter-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .letter-list li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+       
+        .components-list {
+            list-style: none;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .components-list li {
+            background: #eef4fd;
+            padding: 0.5rem 1.2rem 0.5rem 0.8rem;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid #b3cef0;
+            white-space: nowrap;
+        }
+        .components-list li::before {
+            content: attr(data-num) ".";
+            color: #ff6b4a;
+            font-weight: 700;
+            margin-right: 0.2rem;
+        }
+
+        .forces-styled {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+            background: #eef4fd;
+            padding: 1.5rem;
+            border-radius: 30px;
+            border-left: 6px solid #ff8a5c;
+        }
+        .force-styled-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #b3cef0;
+        }
+        .force-styled-item:last-child {
+            border-bottom: none;
+        }
+        .force-styled-item i {
+            color: #ff6b4a;
+            width: 2rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #ff8a5c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.2s;
+            z-index: 999;
+            border: 2px solid white;
+        }
+        .scroll-to-top:hover {
+            background: #ff6b4a;
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 3px solid #ff8a5c;
+            box-shadow: 0 0 40px rgba(255, 138, 92, 0.6);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: white;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 1001;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .close-modal:hover {
+            color: #ff8a5c;
+            transform: scale(1.2);
+        }
+        .modal-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.6);
+            padding: 0.5rem;
+            margin: 0 auto;
+            max-width: 80%;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #eef4fd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        th {
+            background: #264a70;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #b3cef0;
+            color: #1d3853;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        td:first-child {
+            font-weight: 600;
+            color: #022142;
+        }
+        .check-yes {
+            color: #2e7d32;
+            font-weight: 700;
+            text-align: center;
+        }
+        .check-no {
+            color: #c62828;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .formula {
+            background: #eef4fd;
+            padding: 1rem;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #022142;
+            margin: 1rem 0;
+            border: 1px solid #b3cef0;
+        }
+        .formula sub {
+            font-size: 0.9rem;
+        }
+
+        .zone-scheme {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .zone-item {
+            background: #eef4fd;
+            padding: 1rem;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 150px;
+            border: 1px solid #b3cef0;
+        }
+        .zone-item .zone-label {
+            font-weight: 700;
+            color: #022142;
+            margin-bottom: 0.5rem;
+        }
+        .zone-item .zone-value {
+            font-size: 1.2rem;
+            color: #ff6b4a;
+            font-weight: 600;
+        }
+        .zone-item .zone-desc {
+            font-size: 0.9rem;
+            color: #4a6b8a;
+            margin-top: 0.3rem;
+        }
+
+        .type-block {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #b3cef0;
+        }
+        .type-block:last-child {
+            border-bottom: none;
+        }
+        .type-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #022142;
+            margin-bottom: 0.5rem;
+        }
+ .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+    </style>
+</head>
+<body>
+    <!-- Якорь наверх -->
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+<div class="container">
+    <div class="navbar">
+        <span class="nav-item" data-page="main">ГЛАВНАЯ</span>
+        <span class="nav-item" data-page="chapter1">ГЛАВА 1</span>
+        <span class="nav-item" data-page="chapter2">ГЛАВА 2</span>
+        <span class="nav-item" data-page="chapter3">ГЛАВА 3</span>
+        <span class="nav-item" data-page="chapter4">ГЛАВА 4</span>
+        <span class="nav-item" data-page="chapter5">ГЛАВА 5</span>
+        <span class="nav-item" data-page="chapter6">ГЛАВА 6</span>
+        <span class="nav-item" data-page="glossary">ГЛОССАРИЙ</span>
+    </div>
+
+
+    <div class="page-header">
+        <div class="title-section">
+            <h1 id="main-title">Магия дуги: от А до Я (узнай больше)</h1>
+            <div class="subhead" id="main-subhead">полный курс сварочного дела</div>
+        </div>
+    </div>
+
+    <div class="content-area" id="content-area"></div>
+</div>
+
+<div class="modal" id="imageModal" onclick="closeModal()">
+    <span class="close-modal" onclick="closeModal(event)">&times;</span>
+    <img class="modal-content" id="modalImage" src="" alt="Увеличенное изображение">
+    <div class="modal-caption" id="modalCaption"></div>
+</div>
+
+<div class="cds-bottom-wrapper" id="cdsBottomWrapper">
+    <div class="cds-bottom-nav" id="cdsBottomNav">
+        <div class="cds-nav-container">
+            <a href="index.html" class="cds-nav-link" data-cds-nav="home">
+                <img src="image/icon/home.png" width="24" height="24" alt="Главная" class="cds-nav-icon">Главная
+            </a>
+            <a href="theory.html" class="cds-nav-link" data-cds-nav="theory">
+                <img src="image/icon/book.png" width="24" height="24" alt="Теория" class="cds-nav-icon">Теория
+            </a>
+            <a href="practice.html" class="cds-nav-link" data-cds-nav="practice">
+                <img src="image/icon/mask.png" width="24" height="24" alt="Практика" class="cds-nav-icon">Практика
+            </a>
+            <a href="test.html" class="cds-nav-link" data-cds-nav="control">
+                <img src="image/icon/test.png" width="24" height="24" alt="Контроль знаний" class="cds-nav-icon">Контроль знаний
+            </a>
+            <a href="help.html" class="cds-nav-link" data-cds-nav="compass">
+                <img src="image/icon/compass.png" width="24" height="24" alt="Компас достижений" class="cds-nav-icon">Компас достижений
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        
+        const bottomNav = document.getElementById('cdsBottomNav');
+        
+        function findFooter() {
+            return document.querySelector('footer') || document.querySelector('.footer') || document.querySelector('[data-footer]');
+        }
+        
+        function handleSticky() {
+            if (!bottomNav) return;
+            const footer = findFooter();
+            const scrollY = window.scrollY;
+            const documentHeight = document.documentElement.scrollHeight;
+            const viewportHeight = window.innerHeight;
+            const distanceToBottom = documentHeight - (scrollY + viewportHeight);
+            
+            if (footer) {
+                const footerHeight = footer.offsetHeight;
+                if (distanceToBottom <= footerHeight + 25) {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                } 
+                else if (scrollY > 150) {
+                    bottomNav.classList.add('cds-fixed-bottom');
+                } else {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                }
+            } else {
+                if (scrollY > 150) {
+                    bottomNav.classList.add('cds-fixed-bottom');
+                } else {
+                    bottomNav.classList.remove('cds-fixed-bottom');
+                }
+            }
+        }
+        
+        const navLinks = document.querySelectorAll('.cds-nav-link');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        function setActiveByUrl() {
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage || 
+                    (currentPage === 'index.html' && href === 'index.html') ||
+                    (href && href.includes(currentPage))) {
+                    link.classList.add('cds-active');
+                } else {
+                    link.classList.remove('cds-active');
+                }
+            });
+        }
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('cds-active'));
+                this.classList.add('cds-active');
+            });
+        });
+        
+        setActiveByUrl();
+        
+     
+        window.addEventListener('scroll', handleSticky);
+        window.addEventListener('resize', handleSticky);
+        handleSticky();
+        
+        
+        window.cdsBottomNav = {
+            refreshSticky: handleSticky,
+            setActiveByUrl: setActiveByUrl
+        };
+    })();
+</script>
+
+
+
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p class="college-name">Гродненский государственный колледж строительных технологий</p>
+            <p>© 2026 Цифровой ресурс «Сварочные работы»</p>
+        </div>
+        <div class="social-icons">
+             <a href="https://www.instagram.com/center_competence_ggkst/" target="_blank" title="Instagram"><span><img src="image/free-icon-instagram.png" width="50" height="50"></span></a>
+	     <a href="https://www.youtube.com/channel/UCt0fTSw7fW61BVlxsQMVsoQ" target="_blank" title="YouTube"><span><img src="image/free-icon-youtube.png" width="50" height="50"></span></a>
+	     <a href="https://vk.com/ggkst_1973" target="_blank" title="VK"><span><img src="image/free-icon-vk.png" width="50" height="50"></span></a>
+             <a href="https://ggkst.by/" target="_blank" title="Website"><span><img src="image/free-icon-web.png" width="50" height="50"></span></a>
+        </div>
+    </div>
+</footer>
+<script>
+   
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    
+    function openModal(imageSrc, caption) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        modalImg.src = imageSrc;
+        modalCaption.textContent = caption || '';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(event) {
+        if (event) event.stopPropagation();
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    const pages = {
+        main: {
+            title: 'Магия дуги: от А до Я (узнай больше)',
+            subhead: 'полный курс сварочного дела',
+            content: `
+                <div class="main-grid">
+                    <div class="main-card" onclick="switchPage('chapter1')">
+                        <h3>Раздел 1. Сварочная дуга</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>Определение. Электрические схемы дуговой сварки</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Возникновение дуги</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Схема строения сварочной дуги</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Схема горения сварочной дуги</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="main-card" onclick="switchPage('chapter2')">
+                        <h3>Раздел 2. Процессы в сварочной дуге</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>Физические процессы в дуге</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Условия устойчивого горения дуги</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Тепловые свойства сварочной дуги</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Падение напряжения в дуге</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Особенности сварочной дуги</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="main-card" onclick="switchPage('chapter3')">
+                        <h3>Раздел 3. Классификация сварочной дуги</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>По подключению к источнику питания</span></li>
+                            <li><i class="fas fa-circle"></i> <span>По применяемым электродам</span></li>
+                            <li><i class="fas fa-circle"></i> <span>По степени сжатия</span></li>
+                            <li><i class="fas fa-circle"></i> <span>По полярности постоянного тока</span></li>
+                            <li><i class="fas fa-circle"></i> <span>По длине</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="main-card" onclick="switchPage('chapter4')">
+                        <h3>Раздел 4. Вольтамперная характеристика</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>Определение</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Области вольтамперной характеристики</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Соответствие статической ВАХ способу сварки</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Зависимость напряжения от ...</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="main-card" onclick="switchPage('chapter5')">
+                        <h3>Раздел 5. Магнитное дутье</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>Определение</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Причины возникновения</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Меры предотвращения</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Полезное действие магнитного дутья</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="main-card" onclick="switchPage('chapter6')">
+                        <h3>Раздел 6. Перенос электродного металла</h3>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> <span>Основные понятия</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Стадии процесса плавления электрода и основного металла</span></li>
+                            <li><i class="fas fa-circle"></i> <span>Виды переноса электродного металла</span></li>
+                        </ul>
+                    </div>
+                </div>
+               <div style="margin-top: 2rem; text-align: center;">
+    <span class="scheme-item-large" onclick="switchPage('glossary')">ПЕРЕЙТИ К ГЛОССАРИЮ</span>
+</div>
+            `
+        },
+        chapter1: {
+            title: 'Раздел 1. Сварочная дуга',
+            subhead: 'Определение. Схемы. Возникновение. Строение. Горение',
+            content: `
+                <h2>1. Определение. Электрические схемы дуговой сварки</h2>
+                
+                <p><strong>Электрической дугой</strong> называется длительный электрический разряд, происходящий в газовом ионизированном промежутке между двумя находящимися под напряжением электродами и сопровождающийся выделениями тепла и света.</p>
+                
+                <p><strong>Сварочной дугой</strong> называется устойчивый электрический разряд в ионизированной смеси газов и паров материалов, используемых при сварке.</p>
+                
+                <p><strong>Сварочная дуга характеризуется:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-bolt"></i> большой плотностью тока</li>
+                    <li><i class="fas fa-temperature-high"></i> высокой температурой</li>
+                    <li><i class="fas fa-sun"></i> сильным свечением</li>
+                </ul>
+                
+                <p><strong>Электрические схемы дуговой сварки:</strong></p>
+                
+                <div class="type-block">
+                    <div class="type-title">1. Плавящимся электродом (способ Н.Г. Славянова)</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/ERu4bNI.jpg', 'Сварка плавящимся электродом (способ Н.Г. Славянова)')">
+                        <img src="https://i.imgur.com/ERu4bNI.jpg" alt="Сварка плавящимся электродом" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Сварка плавящимся электродом</figcaption>
+                    </div>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">2. Неплавящимся электродом (способ Н.Н. Бенардоса)</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/EVjwbpC.jpg', 'Сварка неплавящимся электродом (способ Н.Н. Бенардоса)')">
+                        <img src="https://i.imgur.com/EVjwbpC.jpg" alt="Сварка неплавящимся электродом" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Сварка неплавящимся электродом</figcaption>
+                    </div>
+                </div>
+                
+                <p><strong>Компоненты сварочной цепи:</strong></p>
+                <ul class="components-list">
+                    <li data-num="1">Источники питания дуги постоянным или переменным током</li>
+                    <li data-num="2">Сварочный кабель</li>
+                    <li data-num="3">Электрододержатель</li>
+                    <li data-num="4">Плавящийся электрод</li>
+                    <li data-num="5">Источники питания дуги постоянным током</li>
+                    <li data-num="6">Неплавящийся электрод</li>
+                    <li data-num="7">Клемма заземления</li>
+                    <li data-num="8">Сварочная дуга</li>
+                    <li data-num="9">Капля электродного металла</li>
+                    <li data-num="10">Присадочный материал</li>
+                    <li data-num="11">Основной металл</li>
+                    <li data-num="12">Сварочная ванна</li>
+                </ul>
+                
+                <h3>2. Возникновение дуги</h3>
+                
+                <ol class="numbered-list">
+                    <li>
+                        <strong>Режим холостого хода</strong>
+                    </li>
+                    <li>
+                        <strong>Режим короткого замыкания</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/M7ZDPWL.jpg', 'Режим короткого замыкания')">
+                            <img src="https://i.imgur.com/M7ZDPWL.jpg" alt="Режим короткого замыкания" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Режим короткого замыкания</figcaption>
+                        </div>
+                        <p>Зажигание дуги начинается с короткого замыкания электрода с основным металлом.</p>
+                    </li>
+                    <li>
+                        <strong>Образование жидкой прослойки и шейки</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/D7HzleX.jpg', 'Образование жидкой прослойки и шейки')">
+                            <img src="https://i.imgur.com/D7HzleX.jpg" alt="Образование жидкой прослойки" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Образование жидкой прослойки и шейки</figcaption>
+                        </div>
+                        <p>Из-за шероховатости поверхности электрода касание при коротком замыкании происходит отдельными выступающими участками, которые мгновенно расплавляются под действием выделяющейся теплоты, образуя жидкую перемычку (прослойку) и шейку между основным металлом и электродом. При отводе электрода жидкая перемычка растягивается, сечение ее уменьшается, электрическое сопротивление и температура возрастают.</p>
+                    </li>
+                    <li>
+                        <strong>Возникновение дуги</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/djUceNx.jpg', 'Возникновение дуги')">
+                            <img src="https://i.imgur.com/djUceNx.jpg" alt="Возникновение дуги" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Возникновение дуги</figcaption>
+                        </div>
+                        <p>Когда расплавленный металл перемычки достигает температуры кипения, пары металла легко ионизируются и возникает дуга. Образуются капли электродного металла. Возникновение дуги длится доли секунды.</p>
+                    </li>
+                </ol>
+                
+                <h3>3. Схема строения сварочной дуги</h3>
+                
+                <p>В промежутке между электродом и поверхностью основного металла можно выделить три области:</p>
+                
+                <ul class="char-list">
+                    <li><i class="fas fa-minus-circle"></i> <strong>катодную</strong> - l<sub>к</sub></li>
+                    <li><i class="fas fa-plus-circle"></i> <strong>анодную</strong> - l<sub>а</sub></li>
+                    <li><i class="fas fa-grip-lines-vertical"></i> <strong>столб дуги</strong> - l<sub>ст</sub></li>
+                </ul>
+                
+                <p>В этих областях наблюдается значительное падение напряжения, вызванное образованием около электродов пространственных зарядов (скопление заряженных частиц). Столб дуги расположен между катодной и анодной областями.</p>
+                
+                <div class="formula">
+                    L<sub>д</sub> = l<sub>к</sub> + l<sub>а</sub> + l<sub>ст</sub>
+                </div>
+                
+                <p>При ручной дуговой сварке общая длина дуги составляет <strong>3-5 мм</strong>.</p>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/HmfqreY.jpg', 'Схема строения сварочной дуги')">
+                    <img src="https://i.imgur.com/HmfqreY.jpg" alt="Строение сварочной дуги" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Схема строения сварочной дуги</figcaption>
+                </div>
+                
+                <h3>4. Схема горения сварочной дуги</h3>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/fubZoEw.jpg', 'Схема горения сварочной дуги')">
+                    <img src="https://i.imgur.com/fubZoEw.jpg" alt="Горение сварочной дуги" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Схема горения сварочной дуги</figcaption>
+                </div>
+            `
+        },
+        chapter2: {
+            title: 'Раздел 2. Процессы в сварочной дуге',
+            subhead: 'Физические процессы. Устойчивость. Тепловые свойства. Падение напряжения',
+            content: `
+                <h2>1. Физические процессы в дуге</h2>
+                
+                <p>Газы (в том числе и воздух) в обычных условиях не проводят электрический ток.</p>
+                
+                <p>Для образования и поддержания горения сварочной дуги необходимо в пространстве между электродами иметь электрически заряженные частицы (положительные и отрицательные ионы и электроны).</p>
+                
+                <p>Если к атому или группе атомов приложить энергию, то можно получить свободные электроны и газ начинает проводить ток, так как отрицательные электроны движутся к положительному полюсу источника тока - аноду, а положительные ионы - к катоду.</p>
+                
+                <p><strong>Процесс образования электронов и ионов называется ионизацией</strong>, а газ, содержащий электроны и ионы, ионизированным.</p>
+                
+                <p>Ионизацию можно выразить уравнением:</p>
+                <div class="formula">
+                    A° → A<sup>+</sup> + e<sup>-</sup>
+                </div>
+                <p>где A° - нейтральный атом; A<sup>+</sup> - положительный ион; e<sup>-</sup> - свободный электрон.</p>
+                
+                <p>Ионизация дугового промежутка происходит во время зажигания дуги за счет эмиссии электронов с катода и непрерывно поддерживается в процессе горения. Чем выше степень ионизации и больше свободных носителей электричества в дуге, тем более устойчиво она горит.</p>
+                
+                <p><strong>Различают три вида ионизации:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-bolt"></i> ионизация соударением</li>
+                    <li><i class="fas fa-sun"></i> ионизация облучением (фотоионизация)</li>
+                    <li><i class="fas fa-fire"></i> нагревом (термоионизация)</li>
+                </ul>
+                
+                <p>Поставщиком свободных электронов в дугу является процесс эмиссии.</p>
+                
+                <p><strong>Эмиссия</strong> - это выделение электронов с поверхности катода.</p>
+                
+                <p><strong>Различают три вида эмиссии:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-fire"></i> термоэлектронную</li>
+                    <li><i class="fas fa-bolt"></i> автоэлектронную</li>
+                    <li><i class="fas fa-bowling-ball"></i> эмиссию соударения</li>
+                </ul>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/88PuDgD.jpg', 'Процессы эмиссии и ионизации в дуге')">
+                    <img src="https://i.imgur.com/88PuDgD.jpg" alt="Процессы эмиссии и ионизации" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Процессы эмиссии и ионизации в дуге</figcaption>
+                </div>
+                
+                <p>Положительные ионы движутся к катоду, выбивают из него электроны, при этом часть положительных ионов, соединяясь с электронами, образуют нейтральные атомы. Этот процесс называется <strong>рекомбинацией</strong>.</p>
+                
+                <h3>2. Условия устойчивого горения дуги</h3>
+                
+                <p>Сварочная дуга, горящая равномерно, без произвольных обрывов, с незначительным произвольным изменением величины тока в ней, называется <strong>устойчивой</strong>.</p>
+                
+                <p>Сварочная дуга называется <strong>неустойчивой</strong>, если она горит неравномерно, часто обрывается и гаснет, если произвольные изменения величины тока в ней значительны.</p>
+                
+                <p><strong>Устойчивое горение дуги зависят от факторов:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-paint-brush"></i> Состава обмазки при сварке штучными электродами</li>
+                    <li><i class="fas fa-bolt"></i> Рода тока (постоянный или переменный)</li>
+                    <li><i class="fas fa-exchange-alt"></i> Полярности (прямой или обратной)</li>
+                    <li><i class="fas fa-ruler"></i> Диаметра электрода</li>
+                    <li><i class="fas fa-thermometer-half"></i> Температуры окружающей среды</li>
+                </ul>
+                
+                <p><strong>Условия устойчивого горения дуги:</strong></p>
+                <ol class="numbered-list">
+                    <li><strong>Введение в дугу элементов с низким потенциалом ионизации</strong> (вводят через электронное покрытие - Ca, K, Na).</li>
+                    <li><strong>Напряжение холостого хода источника питания должно быть больше напряжения дуги.</strong></li>
+                    <li><strong>Поддержание постоянной температуры нагрева катода.</strong></li>
+                </ol>
+                
+                <h3>3. Тепловые свойства сварочной дуги</h3>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/HmfqreY.jpg', 'Тепловые свойства дуги')">
+                    <img src="https://i.imgur.com/HmfqreY.jpg" alt="Тепловые свойства дуги" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Распределение тепла в сварочной дуге</figcaption>
+                </div>
+                
+                <p>При питании дуги постоянным током небольшое количество тепла выделяется:</p>
+                <ul class="char-list">
+                    <li><i class="fas fa-plus-circle"></i> в зоне анода (42-43%)</li>
+                    <li><i class="fas fa-minus-circle"></i> в катодной зоне (36-38%)</li>
+                    <li><i class="fas fa-grip-lines-vertical"></i> в столбе дуги (20-21%)</li>
+                </ul>
+                
+                <p>Количество тепла, используемое на нагрев и плавку свариваемого металла в единицу времени, называется <strong>тепловой мощностью дуги</strong>.</p>
+                
+                <h4>Катодная область (l<sub>к</sub>)</h4>
+                
+                <p>Процессы, протекающие в области катодного падения напряжения, играют важную роль в сварочных процессах.</p>
+                
+                <p>Область катодного падения напряжения - источник первичных электронов, которые поддерживают газы дугового промежутка в возбужденном ионизированном состоянии и переносят на себе в силу большой подвижности основную массу заряда.</p>
+                
+                <p>Отрыв электронов с поверхности катода вызывается термоэлектронной и автоэлектронной эмиссией.</p>
+                
+                <p><strong>Схема процесса:</strong></p>
+                <ol class="numbered-list">
+                    <li><strong>Электроны, излучаясь с поверхности катода, получают ускорения, необходимые для ионизации молекул и атомов газа.</strong> Величина катодного падения напряжения зависит от потенциала ионизации газа и бывает 10-16 В.</li>
+                    <li><strong>Вследствие малой толщины катодной зоны (около 10<sup>-5</sup> см) электроны и ионы в ней движутся без столкновений</strong> и она приблизительно равна свободному пробегу электрона.</li>
+                    <li><strong>С увеличением плотности тока температура катодной области повышается.</strong> (3 000° С)</li>
+                </ol>
+                
+                <h4>Столб дуги (l<sub>ст</sub>)</h4>
+                
+                <p>В столбе дуги имеются три рода заряженных частиц:</p>
+                <ul class="char-list">
+                    <li><i class="fas fa-minus-circle"></i> электроны</li>
+                    <li><i class="fas fa-plus-circle"></i> положительные ионы</li>
+                    <li><i class="fas fa-circle"></i> отрицательные ионы</li>
+                </ul>
+                
+                <p>Столб дуги можно считать нейтральным, так как сумма зарядов отрицательных частиц равна сумме зарядов положительных частиц.</p>
+                
+                <p><strong>Столб дуги характеризуется:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-plus"></i> образованием заряженных частиц</li>
+                    <li><i class="fas fa-sync-alt"></i> воссоединением заряженных частиц в нейтральные атомы (рекомбинация)</li>
+                </ul>
+                
+                <p>Поток электронов через слой газов разрядного промежутка вызывает в основном упругие соударения с молекулами и атомами газа, вследствие чего создаётся высокая температура (7 000° С).</p>
+                
+                <p><strong>Температура столба дуги зависит от:</strong></p>
+                <ul class="char-list">
+                    <li><i class="fas fa-wind"></i> состава газов</li>
+                    <li><i class="fas fa-paint-brush"></i> типа электродных покрытий</li>
+                    <li><i class="fas fa-exchange-alt"></i> полярности. При обратной полярности температура столба дуги выше</li>
+                    <li><i class="fas fa-bolt"></i> величины сварочного тока (с увеличением тока температура повышается)</li>
+                </ul>
+                
+                <h4>Анодная область (l<sub>а</sub>)</h4>
+                
+                <p>Анодная область имеет большую протяженность и меньший градиент напряжения, чем катодная область.</p>
+                
+                <p>Падение напряжения в анодной области создается в результате извлечения электронов из столба дугового разряда и ускорением при входе их в анод.</p>
+                
+                <p>Электрон, попавший на анодную поверхность, отдает металлу не только запас кинетической энергии, но и энергию работы выхода, поэтому анод получает энергию от столба дуги не только в виде потока электронов, но и в виде теплового излучения. Вследствие этого температура анода всегда выше (4 000°С) и на нем выделяется больше тепла.</p>
+                
+                <div class="zone-scheme">
+                    <div class="zone-item">
+                        <div class="zone-label">Катодная зона</div>
+                        <div class="zone-value">3 000°C</div>
+                        <div class="zone-desc">Uк = 10-16 В</div>
+                    </div>
+                    <div class="zone-item">
+                        <div class="zone-label">Столб дуги</div>
+                        <div class="zone-value">7 000°C</div>
+                        <div class="zone-desc">Uст = 2-12 В</div>
+                    </div>
+                    <div class="zone-item">
+                        <div class="zone-label">Анодная зона</div>
+                        <div class="zone-value">4 000°C</div>
+                        <div class="zone-desc">Uа = 6-8 В</div>
+                    </div>
+                </div>
+                
+                <h3>4. Падение напряжения в дуге</h3>
+                
+                <ul class="char-listt">
+                    <li><i class="fas fa-minus-circle"></i> <strong>В катодной зоне</strong> - U<sub>к</sub> = 10 - 16 В (связано с затратами на эмиссию и разгон электронов)</li>
+                    <li><i class="fas fa-plus-circle"></i> <strong>В анодной зоне</strong> - U<sub>а</sub> = 6 - 8 В (связано с затратами энергии на бомбардировку анода электронами и на их нейтрализацию)</li>
+                    <li><i class="fas fa-grip-lines-vertical"></i> <strong>В столбе дуги</strong> - U<sub>ст</sub> = 2 - 12 В (связано с увеличением длины дуги)</li>
+                </ul>
+                
+                <div class="formula">
+                    U<sub>д</sub> = U<sub>к</sub> + U<sub>ст</sub> + U<sub>а</sub> = 18 - 36 В
+                </div>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/XQ5DI2p.jpg', 'Падение напряжения в дуге')">
+                    <img src="https://i.imgur.com/XQ5DI2p.jpg" alt="Падение напряжения в дуге" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Распределение падения напряжения в сварочной дуге</figcaption>
+                </div>
+                
+                <h3>5. Особенности сварочной дуги</h3>
+                
+                <ol class="numbered-list">
+                    <li><strong>Неравномерное распределение электрического поля в междуэлектродном пространстве.</strong></li>
+                    <li><strong>Высокая плотность тока в дуге.</strong></li>
+                    <li><strong>Высокая температура дуги.</strong></li>
+                    <li><strong>Возможность получения различных статических вольтамперных характеристик.</strong></li>
+                </ol>
+            `
+        },
+        chapter3: {
+            title: 'Раздел 3. Классификация сварочной дуги',
+            subhead: 'По подключению. По электродам. По сжатию. По полярности. По длине',
+            content: `
+                <h2>1. По подключению к источнику питания</h2>
+                
+                <div class="type-block">
+                    <div class="type-title">Дуга прямого действия</div>
+                    <p>Дуговой разряд проходит между электродом и изделием.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/Vo5dxLQ.jpg', 'Дуга прямого действия')">
+                        <img src="https://i.imgur.com/Vo5dxLQ.jpg" alt="Дуга прямого действия" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Дуга прямого действия</figcaption>
+                    </div>
+                    <p>Используется при дуговой сварке покрытыми электродами, при сварке неплавящимся электродом в защитных газах, при сварке плавящимся электродом под флюсом или в защитных газах.</p>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Дуга косвенного действия</div>
+                    <p>Дуговой разряд происходит между двумя электродами.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/L4Guex1.jpg', 'Дуга косвенного действия')">
+                        <img src="https://i.imgur.com/L4Guex1.jpg" alt="Дуга косвенного действия" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Дуга косвенного действия</figcaption>
+                    </div>
+                    <p>Используется при специальных видах сварки и атомно-водородной сварке и наплавке.</p>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Дуга комбинированного действия</div>
+                    <p>Дуговой разряд проходит между двумя электродами и изделием.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/DddauDb.jpg', 'Дуга комбинированного действия')">
+                        <img src="https://i.imgur.com/DddauDb.jpg" alt="Дуга комбинированного действия" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Дуга комбинированного действия</figcaption>
+                    </div>
+                    <p>Используется при сварке спиралешовных труб на станках автоматической сварки под флюсом.</p>
+                </div>
+                
+                <h2>2. По применяемым электродам</h2>
+                
+                <div class="type-block">
+                    <div class="type-title">Дуга при плавящемся электроде</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/y1W4tsg.jpg', 'Плавящийся электрод')">
+                        <img src="https://i.imgur.com/y1W4tsg.jpg" alt="Плавящийся электрод" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Дуга при плавящемся электроде</figcaption>
+                    </div>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Дуга при неплавящемся электроде</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/mpkkmP5.jpg', 'Неплавящийся электрод')">
+                        <img src="https://i.imgur.com/mpkkmP5.jpg" alt="Неплавящийся электрод" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Дуга при неплавящемся электроде</figcaption>
+                    </div>
+                </div>
+                
+                <h2>3. По степени сжатия</h2>
+                
+                <div class="type-block">
+                    <div class="type-title">Свободная дуга</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/BvzbQL7.jpg', 'Свободная дуга')">
+                        <img src="https://i.imgur.com/BvzbQL7.jpg" alt="Свободная дуга" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Свободная дуга</figcaption>
+                    </div>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Сжатая дуга</div>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/fhUo6xs.jpg', 'Сжатая дуга')">
+                        <img src="https://i.imgur.com/fhUo6xs.jpg" alt="Сжатая дуга" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Сжатая дуга</figcaption>
+                    </div>
+                </div>
+                
+                <h2>4. По полярности постоянного тока</h2>
+                
+          <ul class="char-listt">
+                    <li><i class="fas fa-plus-circle"></i> <strong>Прямая полярность</strong> — электрод (-), изделие (+)</li>
+                    <li><i class="fas fa-minus-circle"></i> <strong>Обратная полярность</strong> — электрод (+), изделие (-)</li>
+                </ul>
+                
+                <h2>5. По длине</h2>
+                
+                <div class="type-block">
+                    <div class="type-title">Короткая дуга</div>
+                    <p>Длина дуги l<sub>д</sub> = 2 - 4 мм.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/SJP0Ufh.jpg', 'Короткая дуга')">
+                        <img src="https://i.imgur.com/SJP0Ufh.jpg" alt="Короткая дуга" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Короткая дуга</figcaption>
+                    </div>
+                    <p>Дуга горит неустойчиво, гаснет, электрод "залипает".</p>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Нормальная дуга</div>
+                    <p>Длина дуги l<sub>д</sub> = 4 - 6 мм.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/5ZAgLt0.jpg', 'Нормальная дуга')">
+                        <img src="https://i.imgur.com/5ZAgLt0.jpg" alt="Нормальная дуга" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Нормальная дуга</figcaption>
+                    </div>
+                    <p>Дуга горит устойчиво и обеспечивает стабильный процесс сварки.</p>
+                </div>
+                
+                <div class="type-block">
+                    <div class="type-title">Длинная дуга</div>
+                    <p>Длина дуги свыше 6 мм.</p>
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/7ewDjJu.jpg', 'Длинная дуга')">
+                        <img src="https://i.imgur.com/7ewDjJu.jpg" alt="Длинная дуга" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Длинная дуга</figcaption>
+                    </div>
+                    <p>Дуга горит неустойчиво, шов имеет неровную поверхность, наплавленный металл пористый. Снижается производительность сварки, увеличивается разбрызгивание металла и количество непроваров или неполного сплавления наплавленного металла с основным.</p>
+                </div>
+            `
+        },
+        chapter4: {
+            title: 'Раздел 4. Вольтамперная характеристика',
+            subhead: 'Определение. Области. Соответствие. Зависимости',
+            content: `
+                <h2>1. Определение</h2>
+                
+                <p>Для возбуждения (зажигания) дуги в начальный момент требуется несколько большее напряжение, чем при ее последующем горении, так как, при возбуждении дуги воздушный зазор недостаточно нагрет, степень ионизации недостаточно высока и необходимо большее напряжение, способное сообщить свободным электронам достаточно большую энергию, чтобы при их столкновении с атомами газового промежутка могла пройти ионизация.</p>
+                
+                <p>Увеличение концентрации свободных электронов в объеме дуги приводит к интенсивной ионизации дугового промежутка, а отсюда - к повышению его электропроводности.</p>
+                
+                <p>Вследствии этого напряжение тока падает до значения, которое необходимо для устойчивого горения дуги.</p>
+                
+                <p><strong>Зависимость напряжения дуги от тока в сварочной цепи, при условии постоянной длинны дуги, называют статической вольтамперной характеристикой дуги.</strong></p>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/3eJFeNA.jpg', 'Статическая вольтамперная характеристика дуги')">
+                    <img src="https://i.imgur.com/3eJFeNA.jpg" alt="Вольтамперная характеристика" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Статическая вольтамперная характеристика дуги</figcaption>
+                </div>
+                
+                <h3>2. Области вольтамперной характеристики</h3>
+                
+                <ul class="char-list">
+                    <li><i class="fas fa-chart-area"></i> <strong>I область - падающая</strong></li>
+                    <li><i class="fas fa-chart-line"></i> <strong>II область - жесткая</strong></li>
+                    <li><i class="fas fa-chart-line"></i> <strong>III область - возрастающая</strong></li>
+                </ul>
+                
+                <p><strong>Падающей вольтамперной характеристике соответствует область I.</strong> Это область малых токов (до 100А), поскольку с увеличением тока увеличивается объем разогретого газа (увеличивается площадь сечения столба дуги) и степень его ионизации, электрическая проводимость дуги при этом возрастает, а сопротивление столба дуги уменьшается. В результате падает нужное для поддержания разряда напряжение. Сварочная дуга, имеющая падающую вольтамперную характеристику, обладает малой устойчивостью.</p>
+                
+                <p><strong>Жесткой вольтамперной характеристике соответствует область II.</strong> В этой области при дальнейшем увеличении тока столб дуги несколько сжимается и объем газа, участвующего в переносе зарядов уменьшается. Это приводит к уменьшению скорости образования заряженных частиц. Напряжение дуги становится мало зависящим от тока.</p>
+                
+                <p><strong>Возрастающей вольтамперной характеристике соответствует область III.</strong> Это область больших токов, и степень ионизации здесь очень высока. С увеличением силы тока происходит интенсивное сжатие столба дуги, его напряжение увеличивается.</p>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/Ck1FAdC.jpg', 'Области вольтамперной характеристики')">
+                    <img src="https://i.imgur.com/Ck1FAdC.jpg" alt="Области ВАХ" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Области вольтамперной характеристики</figcaption>
+                </div>
+                
+                <h3>3. Соответствие статической вольтамперной характеристики дуги способу сварки</h3>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Способ сварки</th>
+                                <th>Падающая</th>
+                                <th>Жесткая</th>
+                                <th>Возрастающая</th>
+                                <th>Примечание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Сварка неплавящимся электродом в среде защитных газов</td>
+                                <td class="check-yes">+</td>
+                                <td class="check-yes">+</td>
+                                <td class="check-no"></td>
+                                <td>Малый сварочный ток, большой диаметр электрода</td>
+                            </tr>
+                            <tr>
+                                <td>Автоматическая сварка под слоем флюса</td>
+                                <td class="check-no"></td>
+                                <td class="check-yes">+</td>
+                                <td class="check-yes">+</td>
+                                <td>Больший сварочный ток, большой диаметр электрода</td>
+                            </tr>
+                            <tr>
+                                <td>Механизированная сварка плавящимся электродом в среде защитных газов</td>
+                                <td class="check-no"></td>
+                                <td class="check-no"></td>
+                                <td class="check-yes">+</td>
+                                <td>Большой сварочный ток, малый диаметр электрода</td>
+                            </tr>
+                            <tr>
+                                <td>Ручная дуговая сварка покрытыми электродами</td>
+                                <td class="check-yes">+</td>
+                                <td class="check-yes">+</td>
+                                <td class="check-no"></td>
+                                <td>Малый сварочный ток, большой диаметр электрода</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <p>Падающую характеристику обычно имеет дуга при ручной дуговой сварке покрытыми электродами и неплавящимся электродом в среде защитных газов, потому, что сила тока для этих способов сварки невелика а диаметр электрода достаточно велик (3 - 4 мм). Вследствие этого плотности тока невысокие.</p>
+                
+                <p>При сварке под флюсом из-за увеличения силы тока возрастает его плотность, и характеристика дуги становится жесткой.</p>
+                
+                <p>При механизированной сварке плавящимся электродом в среде защитных газов применяются проволоки малого диаметра (d=1,2;1,6 мм), поэтому плотности тока примерно в 10 раз выше, чем для ручной дуговой сварки. Характеристика дуги в этом случае возрастающая.</p>
+                
+                <div class="image-row">
+                    <div class="image-container" onclick="openModal('https://i.imgur.com/UGB482i.jpg', 'Соответствие ВАХ способам сварки')">
+                        <img src="https://i.imgur.com/UGB482i.jpg" alt="Характеристики сварки" onerror="this.parentElement.style.display='none'">
+                        <figcaption>Соответствие ВАХ способам сварки</figcaption>
+                    </div>
+                </div>
+                
+                <h3>4. Зависимость напряжения от ...</h3>
+                
+                <p>Напряжение, необходимое для возбуждения дуги, зависит от факторов:</p>
+                
+                <ul class="char-list">
+                    <li><i class="fas fa-bolt"></i> рода тока (постоянный или переменный)</li>
+                    <li><i class="fas fa-ruler"></i> дугового промежутка</li>
+                    <li><i class="fas fa-ruler"></i> материала электрода</li>
+                    <li><i class="fas fa-border-all"></i> свариваемых кромок</li>
+                    <li><i class="fas fa-paint-brush"></i> покрытия электродов и др.</li>
+                </ul>
+                
+                <p>Значение напряжений, обеспечивающих возникновение дуги в дуговых промежутках, равных 2-4 мм, находятся в пределах 40-70 В.</p>
+                
+                <p><strong>Зависимость напряжения в сварочной дуге от ее длины описывается уравнением:</strong></p>
+                
+                <div class="formula">
+                    U = a + b·l<sub>д</sub>
+                </div>
+                
+                <p>где:<br>
+                a - сумма напряжений на катоде и аноде, B;<br>
+                b - падение напряжения в столбе дуги на 1 мм ее длины, В/мм;<br>
+                l<sub>д</sub> - длина дуги, мм.</p>
+                
+                <p>Для стальных электродов в среднем можно принять a = 10 B, b = 2 B/мм. При l = 4 мм,<br>
+                <strong>Uд = 10 + 2 × 4 = 18 B.</strong></p>
+                
+                <p>С увеличением длины дуги ее напряжение увеличивается, и кривая вольтамперной характеристики дуги поднимается выше, сохраняя свою форму.</p>
+            `
+        },
+        chapter5: {
+            title: 'Раздел 5. Магнитное дутье',
+            subhead: 'Определение. Причины. Предотвращение. Применение',
+            content: `
+                <h2>1. Определение</h2>
+                <div class="definition-box">
+                    <p><strong>Магнитное дутье</strong> – отклонение дуги в результате действия магнитных полей или ферромагнитных масс при сварке.</p>
+                </div>
+                
+                <p>Это явление присуще сварке при постоянном токе и становится заметным при сварочном токе более 150 А, а при повышенном сварочном токе оказывает большое воздействие и отклоняет дугу от оси электродов в сторону более близких к дуге ферромагнитных масс, так как эти массы имеют меньшее сопротивление для замыкания магнитного потока (поля), чем воздух.</p>
+                
+                <p>При сварке нередко наблюдается <strong>блуждание дуги</strong> – беспорядочное перемещение сварочной дуги по изделию, по причине загрязнения металла, потоков воздуха и магнитных полей.</p>
+                
+                <p>Это явление особенно часто наблюдается при сварке угольным электродом.</p>
+                
+                <p>Блуждание дуги ухудшает формирование сварного шва. Для его устранения используют постоянное продольное магнитное поле, создаваемое соленоидом, расположенным вокруг электрода.</p>
+                
+                <h3>2. Причины возникновения</h3>
+                
+                <ol class="numbered-list">
+                    <li>
+                        <strong>Отклонение дуги вызвано собственными магнитными полями при несимметричном относительно дуги подводе тока к изделию.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/tPWKahM.jpg', 'Несимметричный подвод тока к изделию')">
+                            <img src="https://i.imgur.com/tPWKahM.jpg" alt="Несимметричный подвод тока" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Несимметричный подвод тока к изделию</figcaption>
+                        </div>
+                        <p>Дуга отклоняется влево (вправо), так как вокруг нее образуется несимметричное магнитное поле. С правой (левой) части дуга более концентрированна, поэтому появляется равнодействующая, называемая силой бокового распора. Сила распора появляется с той стороны, где происходит сложение магнитных потоков, где больше плотность магнитного поля на конкретном участке при несимметричном подводе тока второго сварочного провода.</p>
+                    </li>
+                    
+                    <li>
+                        <strong>Отклонение дуги может быть вызвано присутствием ферромагнитных масс вблизи сварки, так как эти массы имеют меньшее сопротивление для замыкания магнитного потока (поля), чем воздух.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/wDfPiNA.jpg', 'Влияние ферромагнитных масс')">
+                            <img src="https://i.imgur.com/wDfPiNA.jpg" alt="Ферромагнитные массы" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Влияние ферромагнитных масс</figcaption>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <strong>Несимметричность обмазки электрода («козыряние» электрода).</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/xgsyY6H.jpg', 'Несимметричность обмазки электрода')">
+                            <img src="https://i.imgur.com/xgsyY6H.jpg" alt="Козыряние электрода" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Несимметричность обмазки электрода</figcaption>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <strong>Химическая неоднородность свариваемой стали.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/zWMffkp.jpg', 'Химическая неоднородность стали')">
+                            <img src="https://i.imgur.com/zWMffkp.jpg" alt="Химическая неоднородность" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Химическая неоднородность стали</figcaption>
+                        </div>
+                    </li>
+                </ol>
+                
+                <p>На величину магнитного дутья влияют конфигурация и расположение деталей, а также толщина металла и сила сварочного тока. Направление отклонения не зависит от полярности, но зависит от симметричности магнитного поля, неравномерности распределения тока по изделию, конфигурации изделия, наличия зазоров, сочетания деталей в сварном узле. Сила, отклоняющая дугу, прямопропорциональна квадрату рабочего тока (т. е. чем больше ток, тем больше отклонение).</p>
+                
+                <h3>3. Меры предотвращения</h3>
+                
+                <ol class="numbered-list">
+                    <li>
+                        <strong>Сварка короткой дугой.</strong> Длина дуги ld = 2-4 мм.
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/SJP0Ufh.jpg', 'Сварка короткой дугой')">
+                            <img src="https://i.imgur.com/SJP0Ufh.jpg" alt="Короткая дуга" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Сварка короткой дугой</figcaption>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Подвод сварочного тока в точке, максимально близкой к дуге.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/K2EzlqE.jpg', 'Правильный подвод тока')">
+                            <img src="https://i.imgur.com/K2EzlqE.jpg" alt="Подвод тока близко к дуге" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Правильный подвод тока</figcaption>
+                        </div>
+                        <p>Если магнитное дутье отсутствует, значит, сварочная дуга расположена симметрично и горит, являясь продолжением электрода, т. е. вдоль его оси.</p>
+                    </li>
+                    <li>
+                        <strong>Изменение угла наклона электрода к изделию.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/W9lvPPn.jpg', 'Изменение угла наклона электрода')">
+                            <img src="https://i.imgur.com/W9lvPPn.jpg" alt="Наклон электрода" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Изменение угла наклона электрода</figcaption>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Размещение у места сварки компенсирующих ферромагнитных масс.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/5IHQUSF.jpg', 'Компенсирующие ферромагнитные массы')">
+                            <img src="https://i.imgur.com/5IHQUSF.jpg" alt="Компенсирующие массы" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Компенсирующие ферромагнитные массы</figcaption>
+                        </div>
+                        <p>В качестве компенсирующих ферромагнитных масс на практике в таких случаях используют стальную плиту с присоединенным к ней токопроводом, которую укладывают на расстоянии 200-250 мм от места сварки.</p>
+                    </li>
+                    <li><strong>Использование стабилизаторов дуги.</strong></li>
+                    <li><strong>Применение трансформаторов или инверторных источников питания.</strong></li>
+                </ol>
+                
+                <h3>4. Полезное действие магнитного дутья</h3>
+                
+                <p>При сварке дугой косвенного действия магнитное дутье иногда бывает полезным и нужным.</p>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/uRxyoAZ.jpg', 'Сварка дугой косвенного действия')">
+                    <img src="https://i.imgur.com/uRxyoAZ.jpg" alt="Дуга косвенного действия" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Сварка дугой косвенного действия</figcaption>
+                </div>
+                
+                <p>Оно позволяет осуществлять подвод тепла дуги к изделию. Без использования явления магнитного дутья было бы трудно подвести тепло дуги к изделию. Изменением угла между электродами изменяется и степень воздействия дуги, т. е. давление и касание дуги изделием.</p>
+            `
+        },
+        chapter6: {
+            title: 'Раздел 6. Перенос электродного металла',
+            subhead: 'Основные понятия. Стадии. Виды переноса',
+            content: `
+                <h2>1. Перенос электродного металла</h2>
+                <div class="definition-box">
+                    <p><strong>Перенос металла</strong> - процесс перехода расплавленного электродного металла в сварочную ванну. Перенос металла всегда происходит от сварочного электрода к изделию.</p>
+                </div>
+                
+                <div class="image-container" onclick="openModal('https://i.imgur.com/nuiYHWm.jpg', 'Схема переноса электродного металла')">
+                    <img src="https://i.imgur.com/nuiYHWm.jpg" alt="Схема переноса" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Схема переноса электродного металла</figcaption>
+                </div>
+                
+                <p>Непосредственно под дугой на металле изделия образуется углубление, заполненное жидким металлом, которое называется <strong>сварочной ванной</strong>.</p>
+                
+                <p>При горении сварочной дуги происходит взаимодействие электрического и магнитного полей, в результате чего возникают электромагнитные силы, направленные от наружной поверхности дуги к ее оси и сжимают столб дуги (<strong>пинч-эффект</strong>).</p>
+                
+                <h3>2. Стадии процесса плавления электрода и основного металла</h3>
+                
+                <ul class="letter-list">
+                    <li>
+                        <strong>Оплавление конца электрода и плавление основного металла.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/TT9IFwn.jpg', 'Стадия а - оплавление электрода')">
+                            <img src="https://i.imgur.com/TT9IFwn.jpg" alt="Стадия а" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Стадия а - оплавление электрода</figcaption>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Оплавившийся слой электродного металла принимает форму капли с образованием у её основания шейки.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/zd3k4v3.jpg', 'Стадия б - образование капли')">
+                            <img src="https://i.imgur.com/zd3k4v3.jpg" alt="Стадия б" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Стадия б - образование капли</figcaption>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Капля под воздействием электродинамических сил отрывается от электрода и происходит её перенос через дугу.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/0rdaVwD.jpg', 'Стадия в - отрыв капли')">
+                            <img src="https://i.imgur.com/0rdaVwD.jpg" alt="Стадия в" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Стадия в - отрыв капли</figcaption>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Взаимодействие капли со сварочной ванной.</strong>
+                        <div class="image-container" onclick="openModal('https://i.imgur.com/K3JRsYr.jpg', 'Стадия г - взаимодействие с ванной')">
+                            <img src="https://i.imgur.com/K3JRsYr.jpg" alt="Стадия г" onerror="this.parentElement.style.display='none'">
+                            <figcaption>Стадия г - взаимодействие с ванной</figcaption>
+                        </div>
+                    </li>
+                </ul>
+                
+                <h3>3. Виды переноса электродного металла</h3>
+                
+                <p>Капли расплавленного металла переходят с электрода в сварочную ванну при горении сварочной дуги во всех пространственных положениях (горизонтальное, вертикальное, потолочное).</p>
+                
+                <p><strong>Формирование и перенос капель осуществляется под воздействием:</strong></p>
+                
+                <div class="forces-styled">
+                    <div class="force-styled-item"><i class="fas fa-arrow-down"></i> <span>силы тяжести</span></div>
+                    <div class="force-styled-item"><i class="fas fa-wind"></i> <span>реактивного давления паров металла</span></div>
+                    <div class="force-styled-item"><i class="fas fa-compress-alt"></i> <span>сил поверхностного натяжения</span></div>
+                    <div class="force-styled-item"><i class="fas fa-wind"></i> <span>давления газов, образующихся внутри расплавленного металла</span></div>
+                    <div class="force-styled-item"><i class="fas fa-wind"></i> <span>давления газового потока</span></div>
+                    <div class="force-styled-item"><i class="fas fa-bolt"></i> <span>электростатических сил</span></div>
+                    <div class="force-styled-item"><i class="fas fa-magnet"></i> <span>электродинамических сил</span></div>
+                </div>
+                
+                <h4>Крупнокапельный</h4>
+                <div class="image-container" onclick="openModal('https://i.imgur.com/PqohSyA.jpg', 'Крупнокапельный перенос')">
+                    <img src="https://i.imgur.com/PqohSyA.jpg" alt="Крупнокапельный перенос" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Крупнокапельный перенос</figcaption>
+                </div>
+                <p>диаметр капли d<sub>к</sub> больше диаметра электрода d<sub>э</sub> (характерен для ручной дуговой сварки покрытыми электродами с основным покрытием).</p>
+                
+                <h4>Среднекапельный</h4>
+                <div class="image-container" onclick="openModal('https://i.imgur.com/DiNM95B.jpg', 'Среднекапельный перенос')">
+                    <img src="https://i.imgur.com/DiNM95B.jpg" alt="Среднекапельный перенос" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Среднекапельный перенос</figcaption>
+                </div>
+                <p>диаметр капли d<sub>к</sub> равен диаметру электрода d<sub>э</sub>: d<sub>к</sub> = d<sub>э</sub> (характерен для ручной дуговой сварки покрытыми электродами с рутиловым и кислым покрытием).</p>
+                
+                <h4>Мелкокапельный</h4>
+                <div class="image-container" onclick="openModal('https://i.imgur.com/dlGnkAY.jpg', 'Мелкокапельный перенос')">
+                    <img src="https://i.imgur.com/dlGnkAY.jpg" alt="Мелкокапельный перенос" onerror="this.parentElement.style.display='none'">
+                    <figcaption>Мелкокапельный перенос</figcaption>
+                </div>
+                <p>диаметр капли d<sub>к</sub> меньше диаметра электрода d<sub>э</sub> (характерен для ручной дуговой сварки покрытыми электродами с целлюлозным покрытием, а также для сварки под флюсом и в защитных газах - аргоне, углекислом газе и др.).</p>
+                
+                <h4>Струйный</h4>
+                <p>При струйном переносе жидкий металл на электроде вытянут в виде конуса, с конца которого отрываются мелкие капли. Оплавляющийся конец электрода также имеет конусообразную форму. Значительная доля электродного металла переносится в виде пара (до 20%). Имеет место при сварке в аргоне большими токами.</p>
+                
+                <div class="definition-box" style="margin-top: 1.5rem;">
+                    <p>Мелкокапельный и струйный переносы электродного металла обеспечивают более устойчивый процесс сварки и лучшее формирование сварного шва.</p>
+                </div>
+            `
+        },
+        glossary: {
+            title: 'Глоссарий',
+            subhead: 'Словарь терминов (алфавитный указатель)',
+            content: `
+                <div class="glossary-alphabet" id="glossary-top">
+                    <span class="alpha-link" onclick="document.getElementById('letter-б').scrollIntoView({behavior:'smooth'})">Б</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-д').scrollIntoView({behavior:'smooth'})">Д</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-и').scrollIntoView({behavior:'smooth'})">И</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-к').scrollIntoView({behavior:'smooth'})">К</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-н').scrollIntoView({behavior:'smooth'})">Н</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-о').scrollIntoView({behavior:'smooth'})">О</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-п').scrollIntoView({behavior:'smooth'})">П</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-р').scrollIntoView({behavior:'smooth'})">Р</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-с').scrollIntoView({behavior:'smooth'})">С</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-у').scrollIntoView({behavior:'smooth'})">У</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-ф').scrollIntoView({behavior:'smooth'})">Ф</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-х').scrollIntoView({behavior:'smooth'})">Х</span>
+                    <span class="alpha-link" onclick="document.getElementById('letter-э').scrollIntoView({behavior:'smooth'})">Э</span>
+                </div>
+                
+                <div class="glossary-list">
+                    <div class="glossary-section" id="letter-б">
+                        <div class="section-letter">Б</div>
+                        <div class="term-row"><div class="term-name">Блуждание дуги</div><div class="term-desc">беспорядочное перемещение сварочной дуги по изделию.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-д">
+                        <div class="section-letter">Д</div>
+                        <div class="term-row"><div class="term-name">Длинная дуга</div><div class="term-desc">длина дуги свыше 6мм.</div></div>
+                        <div class="term-row"><div class="term-name">Дуга прямого действия</div><div class="term-desc">дуговой разряд происходит между электродом и изделием.</div></div>
+                        <div class="term-row"><div class="term-name">Дуга косвенного действия</div><div class="term-desc">дуговой разряд происходит между двумя электродами.</div></div>
+                        <div class="term-row"><div class="term-name">Дуга комбинированного действия</div><div class="term-desc">дуговой разряд происходит между двумя электродами и изделием.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-и">
+                        <div class="section-letter">И</div>
+                        <div class="term-row"><div class="term-name">Ионизация нагревом (термоионизация)</div><div class="term-desc">протекает за счет высоких температур.</div></div>
+                        <div class="term-row"><div class="term-name">Ионизация облучением (фотоионизация)</div><div class="term-desc">процесс образования заряженных частиц за счет поглощения газом световых квантов.</div></div>
+                        <div class="term-row"><div class="term-name">Ионизация соударением</div><div class="term-desc">электроны движутся с большой скоростью, встречаются с нейтральными атомами газа, ударяются о них, выбивают электроны и ионизируют атомы.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-к">
+                        <div class="section-letter">К</div>
+                        <div class="term-row"><div class="term-name">Катодная зона</div><div class="term-desc">длиной около 0,00001 см начинается с раскаленного торца электрода, на котором расположено катодное пятно.</div></div>
+                        <div class="term-row"><div class="term-name">Короткая дуга</div><div class="term-desc">длина дуги lд = 2-4 мм.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-н">
+                        <div class="section-letter">Н</div>
+                        <div class="term-row"><div class="term-name">Напряжение холостого хода</div><div class="term-desc">напряжение на клеммах источника питания при разомкнутой цепи.</div></div>
+                        <div class="term-row"><div class="term-name">Нормальная дуга</div><div class="term-desc">длина дуги lд = 4-6 мм.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-о">
+                        <div class="section-letter">О</div>
+                        <div class="term-row"><div class="term-name">Обратная полярность</div><div class="term-desc">электрод присоединяется к положительному полюсу, объект сварки к отрицательному, Тк = 3000°С.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-п">
+                        <div class="section-letter">П</div>
+                        <div class="term-row"><div class="term-name">Прямая полярность</div><div class="term-desc">электрод присоединяется к отрицательному полюсу, объект сварки к положительному, Та = 4000°C.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-р">
+                        <div class="section-letter">Р</div>
+                        <div class="term-row"><div class="term-name">Рекомбинация</div><div class="term-desc">уравновешивает процессы исчезновения и образования заряженных частиц в дуге, степень ионизации газа остается постоянной.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-с">
+                        <div class="section-letter">С</div>
+                        <div class="term-row"><div class="term-name">Свободная дуга</div><div class="term-desc">дуга горит свободно между электродом и изделием.</div></div>
+                        <div class="term-row"><div class="term-name">Сжатая дуга</div><div class="term-desc">расстояние между электродом и изделием принудительно сокращено.</div></div>
+                        <div class="term-row"><div class="term-name">Собственное магнитное поле</div><div class="term-desc">поле, которое возникает при прохождении тока по элементам сварочной цепи.</div></div>
+                        <div class="term-row"><div class="term-name">Статическая вольтамперная характеристика</div><div class="term-desc">графическая зависимость падения напряжения в дуге от силы тока при постоянной длине дуги.</div></div>
+                        <div class="term-row"><div class="term-name">Столб дуги</div><div class="term-desc">участок дугового пространства между катодной и анодной зонами.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-у">
+                        <div class="section-letter">У</div>
+                        <div class="term-row"><div class="term-name">Управляемая дуга</div><div class="term-desc">дуга, помещенная в магнитное поле и отклоняющаяся в зависимости от направления этого поля.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-ф">
+                        <div class="section-letter">Ф</div>
+                        <div class="term-row"><div class="term-name">Ферромагнитные массы</div><div class="term-desc">скопление металла (станки, металлические конструкции, металлолом).</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-х">
+                        <div class="section-letter">Х</div>
+                        <div class="term-row"><div class="term-name">Химическая неоднородность стали</div><div class="term-desc">различный химический состав свариваемой стали.</div></div>
+                    </div>
+                    
+                    <div class="glossary-section" id="letter-э">
+                        <div class="section-letter">Э</div>
+                        <div class="term-row"><div class="term-name">Эмиссия соударения</div><div class="term-desc">положительные ионы под действием поля устремляются к катоду и передают ему энергию.</div></div>
+                        <div class="term-row"><div class="term-name">Эмиссия термоэлектронная</div><div class="term-desc">способность раскаленной поверхности (катода) испускать электроны.</div></div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <span class="scheme-item" onclick="document.getElementById('glossary-top').scrollIntoView({behavior:'smooth'})" style="cursor: pointer;">↑ К началу алфавита</span>
+                </div>
+            `
+        }
+    };
+
+    window.switchPage = function(pageId) {
+        document.getElementById('main-title').innerText = pages[pageId].title;
+        document.getElementById('main-subhead').innerText = pages[pageId].subhead;
+        document.getElementById('content-area').innerHTML = pages[pageId].content;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.page === pageId) item.classList.add('active');
+        });
+    };
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            const page = e.target.dataset.page;
+            if (page) switchPage(page);
+        });
+    });
+
+    switchPage('main');
+</script>
+</body>
+</html>

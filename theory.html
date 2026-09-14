@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" type="image/png" sizes="32x32" href="image/0.png">
+    <title>Теория</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f5f9ff;
+            color: #0a2540;
+            line-height: 1.4;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0);
+            backdrop-filter: blur(0px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+        }
+
+        .header.scrolled {
+            background: rgba(15, 40, 70, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            transition: 0.2s;
+            padding: 0.5rem 0;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #b9e6ff !important;
+        }
+
+        .nav-link.active {
+            color: #f9c74f !important;
+        }
+
+        .header.scrolled .nav-link {
+            color: #f0f7ff !important;
+        }
+        .header.scrolled .nav-link.active {
+            color: #ffdd88 !important;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-area img {
+            height: 48px;
+            width: auto;
+            max-width: 180px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            padding: 6px;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 2.5px;
+            background-color: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .overlay-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1040;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-menu.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .theory-hero {
+            background: linear-gradient(135deg, #0a2a44 0%, #1b4a7a 80%);
+            padding: 7rem 2rem 3rem 2rem;
+            text-align: center;
+        }
+
+        .theory-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+       .theory-hero h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.cards-section {
+    max-width: 1280px;
+    margin: 2rem auto 1rem;
+    padding: 0 2rem;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.8rem;
+}
+
+.card-item {
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 15px 30px -12px rgba(0, 65, 102, 0.12);
+    overflow: visible;  /* ← ИЗМЕНЕНО: было hidden, стало visible */
+    transition: transform 0.25s ease, box-shadow 0.3s;
+    cursor: pointer;
+    border: 1px solid #e2edff;
+}
+
+.card-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 35px -16px rgba(27, 94, 158, 0.25);
+}
+
+.card-img {
+    width: 100%;
+    height: 170px;
+    background-color: #d9e9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 28px 28px 0 0;  /* ← ДОБАВЛЕНО: закругления сверху */
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 2rem 1rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a4972;
+    margin-bottom: 1.2rem;
+}
+
+
+.card-btn {
+    display: inline-block;
+    background-color: #1f8a4c;
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    margin-top: 0.5rem;
+    margin-left: auto;    
+    margin-right: auto;   
+    width: fit-content;   
+}
+
+.card-item:hover .card-btn {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.card-btn:hover {
+    background-color: #0f6f3a;
+    transform: scale(0.96);
+}
+
+@media (max-width: 860px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+        .lectures-wrapper {
+            max-width: 1100px;
+            margin: 2rem auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .lectures-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .lectures-header h2 {
+            font-size: 2rem;
+            color: #0a2a44;
+            margin-bottom: 0.5rem;
+        }
+
+        .lectures-header p {
+            color: #4a6a8a;
+            font-size: 1rem;
+        }
+
+        .progress {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+
+        .module {
+            background: #ffffff;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .module-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .module-number {
+            display: inline-block;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            width: fit-content;
+        }
+
+        .module-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .module-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .complete-btn {
+            background: #667eea;
+            color: #ffffff;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .complete-btn.completed {
+            background: #22c55e;
+        }
+
+        .arrow {
+            font-size: 18px;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            display: none;
+        }
+
+        .module-content.open {
+            display: block;
+        }
+
+        .module-body {
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            line-height: 1.7;
+            color: #374151;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .module-body h3 {
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+
+        .module-body ul, .module-body ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            background-color: #0a2a44;
+            color: #eef4ff;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-left p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cddfff;
+        }
+
+        .footer-left .college-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.9rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
+            transition: 0.2s ease;
+            text-decoration: none;
+            font-size: 1.7rem;
+        }
+
+        .social-icons a:hover {
+            background: #3b82f6;
+            transform: translateY(-3px);
+        }
+
+        .social-icons span {
+            font-size: 1.7rem;
+            color: #f0f7ff;
+        }
+
+        @media (max-width: 860px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(8, 36, 68, 0.97);
+                backdrop-filter: none;
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.8rem;
+                transition: left 0.3s ease;
+                z-index: 1050;
+                padding: 2rem 1.5rem;
+                align-items: flex-start;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .nav-link {
+                color: #ffffff !important;
+                font-size: 1.1rem;
+                font-weight: 700;
+                width: 100%;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+                gap: 1.2rem;
+            }
+            .theory-hero h1 {
+                font-size: 1.8rem;
+            }
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .theory-hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+.lectures-wrapper {
+    max-width: 1100px;
+    margin: 2rem auto 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 32px;
+    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.25);
+}
+
+.lectures-wrapper .lectures-header h2,
+.lectures-wrapper .lectures-header p {
+    color: white;
+}
+
+.lectures-wrapper .progress,
+.lectures-wrapper .module {
+    background: rgba(255, 255, 255, 0.95);
+}
+.theory-hero {
+    background-image: linear-gradient(0deg, rgba(0, 20, 40, 0.8), rgba(0, 0, 0, 0.7)), url('image/10.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 350px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+    </style>
+</head>
+<body>
+
+<header class="header" id="mainHeader">
+    <div class="nav-container">
+        <div class="logo-area">
+             <a href="#"><img src="image/0.png" alt="Логотип колледжа"></a>
+        </div>
+        <button class="menu-toggle" id="menuToggleBtn" aria-label="Меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html" class="nav-link" data-page="home">Главная</a>
+            <a href="theory.html" class="nav-link" data-page="theory">Теория</a>
+            <a href="practice.html" class="nav-link" data-page="practice">Практика</a>
+            <a href="test.html" class="nav-link" data-page="control">Контроль знаний</a>
+            <a href="help.html" class="nav-link" data-page="compass">Компас достижений</a>
+        </nav>
+    </div>
+</header>
+
+<div class="overlay-menu" id="overlayMenu"></div>
+
+<main>
+ <section class="theory-hero" style="background-image: linear-gradient(0deg, rgba(0, 20, 40, 0.8), rgba(0, 0, 0, 0.7)), url('image/19.jpg'); background-size: cover; background-position: center 30%; background-repeat: no-repeat;">
+    <div class="theory-hero-content">
+        <h1>ТЕОРЕТИЧЕСКАЯ ЧАСТЬ</h1>
+    </div>
+</section>
+
+    <div class="cards-section">
+    <div class="cards-grid">
+        <div class="card-item">
+            <div class="card-img"> <a href="lectures.html"><img src="image/6.jpeg" alt="Магия дуги"></a></div>
+            <div class="card-content">
+                <div class="card-title">Магия дуги: от А до Я</div>
+                <div class="card-sub">(узнай больше)</div>
+                <a href="lectures.html" class="card-btn">Перейти →</a>
+            </div>
+        </div>
+        <div class="card-item">
+            <div class="card-img"> <a href="training.html"><img src="image/7.jpg" alt="Интерактивные модули"></a></div>
+            <div class="card-content">
+                <div class="card-title">Интерактивные обучающие модули</div>
+                <a href="training.html" class="card-btn">Перейти →</a>
+            </div>
+        </div>
+        <div class="card-item">
+            <div class="card-img"><a href="poster.html"><img src="image/8.jpg" alt="Плакаты"></a></div>
+            <div class="card-content">
+                <div class="card-title">Плакаты</div>
+                <a href="poster.html" class="card-btn">Перейти →</a>
+            </div>
+        </div>
+        <div class="card-item">
+            <div class="card-img"><a href="video.html"><img src="image/9.jpg" alt="Мобильный видеоконтент"></a></div>
+            <div class="card-content">
+                <div class="card-title">Мобильный видеоконтент</div>
+                <a href="video.html" class="card-btn">Перейти →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="lectures-wrapper">
+        <div class="lectures-header">
+            <h2>Теоретический раздел</h2>
+            <p>ПО УЧЕБНОМУ ПРЕДМЕТУ «ПРОИЗВОДСТВЕННОЕ ОБУЧЕНИЕ»</p>
+        </div>
+
+        <div class="progress">
+            <div class="progress-top">
+                <span>Прогресс обучения</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="modules"></div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <p class="college-name">Гродненский государственный колледж строительных технологий</p>
+            <p>© 2026 Цифровой ресурс «Сварочные работы»</p>
+        </div>
+        <div class="social-icons">
+             <a href="https://www.instagram.com/center_competence_ggkst/" target="_blank" title="Instagram"><span><img src="image/free-icon-instagram.png" width="50" height="50"></span></a>
+	     <a href="https://www.youtube.com/channel/UCt0fTSw7fW61BVlxsQMVsoQ" target="_blank" title="YouTube"><span><img src="image/free-icon-youtube.png" width="50" height="50"></span></a>
+	     <a href="https://vk.com/ggkst_1973" target="_blank" title="VK"><span><img src="image/free-icon-vk.png" width="50" height="50"></span></a>
+             <a href="https://ggkst.by/" target="_blank" title="Website"><span><img src="image/free-icon-web.png" width="50" height="50"></span></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function(){
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 25) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlayMenu');
+        function closeMenu(){
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            if(menuToggle) menuToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function openMenu(){
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            if(menuToggle) menuToggle.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        if(menuToggle){
+            menuToggle.addEventListener('click', () => {
+                if(navMenu.classList.contains('active')) closeMenu();
+                else openMenu();
+            });
+        }
+        if(overlay) overlay.addEventListener('click', closeMenu);
+        window.addEventListener('resize', () => {
+            if(window.innerWidth > 860 && navMenu.classList.contains('active')) closeMenu();
+        });
+    })();
+
+    const lectures = [
+        { 
+            number: "1", 
+            title: "Вводное занятие. Охрана труда и пожарная безопасность", 
+            text: `<h3>Организация труда и рабочего места</h3><p>Рабочее место должно быть оборудовано шкафом для хранения инструмента, электродов и чертежей, сборочно-сварочными приспособлениями, сварочными столами. Все инструменты следует располагать в определенном порядке, чтобы они всегда находились под рукой.</p><h3>Основные опасные и вредные производственные факторы</h3><p>Сварочное производство относится к работам с повышенной опасностью. Главные угрозы:</p><ul><li>Электрический ток: Напряжение холостого хода (может достигать 80-90В) и сетевое напряжение (220/380В)</li><li>Световое излучение дуги: Ультрафиолетовые и инфракрасные лучи (вызывают ожоги глаз и кожи)</li><li>Высокая температура: Расплавленный металл (до 1500°C) и брызги</li><li>Сварочные аэрозоли и газы: Пыль, окислы марганца, азота, фтористые соединения (токсичны)</li><li>Шум и механические травмы: При зачистке швов болгаркой или отбивании шлака</li></ul><h3>Средства индивидуальной защиты (СИЗ)</h3><p>Сварщик обязан приступать к работе только в полной экипировке:</p><ol><li>Маска сварщика со светофильтром</li><li>Спецодежда из огнестойких тканей</li><li>Кожаные ботинки с защитным подноском</li><li>Краги (кожаные перчатки с длинными манжетами)</li><li>Респиратор при работе в плохо вентилируемых помещениях</li></ol><h3>Электробезопасность</h3><p>Переменный ток частотой 50 Гц, протекая через тело человека при силе порядка 0,1 А может парализовать сердце. Главные причины электротравматизма:</p><ul><li>Появление напряжения там, где его в нормальных условиях не должно быть</li><li>Возможность прикосновения к неизолированным токоведущим частям</li></ul><h3>Пожарная безопасность</h3><p>Сварка — это работа с открытым огнем и разлетом искр (до 5 метров). В радиусе 5 метров от места сварки не должно быть горючих материалов.</p><h3>Оказание первой медицинской помощи</h3><p>Основными условиями успеха при оказании первой медицинской помощи пострадавшим является быстрота действий, находчивость и умение оказывать помощь.</p>`
+        },
+        { 
+            number: "2", 
+            title: "Ознакомление с организацией", 
+            text: `<h3>Основные цеха организации, их оснащение</h3><p>Сварочные работы проводятся в специализированных цехах или на строительных площадках. Основные подразделения:</p><ul><li>Заготовительное отделение: Здесь металл режут, правят и зачищают под сварку</li><li>Сборочно-сварочный цех: Основное место работы, где детали соединяют в готовое изделие</li><li>Склад металлов и расходных материалов: Хранение проката, электродов, газов</li><li>Отдел технического контроля (ОТК): Проверка качества выполненных швов</li></ul><h3>Правила внутреннего трудового распорядка (ПВТР)</h3><p>Дисциплина — залог безопасности в цехе. Основные требования:</p><ul><li>Режим работы: Строгое соблюдение времени начала и окончания смены, перерывов на обед</li><li>Пропускной режим: Вход на территорию и в мастерские только при наличии пропуска/разрешения</li><li>Трудовая дисциплина: Запрещено покидать рабочее место без разрешения мастера</li><li>Бережное отношение: Сварщик несет ответственность за сохранность сварочного аппарата, инструментов и спецодежды</li></ul><h3>Организация рабочего места сварщика (Сварочный пост)</h3><p>Сварочный пост — это участок, оснащенный всем необходимым для выполнения сварочных работ.</p><p><strong>Типы постов:</strong></p><ol><li>Стационарный: Постоянная кабина в цехе. Оснащена мощной вытяжкой, стальным столом и защитными шторами</li><li>Передвижной (мобильный): Используется при сварке крупногабаритных конструкций</li></ol><h3>Инструмент сварщика (Инвентарь)</h3><p>Помимо аппарата, сварщику необходимы:</p><ol><li>Молоток-шлакоотделитель (секач): Для отбивания шлаковой корки со шва</li><li>Стальная щетка: Для очистки металла до и после сварки</li><li>Струбцины и зажимы: Для фиксации деталей в нужном положении</li><li>Измерительный инструмент: Шаблоны сварщика (УШС), рулетка, угольник</li></ol><h3>Инструктаж по технике безопасности</h3><p>По характеру и времени проведения инструктажи делятся на:</p><ul><li>Вводный</li><li>Первичный на рабочем месте</li><li>Повторный</li><li>Внеплановый</li><li>Целевой</li></ul>`
+        },
+        { 
+            number: "3.1", 
+            title: "Разметка и рубка металла", 
+            text: `<h3>Почему важна подготовка?</h3><p>Неподготовленный металл — причина большинства дефектов:</p><ul><li>Ржавчина и краска вызывают поры и трещины</li><li>Масло и жир приводят к разбрызгиванию металла и загрязнению шва</li><li>Неправильная разделка кромок ведет к непровару (отсутствию сплавления деталей)</li></ul><h3>Разметка металла</h3><p>Разметка — это перенос размеров с чертежа на заготовку путем нанесения линий и точек.</p><p><strong>Инструменты:</strong></p><ul><li>Чертилка: для нанесения линий (рисок)</li><li>Кернер: для создания углублений (кернов) на линиях разметки</li><li>Линейка, угольник, циркуль: для измерения и построения геометрии</li></ul><p><strong>Важное правило:</strong> Для сварщика особенно важно кернение, так как при нагреве и зачистке меловой след или риска могут исчезнуть. Керны ставят через каждые 20-50 мм.</p><h3>Рубка металла</h3><p>Рубка — это удаление лишнего слоя металла или разделение заготовки на части с помощью режущего инструмента и ударов молотка.</p><p><strong>Инструменты:</strong></p><ul><li>Слесарное зубило: основной режущий инструмент</li><li>Крейцмейсель: узкое зубило для прорубания канавок</li><li>Слесарный молоток: (весом 400-600 г)</li></ul><p><strong>Техника:</strong> Зубило устанавливают под углом 30-35° к поверхности. Удары должны быть меткими и сильными («локтевыми» или «плечевыми»).</p><p><strong>Безопасность:</strong> Работать только в защитных очках! Осколки металла летят с высокой скоростью.</p>`
+        },
+        { 
+            number: "3.2", 
+            title: "Правка и гибка металла", 
+            text: `<h3>Правка металла</h3><p>Правка — это операция по устранению вмятин, выпуклостей, искривлений и других дефектов заготовок.</p><p><strong>Виды правки:</strong></p><ul><li>Холодная: для тонкого и мягкого металла</li><li>Горячая: для толстых заготовок (нагрев до вишневого цвета — 800-1000°C)</li></ul><p><strong>Приемы:</strong></p><ul><li>Правку проводят на правильной плите или наковальне</li><li>Листовой металл (выпуклость): Удары наносят не по самой выпуклости, а вокруг неё</li><li>Инструмент: Стальные молотки или киянки для чистовых поверхностей</li></ul><h3>Гибка металла</h3><p>Гибка — это придание заготовке изогнутой формы по заданному контуру.</p><p><strong>Суть процесса:</strong> Внутренние слои металла сжимаются и укорачиваются, а наружные — растягиваются и удлиняются. Существует «нейтральный слой», который не меняет длины.</p><p><strong>Приемы:</strong></p><ul><li>Проводится в тисках с использованием оправок или на гибочных станках</li><li>Тонкий лист гнут киянкой, чтобы не оставить вмятин</li><li>Трубы перед гибкой часто наполняют сухим песком, чтобы избежать сплющивания и трещин</li></ul><p><strong>Важно:</strong> Учитывать «пружинение» металла — после снятия нагрузки заготовка немного разогнется обратно. Поэтому угол загиба делают чуть острее, чем нужно по чертежу.</p><h3>Сборка деталей под сварку</h3><p>Перед основной сваркой детали фиксируют, чтобы их не «повело» от нагрева.</p><p><strong>Инструменты для сборки:</strong> Струбцины, магнитные угольники, зажимы, приспособления (кондукторы).</p><p><strong>Прихватки:</strong> Короткие сварные швы (длиной 5-20 мм), которые удерживают детали.</p><p><strong>Правило:</strong> Прихватки выполняются теми же электродами, что и основной шов. Качество прихватки должно быть безупречным (без пор и шлака).</p><h3>Требования безопасности при подготовке</h3><ol><li>Рукоятки: Молотки должны быть плотно насажены на рукоятки и расклинены</li><li>Грибок: Запрещено работать зубилом, если его тыльная часть имеет наклеп в виде «грибка»</li><li>Защита: Обязательное использование очков и рукавиц</li><li>Порядок: Очищать плиту от окалины и стружки только щеткой-сметкой</li></ol><p><em>Золотое правило сварщика: «Сварка начинается не с дуги, а с болгарки. Как зачистишь — так и заваришь.»</em></p>`
+        },
+        { 
+            number: "4", 
+            title: "Освоение приемов работы с электросварочным оборудованием", 
+            text: `<h3>Подготовка оборудования к работе</h3><p>Перед включением аппарата необходимо:</p><ul><li>Визуальный осмотр: Проверить целостность сетевого кабеля, сварочных кабелей и зажимов</li><li>Подключение кабелей: Зажим заземления крепится на зачищенную поверхность детали</li><li>Выбор полярности (для постоянного тока — DC):</li><ul><li>Прямая полярность: Электрод на «минус» (-), деталь на «плюс» (+). Применяется для толстого металла</li><li>Обратная полярность: Электрод на «плюс» (+), деталь на «минус» (-). Применяется для тонкого металла</li></ul></ul><h3>Настройка сварочного тока</h3><p>Величина тока (I) зависит от диаметра электрода (d). Примерная формула: I = (30...40) х d</p><p><strong>Ориентиры:</strong></p><ul><li>Электрод 2 мм: 50-80 А</li><li>Электрод 3 мм: 70-120 А</li><li>Электрод 4 мм: 130-160 А</li></ul><p><strong>Признаки:</strong> Если ток мал — электрод «липнет». Если ток велик — металл сильно разбрызгивается, электрод перегревается.</p><h3>Техника зажигания сварочной дуги</h3><p>Существует два основных способа:</p><ol><li>Впритык (Метод постукивания): Электродом постукивают по детали, как клювом, и резко отводят на 2-3 мм</li><li>Чирканьем (Метод спички): Проводят концом электрода по поверхности металла быстрым движением и приподнимают</li></ol><p><strong>Важно:</strong> Если электрод прилип — нужно резко качнуть его из стороны в сторону.</p><h3>Управление дугой во время сварки</h3><p>После зажигания дуги необходимо поддерживать три параметра одновременно:</p><ol><li>Длина дуги: Расстояние от конца электрода до металла должно быть примерно равно диаметру электрода (2-4 мм)</li><li>Угол наклона: Электрод держат под углом 15-30° от вертикали</li><li>Скорость перемещения: Нужно двигаться так, чтобы сварочная ванна была равномерной</li></ol><h3>Движения электродом</h3><p>Для получения качественного шва сварщик совершает сложные движения:</p><ul><li>Поступательное: Вдоль оси электрода вниз (по мере сгорания)</li><li>Продольное: Вдоль линии шва</li><li>Поперечные колебания: «Зигзаг», «Спираль», «Полумесяц». Нужны для прогрева обеих кромок</li></ul><h3>Завершение шва («Заварка кратера»)</h3><p>В конце шва нельзя резко обрывать дугу — образуется «кратер» (слабое место с трещинами).</p><p><strong>Правило:</strong> В конце шва нужно задержать электрод на одном месте на 1-2 секунды, сделать небольшое круговое движение и медленно отвести электрод назад на уже готовый шов.</p><p><em>Совет от мастера: «Сварка — это баланс. Ты должен видеть разницу между ярким жидким металлом и более темным жидким шлаком. Шлак всегда должен следовать за дугой, а не обгонять её.»</em></p>`
+        },
+        { 
+            number: "5.1", 
+        title: "Дуговая наплавка валиков и сварка пластин в нижнем положении шва", 
+        text: `
+            <h3>Наплавка валиков на стальные пластины в нижнем положении шва</h3>
+            <p>Наплавкой называется процесс нанесения слоя расплавленного металла на поверхность металлического изделия. Наплавкой на изделии образуют поверхностный слой с особыми свойствами (износостойкость, кислотоупорность, жаростойкость).</p>
+            
+            <h3>Подготовка к работе</h3>
+            <ul>
+                <li>Очистка детали: Пластину необходимо очистить стальной щеткой или шлифмашинкой до металлического блеска</li>
+                <li>Разметка: Для получения ровных валиков рекомендуется нанести на пластину параллельные линии</li>
+                <li>Выбор электрода: Чаще всего используются электроды диаметром 3-4 мм (МР-3, АНО-21 или УОНИ 13/55)</li>
+                <li>Режимы сварки:
+                    <ul>
+                        <li>Для электрода 3 мм: 90-120 А</li>
+                        <li>Для электрода 4 мм: 130-160 А</li>
+                        <li>Полярность: Обычно постоянный ток обратной полярности: «+» на электроде</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Техника выполнения наплавки</h3>
+            <p><strong>Зажигание дуги и наклон электрода:</strong></p>
+            <ul>
+                <li>Дуга зажигается методом «постукивания» или «спички»</li>
+                <li>Угол наклона: Электрод держится под углом 15-30° от вертикали в сторону движения</li>
+            </ul>
+            
+            <p><strong>Формирование валика:</strong></p>
+            <ul>
+                <li>Длина дуги: Должна быть короткой (2-4 мм), примерно равна диаметру стержня электрода</li>
+                <li>Движения: Для узкого валика — ровное поступательное движение. Для широкого валика — небольшие поперечные колебания</li>
+            </ul>
+            
+            <p><strong>Перекрытие валиков:</strong> Чтобы поверхность была ровной, каждый следующий валик должен перекрывать предыдущий на 30-50%</p>
+            
+            <h3>Контроль качества</h3>
+            <p>После остывания и удаления шлака валик должен соответствовать требованиям:</p>
+            <ol>
+                <li>Равномерность: Одинаковая ширина и высота по всей длине</li>
+                <li>Чешуйчатость: Мелкая, без резких переходов</li>
+                <li>Отсутствие дефектов: Нет подрезов, наплывов, пор и включений шлака</li>
+            </ol>
+            
+            <p><em>Совет мастера: «Следи за границей между жидким металлом и шлаком. Шлак должен всегда оставаться позади дуги. Если шлак начинает заливать дугу — увеличь наклон электрода или скорость сварки.»</em></p>
+        `
+    },
+    { 
+        number: "5.2", 
+        title: "Наплавка валиков электродами с разными типами покрытий", 
+        text: `
+            <h3>Наплавка валиков электродами с разными типами покрытий</h3>
+            <p>Покрытие электрода - смесь веществ, нанесенная на электрод для усиления ионизации, защиты от неблагоприятного воздействия среды и металлургической обработки металла сварочной ванны.</p>
+            
+            <h3>Роль электродного покрытия</h3>
+            <p>Покрытие (обмазка) электрода при сгорании выполняет три функции:</p>
+            <ol>
+                <li>Газовую защиту: Создает облако газа, вытесняя кислород и азот из зоны сварки</li>
+                <li>Шлаковую защиту: Образует жидкий шлак, который накрывает сварочную ванну</li>
+                <li>Легирование и раскисление: Улучшает химический состав металла шва</li>
+                <li>Повышение устойчивости горения дуги</li>
+            </ol>
+            
+            <h3>Характеристика основных типов покрытий</h3>
+            
+            <p><strong>Рутиловое покрытие (Р / Rutile)</strong></p>
+            <p>Основа: минерал рутил (диоксид титана).</p>
+            <p>Марки: МР-3, АНО-4, АНО-21.</p>
+            <p><strong>Особенности:</strong></p>
+            <ul>
+                <li>Легкое зажигание дуги (в том числе повторное)</li>
+                <li>Дуга горит стабильно даже на малых токах</li>
+                <li>Минимальное разбрызгивание металла</li>
+                <li>Шлак отделяется очень легко</li>
+            </ul>
+            <p>Техника наплавки: Допускает сварку по ржавому, влажному или плохо зачищенному металлу. Можно работать на переменном (AC) и постоянном (DC) токе.</p>
+            
+            <p><strong>Основное покрытие (Б / Basic)</strong></p>
+            <p>Основа: карбонаты кальция и магния (мрамор, доломит).</p>
+            <p>Марки: УОНИ 13/45, УОНИ 13/55.</p>
+            <p><strong>Особенности:</strong></p>
+            <ul>
+                <li>Дает металл шва самой высокой пластичности и прочности</li>
+                <li>Шов устойчив к образованию трещин</li>
+                <li>Чувствительны к влаге: если электроды сырые — будут поры</li>
+                <li>Шлак густой, отделяется труднее</li>
+            </ul>
+            <p>Техника наплавки: Требует только постоянного тока (DC) обратной полярности. Необходима тщательная зачистка металла до блеска.</p>
+            
+            <p><strong>Кислое покрытие (А / Acid)</strong></p>
+            <p>Основа: оксиды железа и марганца.</p>
+            <p>Марки: АНО-1.</p>
+            <p>Особенности: Высокая текучесть металла, хорошая проплавляющая способность.</p>
+            <p>Минусы: Повышенное разбрызгивание, риск появления трещин в шве, значительное выделение вредных марганцевых соединений.</p>
+            
+            <h3>Особенности техники работы</h3>
+            <p><strong>С основными электродами (УОНИ):</strong></p>
+            <ul>
+                <li>Электроды обязательно должны быть просушены (прокалены) в печи</li>
+                <li>Нельзя допускать удлинения дуги</li>
+                <li>Наплавка ведется медленно, с тщательным контролем сплавления кромок</li>
+            </ul>
+            
+            <p><strong>С рутиловыми электродами (МР-3):</strong></p>
+            <ul>
+                <li>Хорошо подходят для прихваток и коротких швов</li>
+                <li>Валик получается красивым, с мелкочешуйчатой поверхностью</li>
+                <li>При наплавке важно следить, чтобы жидкий шлак не затекал вперед дуги</li>
+            </ul>
+            
+            <p><em>Совет мастера: «Если тебе нужно заварить забор или простую конструкцию в гараже — бери рутиловые МР-3. Если варишь раму автомобиля, котел или трубу под давление — только основные УОНИ. Помни: УОНИ "не любят" длинную дугу и грязный металл.»</em></p>
+        `
+    },
+    { 
+        number: "5.3", 
+        title: "Сварка пластин одинаковой и разной толщины встык", 
+        text: `
+            <h3>Сварка пластин одинаковой и разной толщины в нижнем положении сварного шва встык без скоса и со скосом кромок односторонним и двусторонним швами</h3>
+            
+            <h3>Подготовка и сборка деталей</h3>
+            <p>Независимо от толщины, перед сваркой обязательны:</p>
+            <ul>
+                <li>Очистка: Зона стыка (20-30 мм от края) очищается до металлического блеска</li>
+                <li>Зазор: Между пластинами всегда оставляется зазор (1-3 мм). Он нужен для того, чтобы расплавленный металл прошел на всю глубину</li>
+                <li>Прихватки: Короткие швы по краям для фиксации зазора</li>
+            </ul>
+            
+            <h3>Сварка пластин одинаковой толщины</h3>
+            <p><strong>Без скоса кромок (толщина до 4-5 мм):</strong></p>
+            <ul>
+                <li>Пластины просто выставляются с зазором</li>
+                <li>Сварка ведется в один проход. Электрод совершает небольшие поперечные колебания</li>
+            </ul>
+            
+            <p><strong>Со скосом кромок (Разделка) (толщина от 5 мм и выше):</strong></p>
+            <p>Если металл толстый, дуга не сможет «пробить» его на всю глубину. Делают V-образный скос (угол 60°).</p>
+            <ul>
+                <li>Притупление: На острие скоса оставляют плоский участок (1-3 мм)</li>
+                <li>Односторонний шов: Стык заваривается с одной стороны</li>
+                <li>Двусторонний шов: Самый надежный способ</li>
+            </ul>
+            
+            <h3>Сварка пластин РАЗНОЙ толщины</h3>
+            <p>Это сложная ситуация, так как тонкий металл прогревается быстрее и может прогореть, а толстый останется холодным.</p>
+            <p><strong>Главное правило:</strong> Если разница в толщине превышает 1/3 толщины более тонкой детали (или более 4 мм), на толстой детали делают скос (скос под углом 1:4 или 1:5).</p>
+            <p><strong>Зачем это нужно?</strong> Чтобы переход от толстого к тонкому был плавным. Это снимает напряжение в металле и предотвращает трещины.</p>
+            <p><strong>Техника:</strong> Дугу направляют больше на толстую деталь. Тонкую деталь «зацепляют» краем сварочной ванны, чтобы не допустить прожога.</p>
+            
+            <h3>Односторонние и двусторонние швы</h3>
+            <p><strong>Односторонний шов:</strong></p>
+            <ul>
+                <li>Применяется, когда нет доступа к обратной стороне</li>
+                <li>Сложность: Трудно добиться полного провара корня без дефектов</li>
+            </ul>
+            
+            <p><strong>Двусторонний шов:</strong></p>
+            <ul>
+                <li>Применяется для ответственных конструкций</li>
+                <li>Преимущество: Гарантирует отсутствие непровара в центре стыка</li>
+                <li>Требование: Обязательная очистка корня шва перед сваркой второй стороны</li>
+            </ul>
+            
+            <h3>Порядок заполнения многослойного шва (при большой толщине)</h3>
+            <ol>
+                <li>Корневой шов: Самый важный, выполняется электродом меньшего диаметра (2-3 мм)</li>
+                <li>Заполняющие слои: Выполняются более толстыми электродами на повышенных токах</li>
+                <li>Облицовочный (декоративный) слой: Последний слой, который должен быть ровным</li>
+            </ol>
+            
+            <h3>Типичные ошибки</h3>
+            <ul>
+                <li>Непровар: Из-за маленького зазора или слишком большой скорости</li>
+                <li>Прожог: Из-за слишком большого тока или отсутствия притупления кромок</li>
+                <li>Смещение кромок: Пластины лежат не в одной плоскости</li>
+            </ul>
+            
+            <p><em>Золотое правило: «Если свариваешь пластины разной толщины, всегда "танцуй" электродом вокруг толстой детали, лишь слегка подогревая тонкую.»</em></p>
+        `
+    },
+    { 
+        number: "5.4", 
+        title: "Однослойная наплавка горизонтальных валиков на вертикальную плоскость", 
+        text: `
+            <h3>Однослойная наплавка горизонтальных валиков на вертикальную плоскость</h3>
+            
+            <h3>Особенности процесса</h3>
+            <p>При наплавке на вертикальную стену сварочная ванна стремится «вытечь» вниз. Чтобы этого не произошло, необходимо:</p>
+            <ol>
+                <li>Уменьшить объем жидкого металла: использовать электроды меньшего диаметра и меньший ток</li>
+                <li>Быстрая кристаллизация: металл должен застывать быстрее, чем он успеет стечь</li>
+                <li>Использование «полочки»: каждый предыдущий проход или нижний край валика служит опорой для расплавленного металла</li>
+            </ol>
+            
+            <h3>Режимы сварки</h3>
+            <ul>
+                <li>Сварочный ток: Рекомендуется устанавливать ток на 10-15% ниже, чем при сварке в нижнем положении</li>
+                <li>Для электрода 3 мм: 80-100 А</li>
+                <li>Электроды: Лучше использовать электроды с основным (УОНИ) или рутиловым (МР-3) покрытием диаметром 3 мм</li>
+            </ul>
+            
+            <h3>Техника выполнения наплавки</h3>
+            <p><strong>Углы наклона электрода</strong></p>
+            <p>Это самый важный момент для удержания металла:</p>
+            <ul>
+                <li>Угол в плоскости движения: 15-30° (углом назад)</li>
+                <li>Угол к вертикали (вверх): Электрод должен быть направлен немного вверх под углом 70-80° к поверхности пластины</li>
+            </ul>
+            
+            <p><strong>Манипуляции электродом</strong></p>
+            <ul>
+                <li>Длина дуги: Строго короткая (2 мм). Длинная дуга мгновенно приведет к стеканию капли</li>
+                <li>Движения: Для узких валиков — движение «вперед» без колебаний. Для широких — небольшие колебания «петлей» или «полумесяцем»</li>
+            </ul>
+            
+            <p><strong>Порядок наплавки нескольких валиков</strong></p>
+            <p>Если нужно наплавить слой на плоскость:</p>
+            <ol>
+                <li>Начинают с самого нижнего валика</li>
+                <li>Он создает «ступеньку» (опору)</li>
+                <li>Второй валик наплавляется над первым так, чтобы он опирался на него</li>
+            </ol>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Наплыв (сосульки): Металл стек вниз. Причина: слишком большой ток или длинная дуга</li>
+                <li>Подрез: Канавка вдоль верхней границы валика. Причина: электрод направлен слишком сильно вниз</li>
+                <li>Непровар: Металл натек на холодную стенку. Причина: слишком высокая скорость или малый ток</li>
+            </ol>
+            
+            <h3>Техника безопасности</h3>
+            <p>При наплавке на вертикальную плоскость брызги металла летят не вниз, а в разные стороны и могут попасть за шиворот или в обувь.</p>
+            <ul>
+                <li>Куртка должна быть застегнута на все пуговицы</li>
+                <li>Брюки должны быть поверх ботинок (без заправки)</li>
+                <li>Обязательно наличие головного убора под маской</li>
+            </ul>
+            
+            <p><em>Совет мастера: «На вертикальной стене дуга — это твой инструмент поддержки. Держи её коротко, как будто ты вдавливаешь металл в стену. Если видишь, что металл начинает дрожать и собирается капнуть — немедленно отведи дугу чуть в сторону или нужно ускорить движение.»</em></p>
+        `
+    },
+    { 
+        number: "6.1", 
+        title: "Сварка деталей из углеродистой стали встык", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали встык</h3>
+            
+            <h3>Свариваемость углеродистых сталей</h3>
+            <p>Свариваемость напрямую зависит от содержания углерода (С) в металле:</p>
+            <ul>
+                <li><strong>Низкоуглеродистые (до 0,25% С):</strong> Свариваются отлично. Не требуют подогрева, швы получаются прочными и пластичными (пример: Ст3пс, Сталь 20)</li>
+                <li><strong>Среднеуглеродистые (0,25% - 0,6% С):</strong> Свариваются удовлетворительно. Склонны к образованию трещин. Часто требуют подогрева до 150-300°C (пример: Сталь 35, Сталь 45)</li>
+                <li><strong>Высокоуглеродистые (более 0,6% С):</strong> Свариваются плохо. Редко используются в сварных конструкциях, требуют сложной термообработки</li>
+            </ul>
+            
+            <h3>Подготовка стыка под сварку</h3>
+            <p>Качественный стыковой шов требует соблюдения геометрии:</p>
+            <ul>
+                <li>Зачистка: Очистить кромки на ширину 20-30 мм от ржавчины, масла и окалины до металлического блеска</li>
+                <li>Зазор (в): Обязательно оставляется зазор 1-3 мм для провара корня шва</li>
+                <li>Притупление кромок (с): Плоский участок на острие кромок (1-2 мм) предотвращает прожоги</li>
+                <li>Разделка кромок:
+                    <ul>
+                        <li>До 4 мм — без скоса</li>
+                        <li>5-15 мм — односторонняя (V-образная)</li>
+                        <li>Более 15 мм — двусторонняя (Х-образная)</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Выбор электродов</h3>
+            <p>Для сварки углеродистых сталей используют две основные группы электродов:</p>
+            <ul>
+                <li><strong>Для обычных конструкций (низкоуглеродистые стали):</strong> Электроды с рутиловым покрытием (МР-3, АНО-21). Легко зажигаются, работают на переменном и постоянном токе</li>
+                <li><strong>Для ответственных конструкций (высокие нагрузки):</strong> Электроды с основным покрытием (УОНИ 13/45, УОНИ 13/55). Требуют только постоянного тока обратной полярности («+» на электроде)</li>
+            </ul>
+            
+            <h3>Технология сварки</h3>
+            <p><strong>Прихватки:</strong> Детали фиксируются короткими швами (прихватками). Длина прихватки 5-10 мм, расстояние между ними — 100-150 мм.</p>
+            
+            <p><strong>Сварка корня шва:</strong> Это первый и самый важный слой. Его задача — соединить нижние части кромок. Проводится на умеренном токе, чтобы не допустить прожога.</p>
+            
+            <p><strong>Заполнение разделки:</strong> При толщине металла более 5-6 мм сварка ведется в несколько слоев:
+                <ol>
+                    <li>Корневой слой</li>
+                    <li>Заполняющие слои (выполняются с поперечными колебаниями электрода)</li>
+                    <li>Облицовочный слой (красивый финишный валик, перекрывающий кромки на 2-3 мм)</li>
+                </ol>
+            </p>
+            
+            <h3>Режимы сварки</h3>
+            <p>Ток подбирается под диаметр электрода и толщину металла:</p>
+            <ul>
+                <li>Для d = 3 мм: 90-120 А</li>
+                <li>Для d = 4 мм: 130-170 А</li>
+            </ul>
+            <p><strong>Важно:</strong> При сварке среднеуглеродистых сталей (Сталь 45) ток увеличивают, чтобы лучше прогреть металл.</p>
+            
+            <h3>Основные правила и дефекты</h3>
+            <ul>
+                <li>Избегайте резкого охлаждения: Особенно для среднеуглеродистых сталей (нельзя лить воду на шов), иначе металл станет хрупким и лопнет</li>
+                <li>Типичные дефекты:
+                    <ul>
+                        <li>Непровар в корне: малый зазор или малый ток</li>
+                        <li>Шлаковые включения: плохая очистка предыдущего слоя от шлака</li>
+                        <li>Горячие трещины: возникают при избытке углерода в стали</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <p><em>Совет мастера: «Если ты варишь обычную Сталь 3 (Ст3), она простит тебе мелкие ошибки. Но если перед тобой деталь из Стали 45, обязательно подогрей её перед сваркой хотя бы горелкой, иначе шов "отстрелит" при остывании.»</em></p>
+        `
+    },
+    { 
+        number: "6.2", 
+        title: "Сварка деталей из углеродистой стали внахлест", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали внахлест</h3>
+            
+            <h3>Суть и применение соединения внахлест</h3>
+            <p>Соединение внахлест — это такое соединение, в котором торцы пластин заходят друг на друга.</p>
+            <ul>
+                <li><strong>Преимущества:</strong> Не требуется сложная разделка кромок (скос). Легко подгонять детали по месту</li>
+                <li><strong>Применяемость:</strong> Для металлов толщиной до 10-12 мм</li>
+                <li><strong>Величина нахлеста:</strong> Перекрытие должно быть не менее 3-5 толщин наиболее тонкой детали (но не менее 30 мм)</li>
+            </ul>
+            
+            <h3>Подготовка и сборка</h3>
+            <ul>
+                <li>Зачистка: Поверхности в местах прилегания пластин и кромки очищаются от ржавчины и окалины (на 20 мм от будущего шва)</li>
+                <li>Плотность прилегания: Пластины должны плотно прилегать друг к другу без зазора</li>
+                <li>Прихватки: Детали фиксируются прихватками с двух сторон</li>
+            </ul>
+            
+            <h3>Техника сварки углового шва в нахлесте</h3>
+            <p>Сварка внахлест — это по сути сварка во внутреннем углу.</p>
+            <ul>
+                <li>Положение электрода: Электрод направляют в угол под углом 45° к плоскости пластин. Наклон вдоль шва — 15-30° (углом назад)</li>
+                <li>Главная сложность: Жидкий металл стекает на нижнюю пластину, а верхняя кромка (угол) быстро плавится и может «подрезаться»</li>
+            </ul>
+            <p><strong>Совет мастера:</strong> Дугу нужно направлять чуть больше на нижнюю (горизонтальную) пластину, зацепляя верхнюю кромку краем сварочной ванны.</p>
+            
+            <h3>Односторонние и двусторонние швы</h3>
+            <ul>
+                <li><strong>Односторонний нахлест:</strong> Применяется в неответственных конструкциях. Недостаток — внутрь нахлеста может попадать влага, вызывая коррозию</li>
+                <li><strong>Двусторонний нахлест:</strong> Швы накладываются с обеих сторон (сверху и снизу). Это делает соединение жестким и защищает его от попадания влаги между листами</li>
+            </ul>
+            
+            <h3>Режимы сварки</h3>
+            <p>Для сварки углеродистых сталей внахлест (Ст3, Сталь 20):</p>
+            <ul>
+                <li>Электроды: МР-3, АНО-21 (рутиловые) или УОНИ 13/55 (основные для ответственных конструкций)</li>
+                <li>Диаметр: Обычно 3-4 мм</li>
+                <li>Ток: Выбирается чуть выше, чем для стыкового соединения той же толщины
+                    <ul>
+                        <li>Для электрода 3 мм: 100-120 А</li>
+                        <li>Для электрода 4 мм: 140-180 А</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Подрез верхней кромки: Самый частый дефект. Возникает из-за слишком длинной дуги или большого тока</li>
+                <li>Непровар угла (корня): Металл не затек в самый угол между пластинами</li>
+                <li>Наплыв на нижнюю пластину: Металл стек вниз, не сплавившись с поверхностью</li>
+                <li>Поры: Возникают, если между пластинами осталась грязь, масло или вода</li>
+            </ol>
+            
+            <h3>Сварка деталей РАЗНОЙ толщины внахлест</h3>
+            <p>Если верхняя пластина тоньше нижней:</p>
+            <ul>
+                <li>Дугу направляют преимущественно на толстую (нижнюю) пластину</li>
+                <li>Колебательные движения делают в форме буквы «Г» или закругленные, лишь слегка касаясь края тонкого листа</li>
+            </ul>
+            
+            <p><em>Золотое правило: «В нахлесточном соединении нижняя пластина служит "полочкой". Начинай плавить металл на ней, а затем коротким движением набрасывай его на верхнюю кромку.»</em></p>
+        `
+    },
+    { 
+        number: "6.3", 
+        title: "Сварка деталей из углеродистой стали втавр", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали втавр</h3>
+            
+            <h3>Особенности таврового соединения</h3>
+            <ul>
+                <li>Угловой шов: Основной тип шва втавре</li>
+                <li>Теплоотвод: В тавровом соединении тепло уходит в три направления, поэтому требуется повышенный сварочный ток</li>
+                <li>Катет шва (К): Кратчайшее расстояние от поверхности одной детали до границы шва на поверхности другой детали. Величина катета обычно равна толщине металла</li>
+            </ul>
+            
+            <h3>Подготовка и разделка кромок</h3>
+            <p>Зависит от толщины вертикального листа:</p>
+            <ul>
+                <li>До 10-12 мм: Сварка без скоса кромок</li>
+                <li>Более 12 мм: Для полного провара делают односторонний или двусторонний скос кромок на вертикальном листе (V-образная или К-образная разделка)</li>
+                <li>Зачистка: Обязательна очистка зоны стыка от ржавчины и окалины до блеска</li>
+            </ul>
+            
+            <h3>Техника сварки (Положения)</h3>
+            <p><strong>А. Положение «в угол» (горизонтальный угловой шов)</strong></p>
+            <p>Это самое частое положение.</p>
+            <ul>
+                <li>Угол электрода: 45° к обеим плоскостям. Наклон вдоль шва — 15-30° (углом назад)</li>
+                <li>Главная трудность: Жидкий металл стекает на нижнюю полку</li>
+                <li>Прием: Дугу направляют чуть больше на нижнюю пластину, а затем «поднимают» её на вертикальную стенку</li>
+            </ul>
+            
+            <p><strong>Б. Положение «в лодочку»</strong></p>
+            <p>Детали поворачивают так, чтобы шов лег в форме желоба (V).</p>
+            <ul>
+                <li>Преимущество: Это самое удобное положение. Жидкий металл не стекает, вероятность подрезов минимальна, корень проваривается идеально</li>
+                <li>Применение: Если есть возможность повернуть конструкцию (кантовать), всегда выбирайте «лодочку»</li>
+            </ul>
+            
+            <h3>Режимы сварки</h3>
+            <p>Для сталей Ст3, Сталь 20:</p>
+            <ul>
+                <li>Электроды: МР-3 (рутиловые) или УОНИ 13/55 (для ответственных швов)</li>
+                <li>Ток: На 10-20% выше, чем для обычного стыкового соединения
+                    <ul>
+                        <li>Для d=3 мм: 110-130 А</li>
+                        <li>Для d=4 мм: 160-200 А</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Порядок выполнения шва</h3>
+            <ol>
+                <li>Прихватки: Ставятся с обеих сторон вертикального листа, чтобы его не «повело»</li>
+                <li>Корневой проход: Выполняется без колебаний, максимально глубоко в угол</li>
+                <li>Заполнение: Если нужен большой катет, накладывают несколько слоев (многослойный шов). Каждый слой очищается от шлака</li>
+            </ol>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Непровар корня: Металл не затек в самый угол. Шов держится «на честном слове» и может лопнуть при нагрузке</li>
+                <li>Подрез на вертикальной стенке: Канавка вдоль шва на вертикальном листе. Возникает из-за длинной дуги или неправильного угла наклона</li>
+                <li>Наплыв на нижней полке: Металл стек вниз без сплавления</li>
+                <li>Неравенство катетов: Когда шов на одной пластине шире, чем на другой (должны быть одинаковыми)</li>
+            </ol>
+            
+            <h3>Контроль качества</h3>
+            <p>Угловые швы проверяют специальными шаблонами сварщика (УШС), измеряя катет. Шов должен иметь плавный переход к основному металлу без резких ступенек.</p>
+            
+            <p><em>Совет мастера: «При сварке "в угол" держи дугу как можно короче. Если дуга длинная, она начнет "гулять" и подрезать вертикальную стенку, а металл просто упадет вниз, не проварив корень.»</em></p>
+        `
+    },
+    { 
+        number: "6.4", 
+        title: "Сварка деталей из углеродистой стали односторонним швом без разделки кромок", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали в угол односторонним швом без разделки кромок в нижнем положении шва</h3>
+            
+            <h3>Особенности процесса</h3>
+            <p>При наплавке на вертикальную стену сварочная ванна стремится «вытечь» вниз. Чтобы этого не произошло, необходимо:</p>
+            <ol>
+                <li>Уменьшить объем жидкого металла: использовать электроды меньшего диаметра и меньший ток</li>
+                <li>Быстрая кристаллизация: металл должен застывать быстрее, чем он успеет стечь</li>
+                <li>Использование «полочки»: каждый предыдущий проход или нижний край валика служит опорой для расплавленного металла</li>
+            </ol>
+            
+            <h3>Режимы сварки</h3>
+            <ul>
+                <li>Сварочный ток: Рекомендуется устанавливать ток на 10-15% ниже, чем при сварке в нижнем положении</li>
+                <li>Для электрода 3 мм: 80-100 А</li>
+                <li>Электроды: Лучше использовать электроды с основным (УОНИ) или рутиловым (МР-3) покрытием диаметром 3 мм</li>
+            </ul>
+            
+            <h3>Техника выполнения наплавки</h3>
+            <p><strong>Углы наклона электрода</strong></p>
+            <p>Это самый важный момент для удержания металла:</p>
+            <ul>
+                <li>Угол в плоскости движения: 15-30° (углом назад)</li>
+                <li>Угол к вертикали (вверх): Электрод должен быть направлен немного вверх под углом 70-80° к поверхности пластины</li>
+            </ul>
+            
+            <p><strong>Манипуляции электродом</strong></p>
+            <ul>
+                <li>Длина дуги: Строго короткая (2 мм). Длинная дуга мгновенно приведет к стеканию капли</li>
+                <li>Движения: Для узких валиков — движение «вперед» без колебаний. Для широких — небольшие колебания «петлей» или «полумесяцем»</li>
+            </ul>
+            
+            <p><strong>Порядок наплавки нескольких валиков</strong></p>
+            <p>Если нужно наплавить слой на плоскость:</p>
+            <ol>
+                <li>Начинают с самого нижнего валика</li>
+                <li>Он создает «ступеньку» (опору)</li>
+                <li>Второй валик наплавляется над первым так, чтобы он опирался на него</li>
+            </ol>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Наплыв (сосульки): Металл стек вниз. Причина: слишком большой ток или длинная дуга</li>
+                <li>Подрез: Канавка вдоль верхней границы валика. Причина: электрод направлен слишком сильно вниз</li>
+                <li>Непровар: Металл натек на холодную стенку. Причина: слишком высокая скорость или малый ток</li>
+            </ol>
+            
+            <h3>Техника безопасности</h3>
+            <p>При наплавке на вертикальную плоскость брызги металла летят не вниз, а в разные стороны и могут попасть за шиворот или в обувь.</p>
+            <ul>
+                <li>Куртка должна быть застегнута на все пуговицы</li>
+                <li>Брюки должны быть поверх ботинок (без заправки)</li>
+                <li>Обязательно наличие головного убора под маской</li>
+            </ul>
+            
+            <p><em>Совет мастера: «На вертикальной стене дуга — это твой инструмент поддержки. Держи её коротко, как будто ты вдавливаешь металл в стену. Если видишь, что металл начинает дрожать и собирается капнуть — немедленно отведи дугу чуть в сторону или нужно ускорить движение.»</em></p>
+        `
+    },
+    { 
+        number: "6.5", 
+        title: "Сварка деталей из углеродистой стали однослойными и многослойными швами в нижнем положении", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали однослойными и многослойными швами в нижнем положении сварного шва</h3>
+            
+            <h3>Выбор количества слоев</h3>
+            <p>Количество проходов (слоев) зависит от толщины свариваемого металла:</p>
+            <ul>
+                <li><strong>Однослойный шов:</strong> Применяется для металла толщиной до 5-6 мм. Шов выполняется за один проход электрода</li>
+                <li><strong>Многослойный шов:</strong> Применяется для металла толщиной более 6 мм. Позволяет проварить толстый металл по всей глубине и улучшает структуру металла шва</li>
+            </ul>
+            
+            <h3>Однослойная сварка</h3>
+            <p>При однослойной сварке важно получить полный провар и красивый валик за один раз.</p>
+            <ul>
+                <li>Техника: Электрод совершает поперечные колебательные движения (зигзаг, полумесяц) для прогрева обеих кромок</li>
+                <li>Особенности: Требуется точный подбор тока, чтобы не допустить прожога и одновременно обеспечить провар корня</li>
+            </ul>
+            
+            <h3>Многослойная сварка</h3>
+            <p>Шов состоит из нескольких слоев, каждый из которых выполняет свою задачу:</p>
+            <ol>
+                <li><strong>Корневой слой (корень шва):</strong> Самый ответственный. Выполняется электродом малого диаметра (2-3 мм) без значительных поперечных колебаний. Задача: Полностью сплавить нижние кромки деталей</li>
+                <li><strong>Заполняющие слои:</strong> Выполняются электродами диаметром 4-5 мм на повышенных токах. Задача: Максимально быстро и качественно заполнить разделку кромок</li>
+                <li><strong>Облицовочный (декоративный) слой:</strong> Последний слой, завершающий шов. Задача: Создать плавный переход к основному металлу и придать шву эстетичный вид</li>
+            </ol>
+            
+            <h3>Золотое правило многослойной сварки</h3>
+            <p>Тщательная очистка от шлака! Перед наложением каждого последующего слоя необходимо полностью удалить шлак с предыдущего с помощью молотка-шлакоотделителя и стальной щетки.</p>
+            
+            <h3>Преимущества многослойных швов перед однослойными (для толстого металла):</h3>
+            <ul>
+                <li>Пластичность: Металл многослойного шва более вязкий и пластичный из-за многократного нагрева</li>
+                <li>Глубина провара: Гарантированное отсутствие непроваров в толстом металле</li>
+                <li>Меньшие деформации: Тепло вкладывается порциями, что уменьшает риск коробления детали</li>
+            </ul>
+            
+            <h3>Техника выполнения «вразброс» и «каскадом»</h3>
+            <p>При большой длине шва применяются специальные методы:</p>
+            <ul>
+                <li><strong>Обратноступенчатый метод:</strong> Длинный шов делится на участки, которые варятся в направлении, обратном общему направлению сварки</li>
+                <li><strong>Метод «каскада» или «блоков»:</strong> Применяется для очень толстого металла, где слои накладываются ступенями</li>
+            </ul>
+            
+            <h3>Типичные ошибки</h3>
+            <ol>
+                <li>Шлаковые включения: Плохая очистка слоев (в многослойных швах)</li>
+                <li>Непровар корня: Использование слишком толстого электрода для первого слоя</li>
+                <li>Межслойный непровар: Слишком высокая скорость сварки при заполнении</li>
+                <li>Перегрев металла: Использование чрезмерно большого тока на всех слоях</li>
+            </ol>
+            
+            <p><em>Совет мастера: «При многослойной сварке не старайся залить всё за один раз. Первый слой — самый тонкий и чистый, он держит всё соединение. Последний слой — твоё лицо как мастера. А то, что внутри, должно быть монолитом без единой крупинки шлака.»</em></p>
+        `
+    },
+    { 
+        number: "6.6", 
+        title: "Сварка деталей из углеродистой стали однослойными и многослойными швами в вертикальном положении", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали однослойными и многослойными швами в вертикальном положении сварного шва</h3>
+            
+            <h3>Особенности вертикальной сварки</h3>
+            <p>Главная задача — не дать металлу стечь. Это достигается за счет:</p>
+            <ol>
+                <li>Поверхностного натяжения: Жидкий металл удерживается силой сцепления молекул</li>
+                <li>«Полочки» из застывшего металла: Каждый последующий объем металла опирается на уже застывший предыдущий</li>
+                <li>Короткой дуги: Позволяет капле металла быстрее перейти с электрода в ванну</li>
+            </ol>
+            
+            <h3>Режимы и оборудование</h3>
+            <ul>
+                <li>Сварочный ток: Устанавливается на 10-15% ниже, чем для нижнего положения</li>
+                <li>Для d=3 мм: 80-100 А</li>
+                <li>Электроды: Лучше использовать электроды с основным покрытием (УОНИ 13/55), так как их шлак застывает быстрее</li>
+            </ul>
+            
+            <h3>Однослойная вертикальная сварка (Снизу вверх)</h3>
+            <p>Применяется для металла толщиной до 4-6 мм.</p>
+            <ul>
+                <li>Зажигание дуги: В самой нижней точке стыка</li>
+                <li>Техника: Электрод совершает поперечные движения (полумесяцем, зигзагом или «елочкой»)</li>
+                <li>Угол наклона: Электрод направлен немного вверх (под углом 70-80°) к вертикали</li>
+            </ul>
+            
+            <h3>Многослойная вертикальная сварка</h3>
+            <p>Применяется для металла толщиной более 6 мм.</p>
+            <ol>
+                <li><strong>Корневой слой:</strong> Выполняется без поперечных колебаний (ниточный валик). Задача: Проплавить корень и создать надежное основание</li>
+                <li><strong>Заполняющие слои:</strong> Выполняются с поперечными колебаниями. Каждый последующий слой должен быть чуть шире предыдущего</li>
+                <li><strong>Облицовочный слой:</strong> Выполняется максимально аккуратно. Скорость перемещения чуть выше</li>
+            </ol>
+            
+            <h3>Сварка «сверху вниз»</h3>
+            <p>Используется редко (преимущественно для тонкого металла или трубопроводов специальными электродами).</p>
+            <ul>
+                <li>Требует очень короткой дуги и высокой скорости перемещения</li>
+                <li>Необходимо, чтобы шлак не обогнал сварочную ванну и не затушил дугу</li>
+            </ul>
+            
+            <h3>Основные дефекты и способы борьбы с ними</h3>
+            <ul>
+                <li><strong>Наплывы («сосульки»):</strong> Металл стекает вниз. Лечение: уменьшить ток, укоротить дугу, увеличить скорость</li>
+                <li><strong>Подрезы:</strong> Канавки по бокам шва. Лечение: делать задержку электродом на краях шва</li>
+                <li><strong>Непровар корня:</strong> Дуга не достала до основания. Лечение: увеличить зазор или ток корневого шва</li>
+                <li><strong>Шлаковые включения:</strong> Плохая зачистка между слоями</li>
+            </ul>
+            
+            <h3>Техника безопасности</h3>
+            <p>При вертикальной сварке капли металла летят во все стороны.</p>
+            <ul>
+                <li>Обязательно наличие краг с напуском на рукава</li>
+                <li>Куртка должна быть застегнута под горло</li>
+                <li>Брюки надеваются только поверх ботинок</li>
+            </ul>
+            
+            <p><em>Совет мастера: «Вертикальный шов не терпит суеты. Смотри на сварочную ванну: она должна быть похожа на букву "О". Если она вытягивается в каплю — значит, металл перегрет и сейчас потечет. Сделай паузу или отведи дугу чуть выше, дай "полочке" застыть.»</em></p>
+        `
+    },
+    { 
+        number: "8.1–8.2", 
+        title: "Работа на сварочном тренажере «Soldamatic»", 
+        text: `
+            <h3>Работа на сварочном тренажере «Soldamatic» 135 процесс</h3>
+            <p>Soldamatic 135 — это современный высокотехнологичный тренажер, использующий технологию дополненной реальности (Augmented Reality — AR) для обучения сварщиков.</p>
+            
+            <h3>Состав оборудования тренажера</h3>
+            <p>Тренажер состоит из трех ключевых элементов:</p>
+            <ol>
+                <li>Центральный блок: Компьютер с монитором для настройки параметров и анализа результатов</li>
+                <li>Шлем дополненной реальности: Внутри установлены камеры и экраны. Ученик видит реальный мир, дополненный спецэффектами</li>
+                <li>Манипуляторы (Инструмент): Имитация горелок (MIG/MAG, TIG) или электрододержателя (MMA)</li>
+                <li>Рабочие заготовки: Пластиковые модели различных соединений со специальными метками</li>
+            </ol>
+            
+            <h3>Процесс подготовки к работе</h3>
+            <p>Перед началом «сварки» необходимо выполнить настройку в программном обеспечении:</p>
+            <ul>
+                <li>Выбор профиля: Вход под своим именем для сохранения статистики</li>
+                <li>Выбор курса и упражнения: Например, «Наплавка валиков в нижнем положении»</li>
+                <li>WPS (Технологическая карта): Тренажер требует выбрать правильный диаметр электрода, тип металла и силу тока</li>
+            </ul>
+            
+            <h3>Технология процесса обучения</h3>
+            <p>Во время выполнения упражнения тренажер Soldamatic отслеживает 5 критических параметров в режиме реального времени:</p>
+            <ol>
+                <li>Длина дуги (Arc Length): Расстояние от кончика электрода до поверхности</li>
+                <li>Скорость сварки (Travel Speed): Темп перемещения вдоль шва</li>
+                <li>Угол наклона (Travel Angle): Наклон электрода вдоль оси шва</li>
+                <li>Рабочий угол (Work Angle): Угол наклона электрода к плоскости деталей</li>
+                <li>Прямолинейность (Straightness): Насколько ровно сварщик ведет электрод по линии стыка</li>
+            </ol>
+            
+            <h3>Визуальные подсказки (Guides)</h3>
+            <p>Soldamatic позволяет включить динамические подсказки, которые видны в шлеме:</p>
+            <ul>
+                <li>Значки-индикаторы: Показывают стрелками, куда нужно наклонить электрод или с какой скоростью двигаться</li>
+                <li>Цветовая индикация: Зеленый цвет — параметр в норме, красный — ошибка</li>
+                <li>Задача ученика: Добиться того, чтобы все индикаторы оставались зелеными на протяжении всего шва</li>
+            </ul>
+            
+            <h3>Анализ и оценка результатов</h3>
+            <p>После завершения шва тренажер мгновенно выводит отчет:</p>
+            <ul>
+                <li>Общий балл: От 0 до 100</li>
+                <li>Графический анализ: Показывает на каких участках шва были допущены ошибки</li>
+                <li>Видеоповтор: Можно посмотреть процесс «сварки» со стороны или глазами ученика</li>
+                <li>Виртуальный дефектоскоп: Позволяет увидеть внутренние дефекты шва (поры, непровары)</li>
+            </ul>
+            
+            <h3>Преимущества работы на Soldamatic 135</h3>
+            <ol>
+                <li>Безопасность: Нулевой риск получения ожогов, поражения током или «зайчиков»</li>
+                <li>Экономия: Нет затрат на металл, электроды и электроэнергию на этапе «постановки руки»</li>
+                <li>Эффективность: Ученик может повторить упражнение 50 раз за час</li>
+                <li>Объективность: Оценку ставит компьютер на основе точных датчиков</li>
+            </ol>
+        `
+    },
+    { 
+        number: "8.3", 
+        title: "Наплавка валиков на стальные пластины в нижнем положении шва на оборудовании полуавтоматической сварки в среде защитных газов", 
+        text: `
+            <h3>Наплавка валиков на стальные пластины в нижнем положении шва на оборудовании полуавтоматической сварки в среде защитных газов</h3>
+            <p>Полуавтоматическая сварка (MIG/MAG) — это процесс, при котором сварочная проволока подается в зону сварки автоматически с постоянной скоростью, а сварщик перемещает горелку вручную.</p>
+            
+            <h3>Оборудование сварочного поста</h3>
+            <ol>
+                <li>Источник питания (выпрямитель или инвертор)</li>
+                <li>Механизм подачи проволоки (встроенный или выносной)</li>
+                <li>Сварочная горелка со шланговым пакетом</li>
+                <li>Баллон с защитным газом с редуктором и подогревателем</li>
+                <li>Катушка сварочной проволоки (обычно марки Св-08Г2С или аналоги)</li>
+            </ol>
+            
+            <h3>Подготовка к работе</h3>
+            <ol>
+                <li>Зачистка пластины: Удалить ржавчину и масло до блеска. Полуавтомат очень чувствителен к чистоте металла</li>
+                <li>Настройка вылета проволоки: Свободный конец проволоки из сопла горелки должен составлять 10-15 мм</li>
+                <li>Настройка расхода газа: Установить на редукторе 10-15 литров в минуту</li>
+            </ol>
+            
+            <h3>Основные параметры настройки (Режимы)</h3>
+            <p>В отличие от ручной сварки (MMA), где настраивается только ток, на полуавтомате настраиваются два основных параметра:</p>
+            <ul>
+                <li><strong>Скорость подачи проволоки (Амперы):</strong> Определяет глубину провара и высоту валика</li>
+                <li><strong>Сварочное напряжение (Вольты):</strong> Определяет ширину шва и форму валика</li>
+            </ul>
+            <p><strong>Важно:</strong> Параметры должны быть сбалансированы. Если проволока «стреляет» и брызгает — напряжения мало. Если дуга длинная и часто обрывается — напряжения много.</p>
+            
+            <h3>Техника выполнения наплавки</h3>
+            <p><strong>А. Положение горелки</strong></p>
+            <ul>
+                <li>Угол наклона: Горелку держат под углом 10-20° от вертикали</li>
+                <li>Способы ведения:
+                    <ul>
+                        <li>Углом вперед (толкание): Сварщик толкает горелку. Валик получается более широким и плоским</li>
+                        <li>Углом назад (тянуть): Валик получается узким, высоким, а глубина провара — максимальной</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <p><strong>Б. Движения горелкой</strong></p>
+            <ul>
+                <li>Для наплавки узких валиков горелку ведут равномерно без колебаний</li>
+                <li>Для получения широких валиков совершают поперечные колебания (зигзаг, петля)</li>
+            </ul>
+            
+            <p><strong>В. Формирование слоя</strong></p>
+            <ul>
+                <li>При многослойной наплавке каждый валик должен перекрывать предыдущий на 1/3 или 1/2 ширины</li>
+                <li>Поверхность валика после полуавтомата почти не покрыта шлаком</li>
+            </ul>
+            
+            <h3>Преимущества полуавтоматической наплавки</h3>
+            <ul>
+                <li>Высокая производительность: Не нужно прерываться на замену электрода</li>
+                <li>Отсутствие шлаковой корки: Лучшая видимость сварочной ванны</li>
+                <li>Малые деформации: Зона нагрева более узкая и концентрированная</li>
+            </ul>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Разбрызгивание металла: Неверное напряжение или плохая защита газом</li>
+                <li>Поры: Недостаточный расход газа, сквозняк в помещении или грязный металл</li>
+                <li>Непровар: Слишком высокая скорость перемещения или малое напряжение</li>
+                <li>«Прилипание» проволоки к соплу: Перегрев наконечника или слишком медленная подача</li>
+            </ol>
+            
+            <h3>Техника безопасности (Специфика)</h3>
+            <ul>
+                <li>Излучение: Дуга в защитном газе более яркая, чем при ручной сварке</li>
+                <li>Баллоны: Баллон должен быть закреплен цепью к стене или тележке</li>
+                <li>Газ: При больших объемах сварки в тесном помещении CO₂ может вытеснить кислород</li>
+            </ul>
+        `
+    },
+    { 
+        number: "8.4", 
+        title: "Сварка деталей из углеродистой стали встык в нижнем пространственном положении шва на оборудовании полуавтоматической сварки в среде защитных газов", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали встык в нижнем пространственном положении шва на оборудовании полуавтоматической сварки в среде защитных газов</h3>
+            <p>Сварка встык на полуавтомате (MIG/MAG) — один из самых распространенных процессов в промышленности.</p>
+            
+            <h3>Материалы для сварки</h3>
+            <p>Для углеродистых сталей (Ст3, Сталь 10, 20) используются:</p>
+            <ul>
+                <li>Сварочная проволока: Чаще всего марки Св-08Г2С диаметром 0.8-1.2 мм</li>
+                <li>Защитный газ:
+                    <ul>
+                        <li>Углекислый газ (CO₂) — для глубокого провара и экономии</li>
+                        <li>Смесь (80% Ar + 20% CO₂) — для уменьшения брызг, более красивого шва и стабильной дуги</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Подготовка кромок (Разделка)</h3>
+            <p>Зависит от толщины металла (S):</p>
+            <ol>
+                <li>S до 4 мм: Сварка без скоса кромок. Обязателен зазор 1-2 мм</li>
+                <li>S от 4 до 12 мм: Односторонняя V-образная разделка кромок (угол 60°). Притупление — 1-2 мм</li>
+                <li>S более 12 мм: Двусторонняя Х-образная разделка</li>
+            </ol>
+            <p><strong>Важно:</strong> Металл должен быть зачищен до блеска на 20 мм от края. Наличие ржавчины приведет к мгновенному появлению пор.</p>
+            
+            <h3>Техника сборки</h3>
+            <ul>
+                <li>Детали фиксируются прихватками</li>
+                <li>Прихватки на полуавтомате делаются быстро (длина 5-10 мм)</li>
+                <li>Перед началом основной сварки прихватки нужно очистить от копоти щеткой</li>
+            </ul>
+            
+            <h3>Настройка режимов (Параметры)</h3>
+            <p>Для качественного стыкового шва настраиваются:</p>
+            <ol>
+                <li>Напряжение (U): Регулирует ширину шва. Больше вольт — шов шире и плотнее</li>
+                <li>Скорость подачи проволоки (V): Регулирует силу тока и глубину провара</li>
+                <li>Расход газа: 10-14 л/мин</li>
+                <li>Вылет проволоки: Расстояние от наконечника до детали должно быть 10-15 мм</li>
+            </ol>
+            
+            <h3>Техника выполнения шва</h3>
+            <p><strong>А. Направление движения</strong></p>
+            <ol>
+                <li><strong>Углом вперед (толкание):</strong> Горелка движется впереди шва. Результат: Шов широкий, глубина провара небольшая</li>
+                <li><strong>Углом назад (тянуть):</strong> Горелка движется за швом. Результат: Максимальный провар, узкий и высокий валик</li>
+            </ol>
+            
+            <p><strong>Б. Манипуляции горелкой</strong></p>
+            <ul>
+                <li>При сварке без скоса кромок горелку ведут ровно</li>
+                <li>При наличии разделки выполняют поперечные колебания (зигзаг или полумесяц)</li>
+            </ul>
+            
+            <h3>Сварка корня и заполнение</h3>
+            <p>При многослойной сварке стыка:</p>
+            <ol>
+                <li>Корневой проход: Выполняется на чуть заниженных режимах, чтобы не прожечь металл</li>
+                <li>Заполняющие слои: Проводятся на повышенных режимах для максимальной производительности</li>
+                <li>Облицовочный слой: Должен быть ровным, мелкочешуйчатым и перекрывать разделку на 1-2 мм</li>
+            </ol>
+            
+            <h3>Типичные дефекты</h3>
+            <ul>
+                <li>Поры: Грязный металл, сквозняк (сдувает газ) или малый расход газа</li>
+                <li>Непровар: Малое напряжение, слишком высокая скорость или малый зазор</li>
+                <li>Подрезы: Слишком большое напряжение или отсутствие задержки на краях разделки</li>
+                <li>Разбрызгивание: Неправильное соотношение «напряжение / подача» или плохой контакт «массы»</li>
+            </ul>
+        `
+    },
+    { 
+        number: "8.5", 
+        title: "Сварка деталей из углеродистой стали втавр в нижнем пространственном положении шва на оборудовании полуавтоматической сварки в среде защитных газов в среде защитных газов", 
+        text: `
+            <h3>Сварка деталей из углеродистой стали втавр в нижнем пространственном положении шва на оборудовании полуавтоматической сварки в среде защитных газов</h3>
+            <p>Тавровое соединение (Т) при полуавтоматической сварке — одно из самых массовых в производстве (балки, стойки, каркасы).</p>
+            
+            <h3>Материалы и газы</h3>
+            <ul>
+                <li>Проволока: Св-08Г2С (диаметр 0.8-1.2 мм)</li>
+                <li>Защитный газ:
+                    <ul>
+                        <li>Углекислый газ (CO₂): Обеспечивает максимальное проплавление корня шва</li>
+                        <li>Сварочная смесь (Ar+CO₂): Дает более стабильную дугу, меньше брызг и более гладкий переход шва</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Подготовка и сборка</h3>
+            <ul>
+                <li>Зачистка: Вертикальный лист (торец) и горизонтальная полка (в месте примыкания) должны быть зачищены на 20 мм от стыка</li>
+                <li>Разделка кромок: При толщине металла до 10-12 мм сварка ведется без разделки. Свыше 12 мм требуется односторонняя или двусторонняя разделка вертикального листа</li>
+                <li>Прихватки: Ставятся с обратной стороны от начала первого шва или в шахматном порядке</li>
+            </ul>
+            
+            <h3>Режимы сварки</h3>
+            <p>В тавровом соединении происходит интенсивный отвод тепла в три стороны, поэтому параметры тока выбираются на 10-15% выше, чем при сварке встык той же толщины.</p>
+            <ul>
+                <li>Напряжение (U): Должно быть достаточным для хорошего растекания металла</li>
+                <li>Вылет проволоки: Оптимально 10-15 мм</li>
+                <li>Расход газа: 12-15 л/мин</li>
+            </ul>
+            
+            <h3>Техника выполнения шва</h3>
+            <p><strong>А. Положение горелки (Углы наклона)</strong></p>
+            <ol>
+                <li>Поперечный угол: Горелку держат под углом 45° к обеим пластинам</li>
+                <li>Продольный угол: Наклон вдоль шва 10-20° (рекомендуется метод «углом назад» или «на себя»)</li>
+            </ol>
+            
+            <p><strong>Б. Манипуляции горелкой</strong></p>
+            <ol>
+                <li>Корень шва: Сначала дугу направляют строго в угол, чтобы обеспечить сплавление пластин в самой глубине</li>
+                <li>Формирование катета: Если требуется большой катет, выполняются поперечные колебания (зигзаг, треугольник)</li>
+            </ol>
+            
+            <p><strong>В. Сварка «в лодочку»</strong></p>
+            <p>Если конструкцию можно повернуть на 45°, её варят «в лодочку».</p>
+            <ul>
+                <li>Это самое выгодное положение: металл не стекает, шов формируется симметрично, вероятность подрезов минимальна</li>
+            </ul>
+            
+            <h3>Понятие катета шва</h3>
+            <p>Катет (К): Расстояние от угла до границы шва.</p>
+            <ul>
+                <li>В тавровом соединении катет должен соответствовать чертежу</li>
+                <li>Слишком большой катет приводит к деформации металла, слишком маленький — к недостаточной прочности</li>
+            </ul>
+            
+            <h3>Типичные дефекты</h3>
+            <ol>
+                <li>Непровар корня: Дуга не достала до самого угла. Шов лежит «поверх» стыка. Причина: малый ток или неправильный угол горелки</li>
+                <li>Подрез на вертикальном листе: Канавка вдоль верхнего края шва. Причина: слишком высокое напряжение или большая скорость</li>
+                <li>Наплыв на нижнюю полку: Металл стек вниз, не сплавившись с горизонтальной деталью. Причина: малое напряжение или неправильный наклон горелки</li>
+                <li>Асимметрия шва: Один катет значительно длиннее другого</li>
+            </ol>
+            
+            <h3>Техника безопасности</h3>
+            <ul>
+                <li>Отражение света: В тавровом соединении свет дуги отражается от двух плоскостей, что увеличивает нагрузку на глаза</li>
+                <li>Ожоги: Из-за повышенных токов брызги при сварке в CO₂ могут быть крупными</li>
+            </ul>
+            
+            <p><em>Золотое правило: «Направляй проволоку чуть выше самого угла (на 1-1.5 мм на вертикальную стенку). Жидкий металл сам стечет в корень и на нижнюю полку, сформировав ровный катет.»</em></p>
+        ` }
+    ];
+
+    let completed = new Set(JSON.parse(localStorage.getItem("theoryProgress") || "[]"));
+    let openedIndex = null;
+
+    function renderModules() {
+        const container = document.getElementById("modules");
+        if (!container) return;
+        container.innerHTML = "";
+        lectures.forEach((lecture, idx) => {
+            const mod = document.createElement("div");
+            mod.className = "module";
+            const isOpen = openedIndex === idx;
+            const isCompleted = completed.has(idx);
+            mod.innerHTML = `
+                <div class="module-header" onclick="toggleModule(${idx})">
+                    <div class="module-left">
+                        <div class="module-number">Раздел ${lecture.number}</div>
+                        <div class="module-title">${lecture.title}</div>
+                    </div>
+                    <div class="module-right">
+                        <button class="complete-btn ${isCompleted ? "completed" : ""}" onclick="event.stopPropagation(); toggleComplete(${idx})">
+                            ${isCompleted ? "✓ Пройдено" : "Пройдено"}
+                        </button>
+                        <span class="arrow ${isOpen ? "open" : ""}">▼</span>
+                    </div>
+                </div>
+                <div class="module-content ${isOpen ? "open" : ""}">
+                    <div class="module-body">${lecture.text}</div>
+                </div>
+            `;
+            container.appendChild(mod);
+        });
+        updateProgress();
+    }
+
+    function toggleModule(idx) {
+        openedIndex = openedIndex === idx ? null : idx;
+        renderModules();
+    }
+
+    function toggleComplete(idx) {
+        if (completed.has(idx)) completed.delete(idx);
+        else completed.add(idx);
+        localStorage.setItem("theoryProgress", JSON.stringify([...completed]));
+        renderModules();
+    }
+
+    function updateProgress() {
+        const percent = Math.round((completed.size / lectures.length) * 100);
+        const percentSpan = document.getElementById("progress-percent");
+        const fillDiv = document.getElementById("progress-fill");
+        if (percentSpan) percentSpan.textContent = percent + "%";
+        if (fillDiv) fillDiv.style.width = percent + "%";
+    }
+
+    window.toggleModule = toggleModule;
+    window.toggleComplete = toggleComplete;
+
+    renderModules();
+</script>
+</body>
+</html>
