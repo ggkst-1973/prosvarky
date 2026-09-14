@@ -24,7 +24,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 1200;
             background: rgba(255, 255, 255, 0);
             backdrop-filter: blur(0px);
             transition: all 0.3s ease;
@@ -106,18 +106,16 @@
             transition: 0.3s;
         }
 
-        .overlay-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 1040;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+       .overlay-menu {
+   position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
         }
 
         .overlay-menu.active {
@@ -445,13 +443,41 @@
         }
 
         @media (max-width: 720px) {
-            .inst-grid {
-                grid-template-columns: 1fr;
-            }
-            .inst-group {
-                display: block;
-            }
-        }
+    .inst-grid {
+        grid-template-columns: 1fr;
+    }
+    .inst-group {
+        display: block;
+    }
+    /* Добавляем отступы между карточками */
+    .inst-card {
+        margin-bottom: 12px;
+    }
+    /* Чуть уменьшаем внутренние отступы и шрифты для мобильных */
+    .inst-link {
+        padding: 0.8rem 1rem;
+        gap: 0.6rem;
+    }
+    .inst-text {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    .inst-number {
+        font-size: 0.8rem;
+        min-width: 40px;
+    }
+    .inst-arrow {
+        font-size: 1rem;
+    }
+    /* Отступы для заголовков групп, чтобы они не слипались с карточками */
+    .group-title {
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+    .group-title:first-of-type {
+        margin-top: 0;
+    }
+}
 
         @media (max-width: 560px) {
             .cards-grid {
